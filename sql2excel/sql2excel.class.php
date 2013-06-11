@@ -16,17 +16,18 @@
 		var $db_pwd;
 		var $db_name;
 		var $db_query;
-		
+		var $filename;
 		
 		/*Sql2Excel is class constructor
 		  Return: None
 		*/
-		function Sql2Excel($db_host="localhost",$db_user="",$db_pwd="",$db_name="")
+		function Sql2Excel($db_host="localhost",$db_user="",$db_pwd="",$db_name="", $filename="")
 		{
 			$this->db_host=$db_host;
 			$this->db_user=$db_user;
 			$this->db_pwd=$db_pwd;
 			$this->db_name=$db_name;
+			$this->filename=$filename;
 			
 			//connect mysql database
 			$this->db_link=mysql_pconnect($this->db_host,$this->db_user,$this->db_pwd) or die("Mysql database connecion failed!");
@@ -54,7 +55,8 @@
 			}// for($i=0;...) END
 			
 			//create new instance of ExcelGen() class
-			$excel = new ExcelGen("Sql2Excel");
+			if (empty($this->filename)) $this->filename = "SQL2Excel";
+			$excel = new ExcelGen($this->filename);
 			
 			//initiate a counter for excel "ROW" counter
 			$rowscounter=0;
