@@ -3,6 +3,7 @@ phpprojects.
 
 Ap.Muthu's PHP Snippets
 
+* pincodes - Data Dump of Indian Postal Codes
 * sql2excel - php class to convert an sql to an excel worksheet
 * Bloomberg_Rates.php - fetch currency exchange rate from Bloomberg
 * ip.php - obtain your public / private ip
