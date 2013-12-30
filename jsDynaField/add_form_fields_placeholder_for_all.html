@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Bill Entry Form - Cross Browser Compliant</title>
+<meta name="author" content="Ap.Muthu">
+<meta name="generator" content="NotePad">
+
+<!-- <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> -->
+<script src="jquery-1.10.2.min.js"></script>
+<!-- <script src="https://github.com/mathiasbynens/jquery-placeholder/raw/master/jquery.placeholder.js"></script> -->
+<script src="jquery.placeholder.js"></script>
+<script type="text/javascript">
+jQuery(function(){
+    var counter = 0;
+    var yval = 161;
+    var yoffset = 30;
+    jQuery('a.add-fieldset').click(function(event){
+        event.preventDefault();
+        counter++;
+        yval += yoffset;
+        var newRow = jQuery('<tr><td><input type="text" id="ItemID' + counter + '" style="position:absolute;left:51px;top:' + yval + 'px;width:53px;height:19px;line-height:19px;z-index:7;" name="ItemID' + counter + '" value="" placeholder="ItemID"> <input type="text" id="ItemName' + counter + '" style="position:absolute;left:116px;top:' + yval + 'px;width:283px;height:19px;line-height:19px;z-index:8;" name="ItemName' + counter + '" value="" placeholder="Item Name"> <input type="text" id="Quantity' + counter + '" style="position:absolute;left:411px;top:' + yval + 'px;width:33px;height:19px;line-height:19px;z-index:9;" name="Quamtity' + counter + '" value="" placeholder="Qty"> <input type="text" id="Amount' + counter + '" style="position:absolute;left:456px;top:' + yval + 'px;width:72px;height:19px;line-height:19px;z-index:10;" name="Amount' + counter + '" value="" placeholder="Amount"></td></tr>');
+        jQuery('table.item-list').append(newRow);
+		$('input').placeholder();
+    });
+});
+</script>
+
+<style type="text/css">
+body
+{
+   background-color: #FFFFFF;
+   color: #000000;
+   font-family: Arial;
+   font-size: 13px;
+   margin: 0;
+   padding: 0;
+}
+</style>
+<style type="text/css">
+a
+{
+   color: #0000FF;
+   text-decoration: underline;
+}
+a:visited
+{
+   color: #800080;
+}
+a:active
+{
+   color: #FF0000;
+}
+a:hover
+{
+   color: #0000FF;
+   text-decoration: underline;
+}
+</style>
+<style type="text/css">
+#wb_BillEntryForm
+{
+   background-color: #FAFAFA;
+   border: 0px #000000 solid;
+}
+#wb_Text1 
+{
+   background-color: transparent;
+   border: 0px #000000 solid;
+   padding: 0;
+   text-align: center;
+}
+#wb_Text1 div
+{
+   text-align: center;
+}
+#InvNo
+{
+   border: 1px #A9A9A9 solid;
+   background-color: #FFFFFF;
+   color :#000000;
+   font-family: Arial;
+   font-size: 13px;
+   text-align: left;
+   vertical-align: middle;
+}
+#InvDate
+{
+   border: 1px #A9A9A9 solid;
+   background-color: #FFFFFF;
+   color :#000000;
+   font-family: Arial;
+   font-size: 13px;
+   text-align: left;
+   vertical-align: middle;
+}
+#Customer
+{
+   border: 1px #A9A9A9 solid;
+   background-color: #FFFFFF;
+   color :#000000;
+   font-family: Arial;
+   font-size: 13px;
+   text-align: left;
+   vertical-align: middle;
+}
+#Biller
+{
+   border: 1px #A9A9A9 solid;
+   background-color: #FFFFFF;
+   color :#000000;
+   font-family: Arial;
+   font-size: 13px;
+   text-align: left;
+   vertical-align: middle;
+}
+#BillSaveButton
+{
+   border: 1px #A9A9A9 solid;
+   background-color: #F0F0F0;
+   color: #000000;
+   font-family: Arial;
+   font-size: 13px;
+}
+#wb_AddRowLink 
+{
+   background-color: transparent;
+   border: 0px #000000 solid;
+   padding: 0;
+   text-align: center;
+}
+#wb_AddRowLink div
+{
+   text-align: center;
+}
+#ItemID
+{
+   border: 1px #A9A9A9 solid;
+   background-color: #FFFFFF;
+   color :#000000;
+   font-family: Arial;
+   font-size: 13px;
+   text-align: left;
+   vertical-align: middle;
+}
+#ItemName
+{
+   border: 1px #A9A9A9 solid;
+   background-color: #FFFFFF;
+   color :#000000;
+   font-family: Arial;
+   font-size: 13px;
+   text-align: left;
+   vertical-align: middle;
+}
+#Quantity
+{
+   border: 1px #A9A9A9 solid;
+   background-color: #FFFFFF;
+   color :#000000;
+   font-family: Arial;
+   font-size: 13px;
+   text-align: left;
+   vertical-align: middle;
+}
+#Amount
+{
+   border: 1px #A9A9A9 solid;
+   background-color: #FFFFFF;
+   color :#000000;
+   font-family: Arial;
+   font-size: 13px;
+   text-align: left;
+   vertical-align: middle;
+}
+</style>
+
+</head>
+<body>
+<div id="wb_BillEntryForm" style="position:absolute;left:37px;top:25px;width:589px;height:591px;z-index:11;">
+<form name="BillEntryForm" method="post" action="processbill.php" enctype="application/x-www-form-urlencoded" id="BillEntryForm">
+<div id="wb_Text1" style="position:absolute;left:171px;top:30px;width:211px;height:29px;text-align:center;z-index:0;">
+<span style="color:#000000;font-family:Arial;font-size:24px;"><strong>Bill Entry Form</strong></span></div>
+<input type="text" id="InvNo" style="position:absolute;left:349px;top:74px;width:72px;height:19px;line-height:19px;z-index:1;" name="InvNo" value="" placeholder="InvoiceNo">
+<input type="text" id="InvDate" style="position:absolute;left:349px;top:103px;width:72px;height:19px;line-height:19px;z-index:2;" name="InvDate" value="" placeholder="Date d-m-y">
+<input type="text" id="Customer" style="position:absolute;left:49px;top:104px;width:287px;height:19px;line-height:19px;z-index:3;" name="Customer" value="" placeholder="Customer">
+<input type="text" id="Biller" style="position:absolute;left:49px;top:75px;width:287px;height:19px;line-height:19px;z-index:4;" name="Biller" value="" placeholder="Biller">
+<input type="submit" id="BillSaveButton" name="SaveBill" value="Save" style="position:absolute;left:435px;top:73px;width:96px;height:51px;z-index:5;">
+<div id="wb_AddRowLink" style="position:absolute;left:433px;top:132px;width:95px;height:16px;text-align:center;z-index:6;">
+<span style="color:#000000;font-family:Arial;font-size:13px;"><a href="#" class="add-fieldset">Add Item Row</a></span></div>
+
+<table border="0" class="item-list">
+
+<input type="text" id="ItemID" style="position:absolute;left:51px;top:161px;width:53px;height:19px;line-height:19px;z-index:7;" name="ItemID" value="" placeholder="ItemID">
+<input type="text" id="ItemName" style="position:absolute;left:116px;top:161px;width:283px;height:19px;line-height:19px;z-index:8;" name="ItemName" value="" placeholder="Item Name">
+<input type="text" id="Quantity" style="position:absolute;left:411px;top:161px;width:33px;height:19px;line-height:19px;z-index:9;" name="Quamtity" value="" placeholder="Qty">
+<input type="text" id="Amount" style="position:absolute;left:456px;top:161px;width:72px;height:19px;line-height:19px;z-index:10;" name="Amount" value="" placeholder="Amount">
+
+</table>
+
+</form>
+</div>
+
+<script type="text/javascript">
+jQuery(function($) {
+    $('input').placeholder();
+});
+</script>
+
+</body>
+</html>

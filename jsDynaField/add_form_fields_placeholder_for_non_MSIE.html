@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Bill Entry Form</title>
+<meta name="author" content="Ap.Muthu">
+<meta name="generator" content="NotePad">
+
+<!-- <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> -->
+<script src="jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript">
+jQuery(function(){
+    var counter = 0;
+    var yval = 150;
+    var yoffset = 30;
+    jQuery('a.add-fieldset').click(function(event){
+        event.preventDefault();
+		var newRow = jQuery('<tr><td><input type="text" style="position:absolute;left:52px;top:' + yval + 'px;width:60px;height:19px;line-height:19px;z-index:6;" name="ItemID' + counter + '" value="" placeholder="ItemID"> <input type="text" style="position:absolute;left:130px;top:' + yval + 'px;width:239px;height:19px;line-height:19px;z-index:6;" name="ItemName' + counter + '" value="" placeholder="Item Name"> <input type="text" style="position:absolute;left:380px;top:' + yval + 'px;width:35px;height:19px;line-height:19px;z-index:6;" name="Quantity' + counter + '" value="" placeholder="Qty"> <input type="text" style="position:absolute;left:426px;top:' + yval + 'px;width:104px;height:19px;line-height:19px;z-index:6;" name="Amount' + counter + '" value="" placeholder="Amount"></td></tr>');
+        jQuery('table.item-list').append(newRow);
+        counter++;
+        yval += yoffset;
+    });
+});
+
+</script>
+
+</head>
+<body>
+<div id="wb_BillEntryForm" style="position:absolute;left:36px;top:25px;width:589px;height:591px;z-index:11;">
+<form name="BillEntryForm" method="post" action="processbill.php" enctype="application/x-www-form-urlencoded" id="BillEntryForm">
+<a href="#" class="add-fieldset">Add Item Row</a>
+<div id="wb_Text1" style="position:absolute;left:171px;top:30px;width:211px;height:29px;text-align:center;z-index:0;">
+<span style="color:#000000;font-family:Arial;font-size:24px;"><strong>Bill Entry Form</strong></span></div>
+<input type="text" id="InvNo" style="position:absolute;left:349px;top:74px;width:72px;height:19px;line-height:19px;z-index:1;" name="InvNo" value="" placeholder="InvoiceNo">
+<input type="text" id="InvDate" style="position:absolute;left:349px;top:103px;width:72px;height:19px;line-height:19px;z-index:2;" name="InvDate" value="" placeholder="Date d-m-y">
+<input type="text" id="Customer" style="position:absolute;left:49px;top:104px;width:287px;height:19px;line-height:19px;z-index:3;" name="Customer" value="" placeholder="Customer">
+<input type="text" id="Biller" style="position:absolute;left:49px;top:75px;width:287px;height:19px;line-height:19px;z-index:4;" name="Biller" value="" placeholder="Biller">
+<table border="0" class="item-list">
+</table>
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Add Row of Fields Dynamically</title>
+<meta name="author" content="Ap.Muthu">
+<meta name="generator" content="NotePad">
+<!-- <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> -->
+<script src="jquery-1.10.2.min.js"></script>
+<script>
+jQuery(function(){
+    var counter = 1;
+    jQuery('a.add-fieldset').click(function(event){
+        event.preventDefault();
+        counter++;
+        var newRow = jQuery('<tr><td><input type="text" name="first_name' + counter + '"/></td><td><input type="text" name="last_name' + counter + '"/>	</td></tr>');
+        jQuery('table.authors-list').append(newRow);
+    });
+});
+</script>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<table border="0" class="authors-list">
+    <tr>
+        <td>author's first name</td>
+        <td>author's last name</td>
+    </tr>
+    <tr>
+        <td><input type="text" size="20" name="first_name" /> </td>
+        <td><input type="text" size="20" name="last_name" /> </td>
+    </tr>
+</table>
+
+<p><a href="#" title class="add-fieldset">Add Author</a> </p>
+</body>
+</html>
