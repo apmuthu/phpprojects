@@ -24,7 +24,7 @@ Don't use system("anything").
 
 // will give time to examine program output before console window closes.
 	cin.clear();
-	cin.ignore(255, "\n");
+//	cin.ignore(255, '\n');
     cin.get(); // another way to fall through
 
 /*
