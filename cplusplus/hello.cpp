@@ -21,7 +21,22 @@ Don't use system("anything").
     getchar(); // One way to fall through
 
     cout << endl << "Bye!";
+
+// will give time to examine program output before console window closes.
+	cin.clear();
+	cin.ignore(255, "\n");
     cin.get(); // another way to fall through
+
+/*
+std::cin.ignore() can be called three different ways:
+
+    No arguments: A single character is taken from the input buffer and discarded:
+    std::cin.ignore(); //discard 1 character
+    One argument: The number of characters specified are taken from the input buffer and discarded:
+    std::cin.ignore(33); //discard 33 characters
+    Two arguments: discard the number of characters specified, or discard characters up to and including the specified delimiter (whichever comes first):
+    std::cin.ignore(26, '\n'); //ignore 26 characters or to a newline, whichever comes first
+*/
 
     return 0;
 }
