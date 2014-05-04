@@ -4,23 +4,34 @@ ini_set('default_socket_timeout', 300); // 300 Seconds = 5 Minutes
 
 $brlf = "<BR>" . chr(10);
 
-$outfile_pfx = "output/Sukhu-and-Dukhu_";
-$base_url = "http://pyaretoons.pyaretoonsforum.com//ComicPages/3702/Desktop/Sukhu-&-Dukhu-Amar-Chitra-Katha-English-0-To-300_PyareToons_Page_";
-$padlen = 3;
-$ext = ".jpg";
+$outfile_pfx = "output/TNEA2014_Col_";
+$base_url = "http://www.annauniv.edu/tnea2014/coll_details14/colpdf/";
+$padlen = 0;
+$ext = ".PDF";
 $stdigit = 0;
 $padstr = "0";
-$IdxArray=Array();
+$IdxArray = Array(
+  1
+, 2
+, 3
+, 4
+, 1013
+, 1014
+, 1015
+, 1026
+, 1101
+, 1102
+);
 $numfiles = count($IdxArray);
 
 // comment out next line if $IdxArray has elements
-$numfiles = 32;
+// $numfiles = 32;
 
 ob_start();
 header('Content-Type: text/html; charset=utf-8');
 while (ob_get_level()) ob_end_flush();
 ob_implicit_flush(true);
-echo "This page acquires Sequential files" . $brlf;
+echo "This page acquires Sequential files from Array" . $brlf;
 
 for ($i = $stdigit; $i < $numfiles; $i++) {
 	$idx = (count($IdxArray) > 0) ? $IdxArray[$i] : $i;
