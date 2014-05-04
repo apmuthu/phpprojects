@@ -11,3 +11,4 @@ Ap.Muthu's PHP Snippets
 * ip.php - obtain your public / private ip
 * DecryptCSinPHP.php - decrypt C# in php
 * phpLuhn.php - generate and verify credit card checksums
+* cplusplus - C++ tutorial examples
