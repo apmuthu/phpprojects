@@ -1,0 +1,3 @@
+This file is a place holder for the acquired files folder.
+This folder is used by the example getseqifiles.php.
+This folder should be writeable by the webserver process.
