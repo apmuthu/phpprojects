@@ -33,8 +33,8 @@ while (ob_get_level()) ob_end_flush();
 ob_implicit_flush(true);
 echo "This page acquires Sequential files from Array" . $brlf;
 
-for ($i = $stdigit; $i < $numfiles; $i++) {
-	$idx = (count($IdxArray) > 0) ? $IdxArray[$i] : $i;
+for ($i = 0; $i < $numfiles; $i++) {
+	$idx = (count($IdxArray) > 0) ? $IdxArray[$i] : $i+$stdigit;
 	$file_idx = ($padlen == 0) ? $idx : str_pad($idx, $padlen, $padstr, STR_PAD_LEFT);
 	$filenum = $i+1;
 	$filename = $base_url . $file_idx . $ext;
@@ -45,9 +45,13 @@ for ($i = $stdigit; $i < $numfiles; $i++) {
 	flush();
 
 	if (!file_exists($outfile)) {
-		$a = file_get_contents("$filename");
-		file_put_contents($outfile, $a);
-		echo "Processed File" . $filenum  . $brlf;
+		$a = @file_get_contents("$filename");
+		if ($a === FALSE) {
+			echo "File" . $filenum . " not on server" . $brlf;
+		} else {
+			file_put_contents($outfile, $a);
+			echo "Processed File" . $filenum  . $brlf;
+		}
 	} else {
 		echo "Skipped File" . $filenum . " since it already exists" . $brlf;
 	}
