@@ -3,7 +3,9 @@ phpprojects.
 
 Ap.Muthu's PHP Snippets
 
+* PHPFormToDBonce - One time update of record using random hash from a field in record
 * PHPProgressMonitor - Monitor progress of execution of a long running php script eith examples
+* cplusplus - C++ tutorial examples
 * jsDynaField - * [jQuery](https://jquery.org/) based Dynamic Form Field Addition
 * pincodes - Data Dump of Indian Postal Codes
 * sql2excel - php class to convert an sql to an excel worksheet
@@ -11,4 +13,3 @@ Ap.Muthu's PHP Snippets
 * ip.php - obtain your public / private ip
 * DecryptCSinPHP.php - decrypt C# in php
 * phpLuhn.php - generate and verify credit card checksums
-* cplusplus - C++ tutorial examples
