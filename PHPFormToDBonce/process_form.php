@@ -29,12 +29,13 @@ INSERT INTO mytable (`ID`, `RecHash`) SELECT `ID` AS `ID`, LEFT(MD5(RAND()), 31-
 
 define ('SC_DEBUG',        TRUE);
 
-
 define ('ID_LEN',             6);
 define ('SC_DBHOST', 'localhost');
 define ('SC_DBUSER',      'root');
 define ('SC_DBPASS',          '');
 define ('SC_DB',          'mydb');
+define ('SC_DBTABLE',  'mytable');
+define ('SC_DBTPKEY',       'ID');
 
 $FldArray = Array(
   'Field1'
@@ -59,7 +60,7 @@ if (strlen($RecHash)   > 34) errmsg("Please enter a valid RecHash</font></p>");
 
 //changing date formats
 
-$sc_strQuery = "UPDATE `mytable` SET 
+$sc_strQuery = "UPDATE `" . SC_DBTABLE . "` SET 
     `EntryDT` = NOW()
   , `FromIP` = \"$sc_ip\"
   , `NoEdit` = 1 ";
@@ -68,8 +69,8 @@ foreach ($FldArray AS $FldNum => $Field) {
 	$sc_strQuery .= ", `$Field` = \"$FieldVal\"";
 }
 $sc_strQuery .= " WHERE 
-       `ID`      = \"$ID\"
-   AND `RecHash` = \"$RecHash\"
+       `" . SC_DBTPKEY . "` = \"$ID\"
+   AND `RecHash`   = \"$RecHash\"
    AND NOT `NoEdit`
 ";
 
