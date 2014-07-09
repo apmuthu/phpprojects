@@ -1,6 +1,7 @@
 <?php
 set_time_limit(0);
 ini_set('default_socket_timeout', 300); // 300 Seconds = 5 Minutes
+ini_set('error_reporting',E_ALL & ~E_DEPRECATED & ~E_WARNING & ~E_NOTICE);
 
 $brlf = "<BR>" . chr(10);
 
