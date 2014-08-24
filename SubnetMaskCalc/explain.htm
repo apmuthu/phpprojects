@@ -1,0 +1,307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<LINK rel="STYLESHEET" href="default.css" type="text/css">
+<TITLE>Network Calculators</TITLE>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+</HEAD>
+
+<body bgcolor="#000000" text="#ffcc33" link="#ffcc33" vlink="#ffcc33" alink="#FF3300">
+<FONT FACE='Helvetica'>
+<table border=0>
+<tr>
+<td width=100%><p><FONT SIZE=+3>Subnet Calculator Explanation</FONT></td>
+</tr>
+</table>
+<HR>
+This calculator will calculate the subnet mask to use, given a TCP/IP network address and the number of subnets or nodes per subnet required.<BR><BR>
+To create the subnet mask, first remember that the purpose of the subnet mask is to separate the (32 bit) ip address into the network prefix and the host number.
+If a bit in the subnet mask is 1, the corresponding bit in the IP address is part of the network address; if the bit
+in the subnet mask is 0, the corresponding bit in the IP address is part of the host address.<br><br>
+
+First depict the ip address in binary.  
+<SCRIPT language="JavaScript">
+<!--- Hide script from old browsers
+//This source code is copyright 1997, 1998, 1999, 2000 by Al Vonkeman.  
+//
+
+
+function WriteSubnetMask(bits)
+	{
+	for(var j=1;j<=32;j=j+1)
+		{
+		if (j <= bits)
+			{
+			document.write("1");
+			}
+		else
+			{
+			document.write("0");
+			}
+		if ((j % 8 == 0) && j < 32) document.write(".");
+		}
+	}
+
+function WriteAsBinary(octet,divider)
+	{
+	for(var j=divider;j>=1;j=j/2)
+		{
+		if (octet >= j)
+			{
+			document.write("1");
+			octet=octet-j;
+			}
+		else
+			{
+			document.write("0");
+			}
+		}
+	}
+
+function DecimalSubnetMask(bits)
+	{
+	var snm=0;
+	for(var j=31;j>=(32-bits);j=j-1)
+		{
+		snm=snm+power2(j);
+		
+		}
+	return(snm);
+	}
+
+function power2(x)
+	{
+	var x1 = 2;
+	for(var j=1;j<x;j=j+1)
+		{
+		x1=x1*2;
+		}
+	return(x1);
+	}
+
+function root2(x)
+	{
+	for(var j=0;x>1;j=j+1)
+		{
+		x=x/2;
+		}
+	return(j);
+	}
+
+function getCookieVal(offset) 
+	{
+	var endstr = document.cookie.indexOf (";", offset);
+	if (endstr == -1)
+	      endstr = document.cookie.length;
+	return unescape(document.cookie.substring(offset, endstr));
+	}
+    
+function GetCookie(name) 
+	{
+      	var arg = name + "=";
+      	var alen = arg.length;
+      	var clen = document.cookie.length;
+      	var i = 0;
+      	while (i < clen)
+		{
+        	var j = i + alen;
+        	if (document.cookie.substring(i, j) == arg)
+          		return getCookieVal (j);
+        	i = document.cookie.indexOf(" ", i) + 1;
+        	if (i == 0) break; 
+	      	}
+	return null;
+	}
+    
+var oct1;
+var oct2;
+var oct3;
+var oct4;
+var node;
+var cf;
+var network;
+var snmbits;
+var dsnmbits;
+var nwclass;
+
+	if (GetCookie('oct1') != null) 
+		{
+		oct1 = GetCookie('oct1');
+		}
+	else
+		{
+		oct1 = 10;
+		}
+	if (GetCookie('oct2') != null) 
+		{
+		oct2 = GetCookie('oct2');
+		}
+	else
+		{
+		oct2 = 11;
+		}
+	if (GetCookie('oct3') != null) 
+		{
+		oct3 = GetCookie('oct3');
+		}
+	else
+		{
+		oct3 = 12;
+		}
+	if (GetCookie('oct4') != null) 
+		{
+		oct4 = GetCookie('oct4');
+		}
+	else
+		{
+		oct4 = 13;
+		}
+
+	if (GetCookie('node') != null) 
+		{
+		node = GetCookie('node');
+		}
+	else
+		{
+		node = 0;
+		}
+	if (GetCookie('network') != null) 
+		{
+		network = GetCookie('network');
+		}
+	else
+		{
+		network = 0;
+		}
+	if (GetCookie('cf') != null) 
+		{
+		cf = GetCookie('cf');
+		}
+	else
+		{
+		cf = 1;
+		}
+
+//document.write("<BR> Network:"+network+"<BR>");
+//document.write("Node:"+node+"<BR>");
+
+//node=power2(eval(node)+1)-2;
+if (node > 0 ) node=power2(eval(node));
+if (network > 1) network=power2(eval(network)-1);
+
+if (oct1 == 0) nwclass="Network";
+if ((oct1 > 0) && (oct1 < 127)) nwclass="Class A";
+if (oct1 == 127) nwclass="Loopback";
+if ((oct1 > 127) && (oct1 < 192)) nwclass="Class B";
+if ((oct1 > 191) && (oct1 < 224)) nwclass="Class C";
+if ((oct1 > 223) && (oct1 < 240)) nwclass="Class D";
+if ((oct1 > 239) && (oct1 < 255)) nwclass="Class E";
+if (oct1 == 255) nwclass="Broadcast";
+if (network == 0) network = 1; 
+
+//document.write("<BR> Network:"+network+"<BR>");
+//document.write("Node:"+node+"<BR>");
+
+document.write("Take "+oct1+"."+oct2+"."+oct3+"."+oct4+" and convert to binary:<br><br><pre><font face='courier'>");
+document.write("          ip address: ");WriteAsBinary(oct1,128);document.write(".");WriteAsBinary(oct2,128);document.write(".");WriteAsBinary(oct3,128);document.write(".");WriteAsBinary(oct4,128);document.write("<BR></font></pre>");
+document.write("First we determine what class of address it is:<br><br><pre><font face='courier'>");
+document.write("	If the first bit is 0 it is a Class A address<br>");
+document.write("	If the first two bits are 10 it is a Class B address<br>");
+document.write("	If the first three bits are 110 it is a Class C address<br>");
+document.write("	If the first four bits are 1110 it is a Class D multicast address<br>");
+document.write("	If the first four bits are 1111 it is a Class E experimental address<br></font></pre>");
+
+if ((nwclass != "Class A") && (nwclass != "Class B") && (nwclass != "Class C"))
+	{
+	document.write("Your example is a "+nwclass+" address.  The calculator will not calculate a subnet mask for this class of address."); 
+	}
+else
+	{
+	if (cf == 1)
+		{
+		document.write("Your example is a "+nwclass+" address.  The default subnet mask for a "+nwclass+" address is:</FONT><br><br><pre><font face='courier'>");
+		if (nwclass=="Class A") 
+			{
+			dsnmbits=8;
+			maxsubnets=8388608;
+			}
+		if (nwclass=="Class B") 
+			{
+			dsnmbits=16;
+			maxsubnets=32768;
+			}
+		if (nwclass=="Class C") 
+			{
+			dsnmbits=24;
+			maxsubnets=128;
+			}
+		}
+	if (cf == 2)
+		{
+		document.write("Your example is a "+nwclass+" address.  Since you want to subnet as a Class A, the default subnet mask would be:<br><br><pre>");
+		dsnmbits=8;
+		maxsubnets=8388608;
+		}
+	if (cf == 3)
+		{
+		document.write("Your example is a "+nwclass+" address.  Since you want to subnet as a Class B, the default subnet mask would be:<br><br><pre>");
+		dsnmbits=16;
+		maxsubnets=32768;
+		}
+	if (cf == 4)
+		{
+		document.write("Your example is a "+nwclass+" address.  Since you want to subnet as a Class C, the default subnet mask would be:<br><br><pre>");
+		dsnmbits=24;
+		maxsubnets=128;
+		}
+	document.write("         subnet mask: ");WriteSubnetMask(dsnmbits);
+	document.write("</font></pre>");
+	if (node == 0)
+		{
+		document.write("<FONT FACE='Helvetica'>The formula for figuring out the number of 'network' bits in a subnet mask is</FONT><pre><font face='courier'>         2^n=number of subnets          (2^n  means '2' to the power of 'n')</font></pre>");
+		if (network > maxsubnets)
+			{
+//			document.write("<FONT FACE='Helvetica'>You requested "+network+" subnets.  However, the maximum number of sub-networks for this class of address is "+maxsubnets+" because the number of additional bits available is only "+eval(32-eval(dsnmbits)-2)+" (32 - default number of '1' bits - 2).  "); 
+			document.write("<FONT FACE='Helvetica'>You requested "+network+" subnets.  However, the maximum number of sub-networks for this class of address is "+maxsubnets+" because the number of additional bits available is only "+eval(32-eval(dsnmbits)-1)+" (32 - default number of '1' bits - 1).  "); 
+			document.write("The next calculations will be based on "+maxsubnets+" instead.</FONT><br><br>");
+			network=maxsubnets;		
+			}
+		document.write("<FONT FACE='Helvetica'>Since you know the number of subnets, you need to find 'n'.<br><br>Because you want "+network+" subnet(s), you want to add <b><i>"+root2(network)+"</b></i> - '1' bits to the default subnet mask since "+network+" = 2 ^ <b><i>"+root2(network)+"</b></i>.</FONT><br>");
+		snmbits=dsnmbits+root2(network);
+		}
+	else
+		{
+//		document.write("<FONT FACE='Helvetica'>The formula for figuring out the number of 'host' bits in a subnet mask is<pre>         2^n=(number of nodes + 2)          (2^n  means '2' to the power of 'n')</pre>");
+		document.write("<FONT FACE='Helvetica'>The formula for figuring out the number of 'host' bits in a subnet mask is<pre>         2^n=(number of nodes )          (2^n  means '2' to the power of 'n')</pre>");
+//		document.write("Since you know the number of nodes, you need to find 'n'.<br><br>Because you want "+node+" node(s), you want to leave <b><i>"+root2(eval(node)+2)+"</b></i> - '0' bits in the subnet mask since ("+node+" + 2) = 2 ^ <b><i>"+root2(eval(node)+2)+"</b></i>.</FONT><br>");
+//		snmbits=32-root2(eval(node) + 2);
+		document.write("Since you know the number of nodes, you need to find 'n'.<br><br>Because you want "+node+" node(s), you want to leave <b><i>"+root2(eval(node))+"</b></i> - '0' bits in the subnet mask since "+node+" = 2 ^ <b><i>"+root2(eval(node))+"</b></i>.</FONT><br>");
+		snmbits=32-root2(eval(node));
+		}
+	document.write("<FONT FACE='Helvetica'>This will give you the following subnet mask:</FONT><br><br><pre><font face='courier'>");
+	document.write("         subnet mask: ");WriteSubnetMask(snmbits);
+	document.write("<BR></font></pre>");
+	
+	decsnm = DecimalSubnetMask(snmbits);
+	snm1 = decsnm >>> 24;
+	snm2 = (decsnm << 8) >>> 24;
+	snm3 = (decsnm << 16) >>> 24;
+	snm4 = (decsnm << 24) >>> 24;
+
+	document.write("<FONT FACE='Helvetica'>Which is referred to as <b>/"+snmbits+"</b> or in dotted decimal notation as <b>"+snm1+"."+snm2+"."+snm3+"."+snm4+"</b></FONT>");
+	if (snmbits < dsnmbits) document.write("<FONT FACE='Helvetica'><BR><BR>The number of 'network' bits in the subnet mask is less than the default for the Class.  Therefore, this subnet mask will produce a supernet.<BR></font>");
+
+	}
+// end hiding from old browsers -->
+</SCRIPT>
+
+<br>
+<hr>
+If the <B>Explain</B> feature does not show your example, but only shows the deafult example (10.11.12.13) then likely yor browser is blocking cookies.  If you are using Internet Explorer, you may see something like this:
+<img src="blockedcookies.jpg" border=0 align=top>.  If so, click <a href=fixcookies.htm>here</a> to learn how to fix it.
+
+
+</FONT>
+</BODY>
+</HTML>
+

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<LINK rel="STYLESHEET" href="default.css" type="text/css">
+<HEAD>
+<TITLE>Network Calculators</TITLE>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+</HEAD>
+
+<body bgcolor="#000000" text="#ffcc33" link="#ffcc33" vlink="#ffcc33" alink="#FF3300">
+
+<FONT FACE="Helvetica">
+<table border=0>
+<tr>
+<td width=100%><p><FONT SIZE=+3>Subnet Calculator Explanation</FONT></td>
+</tr>
+</table>
+<HR><p>
+This calculator will convert between the various notations for IP addresses.<BR><BR>
+
+The easiest way to do it is to depict the ip address in binary.  
+<SCRIPT language="JavaScript">
+<!--- Hide script from old browsers
+//This source code is copyright 1997, 1998, 1999, 2000 by Al Vonkeman.  
+//
+
+function d2h(decimal)
+	{
+	var j=decimal;
+    	var hexchars =  "0123456789ABCDEF";
+    	var hv = "";
+    	for (var i=0; i< 2; i++)
+      	{
+        	k = j & 15;
+        	hv = hexchars.charAt(k) + hv;
+        	j = j >> 4;
+      	}
+	return(hv);
+	}
+
+
+function WriteAsDottedBinary(octet,divider)
+	{
+	var count=0;
+	for(var j=divider;j>=1;j=j/2)
+		{
+		if (octet >= j)
+			{
+			document.write("1");
+			octet=octet-j;
+			}
+		else
+			{
+			document.write("0");
+			}
+		count=count+1;
+		if ((count % 8 == 0) && count < 32) document.write(".");
+		}
+	}
+
+function getCookieVal(offset) 
+	{
+	var endstr = document.cookie.indexOf (";", offset);
+	if (endstr == -1)
+	      endstr = document.cookie.length;
+	return unescape(document.cookie.substring(offset, endstr));
+	}
+    
+function GetCookie(name) 
+	{
+      	var arg = name + "=";
+      	var alen = arg.length;
+      	var clen = document.cookie.length;
+      	var i = 0;
+      	while (i < clen)
+		{
+        	var j = i + alen;
+        	if (document.cookie.substring(i, j) == arg)
+          		return getCookieVal (j);
+        	i = document.cookie.indexOf(" ", i) + 1;
+        	if (i == 0) break; 
+	      	}
+	return null;
+	}
+    
+
+
+var dec1b;
+
+
+if (GetCookie('dec1b') != null) 
+		{
+		dec1b = GetCookie('dec1b');
+		}
+	else
+		{
+		dec1b = 178363777;
+		}
+
+var oct1b = dec1b >>> 24;
+var oct2b = (dec1b << 8) >>> 24;
+var oct3b = (dec1b << 16) >>> 24;
+var oct4b = (dec1b << 24) >>> 24;
+
+dec1c = eval(oct1b*16777216) + eval(oct2b*65536) + eval(oct3b*256) + eval(oct4b);
+
+var hex1b = d2h(oct1b);
+var hex2b = d2h(oct2b);
+var hex3b = d2h(oct3b);
+var hex4b = d2h(oct4b);
+
+document.write("Take "+dec1b+" and convert to binary using any calculator that will do decimal to binary conversion (like the one that comes with Windows/95/98/NT):<br><br><pre><FONT FACE='courier'>");
+document.write("        binary address: ");WriteAsDottedBinary(dec1b,2147483648);document.write("</font></pre>");
+document.write("Then convert each octet back to decimal and you get: "+oct1b+"."+oct2b+"."+oct3b+"."+oct4b+"<BR><BR><BR>");
+document.write("If you want to calculate the decimal address from the dottted decimal address, perform the following calculation:<PRE><FONT FACE='courier'>");
+document.write("	(first octet * 16777216) + (second octet * 65536) + (third octet * 256) + (fourth octet)</font></PRE>");
+document.write("Using your values:<PRE><FONT FACE='courier'>");
+document.write("	"+oct1b+"*16777216 + "+oct2b+"*65536 + "+oct3b+"*256 + "+oct4b+" = "+dec1c+"</font></PRE>");
+//document.write("Using your values:<PRE><FONT FACE='courier'>");
+//document.write("	"+hex1b+"."+hex2b+"."+hex3b+"."+hex4b+"</font></PRE>");
+
+// end hiding from old browsers -->
+</SCRIPT>
+</FONT>
+
+</BODY>
+</HTML>
+

@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<LINK rel="STYLESHEET" href="default.css" type="text/css">
+<HEAD>
+<TITLE>Network Calculators</TITLE>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+</HEAD>
+
+<body bgcolor="#000000" text="#ffcc33" link="#ffcc33" vlink="#ffcc33" alink="#FF3300">
+
+<FONT FACE="Helvetica">
+<table border=0>
+<tr>
+<td width=100%><p><FONT SIZE=+3>Subnet Calculator Explanation</FONT></td>
+</tr>
+</table>
+<HR>
+This calculator will calculate the network address, the host address and the broadcast address for a given TCP/IP address and subnet mask.<BR><BR>
+
+These are actually fairly straightforward calculations.  The easiest way to do it is to depict both the ip address and the subnet mask in binary.  
+<SCRIPT language="JavaScript">
+<!--- Hide script from old browsers
+//This source code is copyright 1997, 1998, 1999, 2000 by Al Vonkeman.  
+//
+
+function WriteAsBinary(octet,divider)
+	{
+	for(var j=divider;j>=1;j=j/2)
+		{
+		if (octet >= j)
+			{
+			document.write("1");
+			octet=octet-j;
+			}
+		else
+			{
+			document.write("0");
+			}
+		}
+	}
+
+function getCookieVal(offset) 
+	{
+	var endstr = document.cookie.indexOf (";", offset);
+	if (endstr == -1)
+	      endstr = document.cookie.length;
+	return unescape(document.cookie.substring(offset, endstr));
+	}
+    
+function GetCookie(name) 
+	{
+      	var arg = name + "=";
+      	var alen = arg.length;
+      	var clen = document.cookie.length;
+      	var i = 0;
+      	while (i < clen)
+		{
+        	var j = i + alen;
+        	if (document.cookie.substring(i, j) == arg)
+          		return getCookieVal (j);
+        	i = document.cookie.indexOf(" ", i) + 1;
+        	if (i == 0) break; 
+	      	}
+	return null;
+	}
+    
+
+
+var oct1a;
+var oct2a;
+var oct3a;
+var oct4a;
+var snm1a;
+var snm2a;
+var snm3a;
+var snm4a;
+
+if (GetCookie('oct1a') != null) 
+		{
+		oct1a = GetCookie('oct1a');
+		}
+	else
+		{
+		oct1a = 10;
+		}
+	if (GetCookie('oct2a') != null) 
+		{
+		oct2a = GetCookie('oct2a');
+		}
+	else
+		{
+		oct2a = 11;
+		}
+	if (GetCookie('oct3a') != null) 
+		{
+		oct3a = GetCookie('oct3a');
+		}
+	else
+		{
+		oct3a = 12;
+		}
+	if (GetCookie('oct4a') != null) 
+		{
+		oct4a = GetCookie('oct4a');
+		}
+	else
+		{
+		oct4a = 13;
+		}
+		if (GetCookie('snm1a') != null) 
+		{
+		snm1a = GetCookie('snm1a');
+		}
+	else
+		{
+		snm1a = 255;
+		}
+	if (GetCookie('snm2a') != null) 
+		{
+		snm2a = GetCookie('snm2a');
+		}
+	else
+		{
+		snm2a = 254;
+		}
+	if (GetCookie('snm3a') != null) 
+		{
+		snm3a = GetCookie('snm3a');
+		}
+	else
+		{
+		snm3a = 0;
+		}
+	if (GetCookie('snm4a') != null) 
+		{
+		snm4a = GetCookie('snm4a');
+		}
+	else
+		{
+		snm4a = 0;
+		}
+
+	var nw1a = eval(snm1a & oct1a);
+	var nw2a = eval(snm2a & oct2a);
+	var nw3a = eval(snm3a & oct3a);
+	var nw4a = eval(snm4a & oct4a);
+	var node1a = eval(~ snm1a & oct1a);
+	var node2a = eval(~ snm2a & oct2a);
+	var node3a = eval(~ snm3a & oct3a);
+	var node4a = eval(~ snm4a & oct4a);
+	var broad1a = ((nw1a) ^ (~ snm1a) & 255);
+	var broad2a = ((nw2a) ^ (~ snm2a) & 255);
+	var broad3a = ((nw3a) ^ (~ snm3a) & 255);
+	var broad4a = ((nw4a) ^ (~ snm4a) & 255);
+	var isnm1a = ~ snm1a & 255;
+	var isnm2a = ~ snm2a & 255;
+	var isnm3a = ~ snm3a & 255;
+	var isnm4a = ~ snm4a & 255;
+
+document.write("Take "+oct1a+"."+oct2a+"."+oct3a+"."+oct4a+" with subnet mask "+snm1a+"."+snm2a+"."+snm3a+"."+snm4a+" listed in binary:<br><br><pre><FONT FACE='courier'>");
+document.write("          ip address: ");WriteAsBinary(oct1a,128);document.write(".");WriteAsBinary(oct2a,128);document.write(".");WriteAsBinary(oct3a,128);document.write(".");WriteAsBinary(oct4a,128);document.write("<BR>");
+document.write("         subnet mask: ");WriteAsBinary(snm1a,128);document.write(".");WriteAsBinary(snm2a,128);document.write(".");WriteAsBinary(snm3a,128);document.write(".");WriteAsBinary(snm4a,128);document.write("<BR></font></pre>");
+document.write("If you do a binary AND between these two numbers, you get the network address:<br><br><pre><FONT FACE='courier'>");
+document.write("          ip address: ");WriteAsBinary(oct1a,128);document.write(".");WriteAsBinary(oct2a,128);document.write(".");WriteAsBinary(oct3a,128);document.write(".");WriteAsBinary(oct4a,128);document.write("<BR>");
+document.write("         subnet mask: ");WriteAsBinary(snm1a,128);document.write(".");WriteAsBinary(snm2a,128);document.write(".");WriteAsBinary(snm3a,128);document.write(".");WriteAsBinary(snm4a,128);document.write("<BR>");
+document.write("		      -----------------------------------AND<BR>");
+document.write("     network address: ");WriteAsBinary(nw1a,128);document.write(".");WriteAsBinary(nw2a,128);document.write(".");WriteAsBinary(nw3a,128);document.write(".");WriteAsBinary(nw4a,128);document.write("<BR></font></pre>");
+document.write("which translated back to dotted decimal notation is "+nw1a+"."+nw2a+"."+nw3a+"."+nw4a+"<br><br>To get the host portion, invert the subnet mask and again perform a binary AND with the ip address:<pre><FONT FACE='courier'>");
+document.write("          ip address: ");WriteAsBinary(oct1a,128);document.write(".");WriteAsBinary(oct2a,128);document.write(".");WriteAsBinary(oct3a,128);document.write(".");WriteAsBinary(oct4a,128);document.write("<BR>");
+document.write("inverted subnet mask: ");WriteAsBinary(isnm1a,128);document.write(".");WriteAsBinary(isnm2a,128);document.write(".");WriteAsBinary(isnm3a,128);document.write(".");WriteAsBinary(isnm4a,128);document.write("<BR>");
+document.write("		      -----------------------------------AND<BR>");
+document.write("        host portion: ");WriteAsBinary(node1a,128);document.write(".");WriteAsBinary(node2a,128);document.write(".");WriteAsBinary(node3a,128);document.write(".");WriteAsBinary(node4a,128);document.write("<BR></font></pre>");
+document.write("which translated back to dotted decimal notation is "+node1a+"."+node2a+"."+node3a+"."+node4a+"<br><br>To obtain the broadcast address, again it is simplest to look at it in binary.  Take the inverted subnet mask and perform a binary XOR with the network address:<pre><FONT FACE='courier'>");
+document.write("     network address: ");WriteAsBinary(nw1a,128);document.write(".");WriteAsBinary(nw2a,128);document.write(".");WriteAsBinary(nw3a,128);document.write(".");WriteAsBinary(nw4a,128);document.write("<BR>");
+document.write("inverted subnet mask: ");WriteAsBinary(isnm1a,128);document.write(".");WriteAsBinary(isnm2a,128);document.write(".");WriteAsBinary(isnm3a,128);document.write(".");WriteAsBinary(isnm4a,128);document.write("<BR>");
+document.write("		      -----------------------------------XOR<BR>");
+document.write("   broadcast address: ");WriteAsBinary(broad1a,128);document.write(".");WriteAsBinary(broad2a,128);document.write(".");WriteAsBinary(broad3a,128);document.write(".");WriteAsBinary(broad4a,128);document.write("<BR></font></pre>");
+document.write("which translated back to dotted decimal notation is "+broad1a+"."+broad2a+"."+broad3a+"."+broad4a);
+
+// end hiding from old browsers -->
+</SCRIPT>
+</FONT>
+
+</BODY>
+</HTML>
+

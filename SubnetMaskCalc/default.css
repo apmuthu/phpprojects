@@ -1,0 +1,36 @@
+H4 {
+	FONT-FAMILY: helvetica, sans-serif; COLOR: #ffcc33; FONT-SIZE: larger
+}
+P {
+	FONT-FAMILY: helvetica, sans-serif; COLOR: #ffcc33
+}
+P.larger {
+	FONT-FAMILY: helvetica, sans-serif; COLOR: #ffcc33; FONT-SIZE: 1.2em
+}
+BLOCKQUOTE {
+	FONT-FAMILY: helvetica, sans-serif; COLOR: #ffcc33
+}
+UL LI {
+	FONT-FAMILY: helvetica, sans-serif; COLOR: #ffcc33
+}
+A {
+	FONT-FAMILY: helvetica, sans-serif; COLOR: #ffcc33
+}
+A:hover {
+	COLOR: #ff3300
+}
+A:visited {
+	COLOR: #ffcc33
+}
+A:hover:visited {
+	COLOR: #ff3300
+}
+A.hd {
+	FONT-SIZE: smaller; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+A.inline {
+	FONT-STYLE: italic
+}
+INPUT.button {
+	WIDTH: 7em
+}
