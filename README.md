@@ -8,6 +8,7 @@ Ap.Muthu's PHP Snippets
 * SubnetMaskcalc - Subnet Mask Calculator by [subnetmask.info](http://www.subnetmask.info)
 * cplusplus - C++ tutorial examples
 * jsDynaField - [jQuery](https://jquery.org/) based Dynamic Form Field Addition
+* phpGetDomains - domain_lister.php - Get Insert SQL statements from registrar records at [Daily Changes](http://www.dailychanges.com)
 * phpunzip - Unzip archives using php by [PHPConcepts](http://www.phpconcept.net)
 * pincodes - Data Dump of Indian Postal Codes
 * sql2excel - php class to convert an sql to an excel worksheet
