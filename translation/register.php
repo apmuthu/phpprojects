@@ -1,21 +1,27 @@
 <?php
 require_once('class.translation.php');
 
-if(isset($_GET['lang']))
+$encoding = "charset=ISO-8859-15";
+if(isset($_GET['lang'])) {
 	$translate = new Translator($_GET['lang']);
-else
+	if (strtolower($_GET['lang']) == 'ta_in') $encoding = 'UTF-8';
+} else
 	$translate = new Translator('en');
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <title><?php $translate->__('CSS Registration Form'); ?></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15"/>
+        <meta http-equiv="Content-Type" content="text/html; <?php echo $encoding; ?>"/>
         <link rel="stylesheet" type="text/css" href="css/default.css"/>
     </head>
     <body>    
         <form action="" class="register">
-            <h1><?php $translate->__('Registration'); ?><a class="flag_deutsch" title="deutsch" href="register.php?lang=de"></a><a class="flag_english" title="english" href="register.php"></a></h1>
+            <h1><?php $translate->__('Registration'); ?>
+					<a class="flag_tamil"   title="tamil"   href="register.php?lang=ta_in"></a>
+					<a class="flag_deutsch" title="deutsch" href="register.php?lang=de"></a>
+					<a class="flag_english" title="english" href="register.php"></a></h1>
             <fieldset class="row1">
                 <legend><?php $translate->__('Account Details'); ?></legend>
                 <p>

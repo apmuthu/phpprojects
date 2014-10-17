@@ -45,7 +45,7 @@ h4 {
 form.register{
     width:800px;
     margin: 20px auto 0px auto;
-    height:530px;
+    height:580px;
     background-color:#fff;
     padding:5px;
     -moz-border-radius:20px;
@@ -67,7 +67,7 @@ form.register fieldset.row1
     margin-bottom:15px;
 }
 form.register fieldset.row1 label{
-    width:140px;
+    width:160px;
     float: left;
     text-align: right;
     margin-right: 6px;
@@ -240,6 +240,13 @@ p.agreement label{
 	height:11px;
 	float:right;
 	background:transparent url(../img/us.png) no-repeat top left;
+	margin:3px;
+}
+.flag_tamil{
+	width:16px;
+	height:11px;
+	float:right;
+	background:transparent url(../img/ta_in.png) no-repeat top left;
 	margin:3px;
 }
 
