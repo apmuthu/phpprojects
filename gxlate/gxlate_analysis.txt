@@ -1,0 +1,75 @@
+google_translate-2008-07-09.zip is only taken for reference as it does not work now.
+gxlate.php does the job now.
+
+Sample Tamil Translation to analyse the GET variables.
+
+https://translate.google.com/translate_a/single?
+client=t
+&
+sl=auto
+&
+tl=ta
+&
+hl=en
+&
+dt=bd
+&
+dt=ex
+&
+dt=ld
+&
+dt=md
+&
+dt=qc
+&
+dt=rw
+&
+dt=rm
+&
+dt=ss
+&
+dt=t
+&
+dt=at
+&
+dt=sw
+&
+ie=UTF-8
+&
+oe=UTF-8
+&
+ssel=0
+&
+tsel=4
+&
+pc=1
+&
+otf=1
+&
+q=Hello%2C%20this%20is%20a%20test%20of%20a%20translation
+
+
+https://translate.google.com/translate_a/single?client=t&sl=auto&tl=ta&hl=en&dt=bd&dt=ex&dt=ld&dt=md&dt=qc&dt=rw&dt=rm&dt=ss&dt=t&dt=at&dt=sw&ie=UTF-8&oe=UTF-8&ssel=0&tsel=4&pc=1&otf=1&q=Hello%2C%20this%20is%20a%20test%20of%20a%20translation
+
+https://translate.google.com/translate_a/single?client=t&sl=auto&tl=ta&hl=en
+&dt=bd&dt=ex&dt=ld&dt=md&dt=qc&dt=rw&dt=rm&dt=ss
+&dt=t
+&dt=at&dt=sw
+&ie=UTF-8&oe=UTF-8&ssel=0&tsel=4&pc=1&otf=1&q=Hello%2C%20this%20is%20a%20test%20of%20a%20translation
+
+490
+[[["ஹலோ , இந்த ஒரு மொழிபெயர்ப்பு ஒரு சோதனை","Hello, this is a test of a translation"],["",,"Halō, inta oru moḻipeyarppu oru cōtaṉai"]],,"en",,[["ஹலோ",[1],true,false,428,0,1,0],[",",[2],false,false,428,1,2,0],["இந்த",[3],true,false,593,2,3,0],["ஒரு",[4],true,false,593,3,4,0],["மொழிபெயர்ப்பு",[5],true,false,593,4,5,0],["ஒரு சோதனை",[6],true,false,545,5,7,0]],[["Hello",1,[["ஹலோ",428,true,false],["வணக்கம்",0,true,false],["Hello",0,true,false]],[[0,5]],"Hello, this is a test of a translation"],[",",2,[[",",428,false,false]],[[5,6]]],["this",3,[["இந்த",593,true,false],["இது",0,true,false],["இதை",0,true,false],["இந்தப்",0,true,false]],[[7,11]]],["a",4,[["ஒரு",593,true,false],["ஓர்",0,true,false],["அ",0,true,false],["a",0,true,false]],[[25,26]]],["translation",5,[["மொழிபெயர்ப்பு",593,true,false],["translation",0,true,false],["சொற்றொடர்",0,true,false],["தண்டனை",0,true,false]],[[27,38]]],["of a test is",6,[["ஒரு சோதனை",545,true,false]],[[12,24]]]],,,[["en"],,[0.69426751]]]
+https://translate.google.com/translate_a/single?client=t&sl=auto&tl=ta&hl=en&dt=rm&dt=t&q=Hello%2C%20this%20is%20a%20test%20of%20a%20translation
+
+442
+[[["ஹலோ , இந்த ஒரு மொழிபெயர்ப்பு ஒரு சோதனை","Hello, this is a test of a translation"]],,"en",,[["ஹலோ",[1],true,false,428,0,1,0],[",",[2],false,false,428,1,2,0],["இந்த",[3],true,false,593,2,3,0],["ஒரு",[4],true,false,593,3,4,0],["மொழிபெயர்ப்பு",[5],true,false,593,4,5,0],["ஒரு சோதனை",[6],true,false,545,5,7,0]],[["Hello",1,[["ஹலோ",428,true,false],["வணக்கம்",0,true,false],["Hello",0,true,false]],[[0,5]],"Hello, this is a test of a translation"],[",",2,[[",",428,false,false]],[[5,6]]],["this",3,[["இந்த",593,true,false],["இது",0,true,false],["இதை",0,true,false],["இந்தப்",0,true,false]],[[7,11]]],["a",4,[["ஒரு",593,true,false],["ஓர்",0,true,false],["அ",0,true,false],["a",0,true,false]],[[25,26]]],["translation",5,[["மொழிபெயர்ப்பு",593,true,false],["translation",0,true,false],["சொற்றொடர்",0,true,false],["தண்டனை",0,true,false]],[[27,38]]],["of a test is",6,[["ஒரு சோதனை",545,true,false]],[[12,24]]]],,,[["en"],,[0.69426751]]]
+https://translate.google.com/translate_a/single?client=t&sl=auto&tl=ta&hl=en&dt=t&q=Hello%2C%20this%20is%20a%20test%20of%20a%20translation
+
+49 (useless)
+[,,"en",,,,,,[["en"],,[0.69426751]]]
+https://translate.google.com/translate_a/single?client=t&sl=auto&tl=ta&hl=en&dt=rm&q=Hello%2C%20this%20is%20a%20test%20of%20a%20translation
+
+465
+[[["ஹலோ , இந்த ஒரு மொழிபெயர்ப்பு ஒரு சோதனை","Hello, this is a test of a translation"],["",,"Halō, inta oru moḻipeyarppu oru cōtaṉai"]],,,,[["ஹலோ",[1],true,false,428,0,1,0],[",",[2],false,false,428,1,2,0],["இந்த",[3],true,false,593,2,3,0],["ஒரு",[4],true,false,593,3,4,0],["மொழிபெயர்ப்பு",[5],true,false,593,4,5,0],["ஒரு சோதனை",[6],true,false,545,5,7,0]],[["Hello",1,[["ஹலோ",428,true,false],["வணக்கம்",0,true,false],["Hello",0,true,false]],[[0,5]],"Hello, this is a test of a translation"],[",",2,[[",",428,false,false]],[[5,6]]],["this",3,[["இந்த",593,true,false],["இது",0,true,false],["இதை",0,true,false],["இந்தப்",0,true,false]],[[7,11]]],["a",4,[["ஒரு",593,true,false],["ஓர்",0,true,false],["அ",0,true,false],["a",0,true,false]],[[25,26]]],["translation",5,[["மொழிபெயர்ப்பு",593,true,false],["translation",0,true,false],["சொற்றொடர்",0,true,false],["தண்டனை",0,true,false]],[[27,38]]],["of a test is",6,[["ஒரு சோதனை",545,true,false]],[[12,24]]]]]
+https://translate.google.com/translate_a/single?client=t&sl=en&tl=ta&hl=en&dt=rm&dt=t&q=Hello%2C%20this%20is%20a%20test%20of%20a%20translation
+
