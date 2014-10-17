@@ -1,7 +1,7 @@
 <?php
 require_once('class.translation.php');
 
-$encoding = "charset=ISO-8859-15";
+$encoding = "ISO-8859-15";
 if(isset($_GET['lang'])) {
 	$translate = new Translator($_GET['lang']);
 	if (strtolower($_GET['lang']) == 'ta_in') $encoding = 'UTF-8';
@@ -13,7 +13,7 @@ if(isset($_GET['lang'])) {
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <title><?php $translate->__('CSS Registration Form'); ?></title>
-        <meta http-equiv="Content-Type" content="text/html; <?php echo $encoding; ?>"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $encoding; ?>"/>
         <link rel="stylesheet" type="text/css" href="css/default.css"/>
     </head>
     <body>    
