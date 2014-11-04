@@ -15,6 +15,6 @@ Ap.Muthu's PHP Snippets
 * sql2excel - php class to convert an sql to an excel worksheet
 * Bloomberg_Rates.php - fetch currency exchange rate from Bloomberg
 * gxlate - PHP Function for Google Translation of single string without using Google Translate API
-* ip.php - obtain your public / private ip
+* ip.php - obtain your public / private ip: <tt>pubip=`wget -qO- http://www.apmuthu.com/ip.php`</tt>
 * DecryptCSinPHP.php - decrypt C# in php
 * phpLuhn.php - generate and verify credit card checksums
