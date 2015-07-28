@@ -20,5 +20,6 @@ Ap.Muthu's PHP Snippets
 pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 ````
 * dbs_xchg_rate.php - Obtain Exchange Rate from DBS Bank in Singapore Dollars
+* XE/xe_xchg_rate.php - Function to obtain all From/To exchange rates from [XE](http://www.xe.com)
 * DecryptCSinPHP.php - decrypt C# in php
 * phpLuhn.php - generate and verify credit card checksums
