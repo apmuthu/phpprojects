@@ -15,6 +15,7 @@ Ap.Muthu's PHP Snippets
 * pincodes - Data Dump of Indian Postal Codes
 * sql2excel - php class to convert an sql to an excel worksheet
 * Bloomberg_Rates.php - fetch currency exchange rate from Bloomberg
+* fxratenet_rates.php - fetch currency exchange rate from fx-rate.net
 * gxlate - PHP Function for Google Translation of single string without using Google Translate API
 * ip.php - Obtain your public / private ip:
 ````
