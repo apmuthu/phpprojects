@@ -2,21 +2,32 @@
 /*
 // Program       : Obtain Exchange Rate from DBS Bank in Singapore Dollars
 // Author        : Ap.Muthu <apmuthu@usa.net>
-// Version       : 1.1
+// Version       : 2.0
 // Release Date  : 2015-09-27
 // Notes         : html code template of source page changed on 2015-09-26
+                   now with TSV and cross currency rates
 // Example Usage : http://DOMAIN.TLD/PATH/dbs_xchg_rate.php?c=IDR
+//                 http://DOMAIN.TLD/PATH/dbs_xchg_rate.php?c=INR&b=USD
+//                 http://DOMAIN.TLD/PATH/dbs_xchg_rate.php?b=INR
+//                 http://DOMAIN.TLD/PATH/dbs_xchg_rate.php?r=1&b=INR
+// Parameters    : c => Target Currency - defaults to INR
+//                 b => Single unit of base Currency - defaults to SGD
+                   r => TSV output - Currency Code \t Currency Name \t Rate \n
 */
 
 $debug = false;
 $savefile = false;
 
 $url='https://www.posb.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page';
-$currency = isset($_REQUEST['c']) ? trim(strtoupper($_REQUEST['c'])) : 'INR';
-if ($currency == 'SGD') { echo 1; exit; }
+$bcurrency = isset($_REQUEST['b']) ? substr(strtoupper(trim($_REQUEST['b'])),0,3) : 'SGD';
+$currency  = isset($_REQUEST['c']) ? substr(strtoupper(trim($_REQUEST['c'])),0,3) : (($bcurrency != 'SGD') ? 'SGD' :'INR');
+// TSV only if target currency is not given
+$tsvlist   = (isset($_REQUEST['r']) && !isset($_REQUEST['c']) && $_REQUEST['r'] != 0) ? 1 : 0;
 
 // Chinese Renminbi(Offshore) => Chinese Renminbi
 $currencies = Array(
+'SGD' => 'Singapore Dollar',
+
 'USD' => 'US Dollar',
 'EUR' => 'Euro',
 'GBP' => 'Sterling Pound',
@@ -42,6 +53,10 @@ $currencies = Array(
 'SAR' => 'Saudi Rial',
 'TWD' => 'New Taiwan Dollar'
 );
+
+if ($currency == $bcurrency && !$tsvlist) { echo 1; exit; }
+if (!array_key_exists($currency, $currencies) || !array_key_exists($bcurrency, $currencies)) exit;
+
 
 // $hundreds = Array('JPY', 'THB', 'IDR', 'CNY', 'INR', 'KRW', 'LKR', 'PHP', 'SAR', 'TWD');
 $hundreds = Array('JPY', 'THB', 'IDR', 'INR', 'KRW', 'LKR', 'PHP', 'SAR', 'TWD');
@@ -719,11 +734,9 @@ EOT;
 
 $a = str_replace('Chinese Renminbi(Offshore)','Chinese Renminbi',$a);
 
-// $b = explode('<tbody>', $a);
-//$b = explode('</tbody>', $b[2]);
 $b = explode('filter_currency filter_', $a);
 array_shift($b);
-$rates = Array();
+$rates['SGD'] = Array('Currency' => 'Singapore Dollar', 'Rate' => 1);
 foreach ($b as $key => $val) {
 	$c = explode('<span>', $val);
 	$c = explode('</span>', $c[1]);
@@ -732,14 +745,29 @@ foreach ($b as $key => $val) {
 	$d = explode('</th>', $d[1]); // Rate
 	$d = explode('</td>', $d[0]); // Rate
 	$e = array_search($c, $currencies); // CurrCode
-	if (!isset($rates[$e]))
-		$rates[$e] = Array('Currency' => $c, 'Rate' => $d[0]);
+	if (!isset($rates[$e])) {
+		$rate = $d[0];
+		if (in_array($e, $hundreds)) $rate /= 100;
+		$rates[$e] = Array('Currency' => $c, 'Rate' => $rate);
+	}
 }
-//echo print_r($rates,true);
+
+// echo print_r($rates,true);
 // exit;
 
-
-$rate = $rates[$currency]['Rate'];
-echo (in_array($currency, $hundreds) ? $rate/100 : $rate);
+if ($tsvlist) {
+	$tsv = '';
+	foreach ($rates as $key => $val) {
+		$rate = $rates[$key]['Rate'];
+		if ($bcurrency != 'SGD') $rate /= $rates[$bcurrency]['Rate'];
+// Ref: http://stackoverflow.com/questions/10916675/display-float-value-w-o-scientific-notation
+		$tsv .= $key . "\t" . $currencies[$key] . "\t" . rtrim(sprintf('%.10F', $rate), '0') . "\n";
+	}
+	echo $tsv;
+} else {
+	$rate = $rates[$currency]['Rate'];
+	if ($bcurrency != 'SGD') $rate /= $rates[$bcurrency]['Rate'];
+	echo $rate;
+}
 
 ?>
