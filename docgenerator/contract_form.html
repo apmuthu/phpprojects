@@ -1,0 +1,91 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Contract Agreement Generator</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h2>Contract Agreement Generator</h2>
+
+<p>The system will generate a Contract Agreement using the details filled in the form below.</p>
+
+<form action="generate_agreement.php" method="POST" name="ContractAgreementForm" enctype='multipart/form-data'>
+    <table border="0">
+        <tr>
+            <td>Agreement Name: </td>
+            <td><input type="text" size="30" name="AgrementName" value="Mystery Shopper Agreement and Application"></td>
+        </tr>
+        <tr>
+            <td>Contractor: </td>
+            <td><input type="text" size="30" name="Contractor" value="Alpha Marketing & Management Services Pvt. Ltd."></td>
+        </tr>
+        <tr>
+            <td>Contractor (Abbrev): </td>
+            <td><input type="text" size="10" name="ContractorRef" value="AMMSPL"></td>
+        </tr>
+        <tr>
+            <td>Contractor Location: </td>
+            <td><input type="text" size="30" name="ContractorLoc" value="Chennai"></td>
+        </tr>
+        <tr>
+            <td>Contractor Type: </td>
+            <td><select name="ContractorType" size="1">
+                <option selected>Company</option>
+                <option>Corporation</option>
+                <option>Firm</option>
+                <option>Sole Proprietorship</option>
+                <option>Government Entity</option>
+                <option value="___________________________">Others</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td>Buyer: </td>
+            <td><input type="text" size="30" name="Buyer" value="Mr.Shopper"></td>
+        </tr>
+        <tr>
+            <td>Buyer (Abbrev): </td>
+            <td><input type="text" size="10" name="BuyerRef" value="Shopper"></td>
+        </tr>
+        <tr>
+            <td>Buyer Address: </td>
+            <td><textarea name="BuyerRes" rows="3" cols="30">Buyer Address, City, State, Country, Zip</textarea></td>
+        </tr>
+        <tr>
+            <td>Service Description: </td>
+            <td><textarea name="ServiceDesc" rows="3" cols="30">the business of providing 
+customer insight programs to it's clients, by means of, but not limited to,
+mystery shopper reports and audits, using varying methods such as on site visits, 
+telecommunication, web-based and intercept interviews</textarea></td>
+        </tr>
+        <tr>
+            <td>Service: </td>
+            <td><input type="text" size="30" name="Service" value="Assignments"></td>
+        </tr>
+        <tr>
+            <td>Service (Singular): </td>
+            <td><input type="text" size="30" name="Service_singular" value="Assignment"></td>
+        </tr>
+        <tr>
+            <td>Liability: </td>
+            <td><textarea name="Luability" rows="3" cols="30">her/his own liability and workman's compensation, insurance and any other dues as applicable</textarea></td>
+        </tr>
+        <tr>
+            <td>Pay Date:</td>
+            <td><input type="text" size="30" name="PayDate" value="30th (thirtieth) of the next month"></td>
+        </tr>
+        <tr>
+            <td>Jurisdiction: </td>
+            <td><input type="text" size="30" name="Jurisdiction" value="Chennai"></td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2">
+			    <input type="reset" name="Clear" value="Clear"> &nbsp; &nbsp; 
+				<input type="submit" name="GenerateAgreement" value="Generate Agreement">
+			</td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

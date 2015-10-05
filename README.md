@@ -6,6 +6,7 @@
 * SubnetMaskcalc - Subnet Mask Calculator by [subnetmask.info](http://www.subnetmask.info)
 * translation - [Easy PHP Site Translation](http://tympanus.net/codrops/2009/12/30/easy-php-site-translation/) class
 * cplusplus - C++ tutorial examples
+* docgenerator - Generates a sample contractual agreement with data from a html form
 * display_paged.php - Display a paged set of records from a MySQL table
 * jsDynaField - [jQuery](https://jquery.org/) based Dynamic Form Field Addition
 * phpGetDomains - domain_lister.php - Get Insert SQL statements from registrar records at [Daily Changes](http://www.dailychanges.com)
