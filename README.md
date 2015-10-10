@@ -1,5 +1,4 @@
 # phpprojects - Ap.Muthu's PHP Snippets
-====
 
 * `PHPFormToDBonce` - One time update of record using random hash from a field in record
 * `PHPProgressMonitor` - Monitor progress of execution of a long running php script with examples
