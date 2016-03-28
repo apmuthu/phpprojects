@@ -13,8 +13,8 @@
  * If you put pages 12-14 before 1-5 then 12-15 will be placed first in the output.
  * 
  * 
- * Uses FPDI 1.3.1 from Setasign
- * Uses FPDF 1.6 by Olivier Plathey with FPDF_TPL extension 1.1.3 by Setasign
+ * Uses FPDI 1.6.1 from Setasign
+ * Uses FPDF 1.8.1 by Olivier Plathey with FPDF_TPL extension 1.1.3 by Setasign
  * 
  * Both of these packages are free and open source software, bundled with this class for ease of use. 
  * They are not modified in any way. PDFMerger has all the limitations of the FPDI package - essentially, it cannot import dynamic content
@@ -48,7 +48,10 @@ class PDFMerger
 		{
 			if(strtolower($pages) != 'all')
 			{
-				$pages = $this->_rewritepages($pages);
+				$fpdi1 = new FPDI;
+				$count = $fpdi1->setSourceFile($filepath);
+				$pages = $this->_rewritepages($pages, $count);
+				unset($fpdi1);
 			}
 			
 			$this->_files[] = array($filepath, $pages);
@@ -60,7 +63,7 @@ class PDFMerger
 		
 		return $this;
 	}
-	
+
 	/**
 	 * Merges your provided PDFs and outputs to specified location.
 	 * @param $outputmode
@@ -74,12 +77,13 @@ class PDFMerger
 		$fpdi = new FPDI;
 		
 		//merger operations
-		foreach($this->_files as $file)
+		foreach($this->_files as $fkey => $file)
 		{
 			$filename  = $file[0];
 			$filepages = $file[1];
 			
 			$count = $fpdi->setSourceFile($filename);
+			$this->_files[$fkey][2]=$count;
 			
 			//add the pages
 			if($filepages == 'all')
@@ -115,7 +119,7 @@ class PDFMerger
 		}
 		else
 		{
-			if($fpdi->Output($outputpath, $mode))
+			if($fpdi->Output($outputpath, $mode) !== false)
 			{
 				return true;
 			}
@@ -161,7 +165,7 @@ class PDFMerger
 	 * @param $pages
 	 * @return unknown_type
 	 */
-	private function _rewritepages($pages)
+	private function _rewritepages($pages, $numpages=0)
 	{
 		$pages = str_replace(' ', '', $pages);
 		$part = explode(',', $pages);
@@ -175,6 +179,7 @@ class PDFMerger
 			{
 				$x = $ind[0]; //start page
 				$y = $ind[1]; //end page
+				if (strlen(trim($y)) == 0) $y = $numpages;
 				
 				if($x > $y): throw new exception("Starting page, '$x' is greater than ending page '$y'."); return false; endif;	
 				
