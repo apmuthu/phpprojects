@@ -1,0 +1,74 @@
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<html>
+<head>
+<title>Demo of JavaScript dynamic drop down list, selection of second html list based on first value</title>
+<script language="javascript">
+
+function fillCategory(){ 
+ // this function is used to fill the category list on load
+addOption(document.drop_list.Category, "Fruits", "Fruits", "");
+addOption(document.drop_list.Category, "Games", "Games", "");
+addOption(document.drop_list.Category, "Scripts", "Scripts", "");
+}
+
+function SelectSubCat(){
+// ON selection of category this function will work
+
+removeAllOptions(document.drop_list.SubCat);
+addOption(document.drop_list.SubCat, "", "SubCat", "");
+
+if(document.drop_list.Category.value == 'Fruits'){
+addOption(document.drop_list.SubCat,"Mango", "Mango");
+addOption(document.drop_list.SubCat,"Banana", "Banana");
+addOption(document.drop_list.SubCat,"Orange", "Orange");
+}
+if(document.drop_list.Category.value == 'Games'){
+addOption(document.drop_list.SubCat,"Cricket", "Cricket");
+addOption(document.drop_list.SubCat,"Football", "Football");
+addOption(document.drop_list.SubCat,"Polo", "Polo", "");
+}
+if(document.drop_list.Category.value == 'Scripts'){
+addOption(document.drop_list.SubCat,"PHP", "PHP");
+addOption(document.drop_list.SubCat,"ASP", "ASP");
+addOption(document.drop_list.SubCat,"Perl", "Perl");
+}
+
+}
+////////////////// 
+
+function removeAllOptions(selectbox)
+{
+	var i;
+	for(i=selectbox.options.length-1;i>=0;i--)
+	{
+		//selectbox.options.remove(i);
+		selectbox.remove(i);
+	}
+}
+
+
+function addOption(selectbox, value, text )
+{
+	var optn = document.createElement("OPTION");
+	optn.text = text;
+	optn.value = value;
+
+	selectbox.options.add(optn);
+}
+
+</script>
+</head>
+<body  onload="fillCategory();">
+
+<FORM name="drop_list" action="yourpage.php" method="POST" >
+		
+<SELECT  NAME="Category" onChange="SelectSubCat();" >
+<Option value="">Category</option>
+</SELECT>&nbsp;
+<SELECT id="SubCat" NAME="SubCat">
+<Option value="">SubCat</option>
+</SELECT>
+</form>
+<br><br>
+</body>
+</html>
