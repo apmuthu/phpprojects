@@ -3,6 +3,7 @@
 * `PHPFormToDBonce` - One time update of record using random hash from a field in record
 * `PHPProgressMonitor` - Monitor progress of execution of a long running php script with examples
 * `phpHitCounter` - Implements a single webpage hit counter for a single file or set of files
+* `SpriteCSSImages` - Deploy several images from single Sprite Image using CSS. Use in counter digits display.
 * `MSAccessInPHP/mdbtest.php` - Illustrates the usage of MSAccess MDB file in PHP on Windows
 * `SubnetMaskcalc` - Subnet Mask Calculator by [subnetmask.info](http://www.subnetmask.info)
 * `translation` - [Easy PHP Site Translation](http://tympanus.net/codrops/2009/12/30/easy-php-site-translation/) class
