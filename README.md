@@ -26,6 +26,7 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `var2file.php` - Save a PHP variable in a file for including it in another PHP file.
 * `PDFMerger.php` - [Split and Merge PDF](https://pdfmerger.codeplex.com/releases/view/37934) files using [fpdf](http://www.fpdf.org) and [fpdi](https://www.setasign.com/products/fpdi/about/)
 * `AjaxJSselect.html` - Javascript based drop down select controlled by another select box
+* `TandC.php` - Place defined constants in a PHP String
 
 ### Forex Parsers
 * `dbs_xchg_rate.php` - Get Exchange Rate from DBS Bank in Singapore Dollars
