@@ -1,0 +1,133 @@
+Electronics 101
+
+	Basic Electronics
+
+		A Digital Ohmmeter is being use to measure a component. The meter indicates 3.725K ohms. This indicates
+
+			3,725 ohms
+			0.3725 ohms
+			3.725 ohms
+			3,725,000 ohms
+
+		Oscilloscopes can be used to
+
+			A - view the shape of voltage waveforms
+			B - measure voltage over a period of time
+			Both A and B
+			Measure resistance
+
+		When using an ammeter to measure current
+			open the circuit at one point and connect the meter to one end.
+			open the circuit and connect the meter in series between the two open ends.
+			open the circuit at the positive and negative terminals of the battery.
+			connect the meter across the battery or load.
+		What is the color code for a 220 Ohms 5% resistor? 
+			Red, Red, Brown, Gold
+			Orange, Orange, Black, Gold
+			Red, Red, Black, Gold
+			Red, Red, Brown, Silver
+		Before connecting an ohmmeter to a circuit, you should first
+			Check the circuit with a voltmeter to make sure the circuit is not powered
+			Operate the circuit.
+			Set the range selector to the highest range.
+			Install new batteries.
+		A possible cause of an open circuit would be
+			All of these
+			A loose component mount.
+			A corroded connection.
+			A pin pushed out of a connector
+		When checking a normally open relay (with four terminals) with and ohmmeter, no continuity will be shown between two terminals and the other two terminals will show
+			Resistance somewhere between 40ohms and 120 ohms.
+			No continuity.
+			About 2000 ohms.
+			Perfect continuity (0 ohms).
+		To measure the voltage drop of a connector, the volt meter should be connected
+			in parallel, across each side of the connector
+			in series, between the connector and the battery.
+			in series, between the connector and the circuit load
+			in parallel, between the connector and the battery.
+		With all accessories turned off, the current (Parasitic) drain on the battery should be
+			under 35 milliamperes
+			zero.
+			under 3 amperes.
+			under 100 milliamperes.
+		Technician A says that a digital meter is preferred to an analog meter when measuring sensitive computer circuits. Technician B says that an analog meter might overload a computer circuit. Who is correct?
+			Both Technicians A and B.
+			Technician A only.
+			Technician B only.
+			Neither Technicians A nor B.
+		Two technicians are discussing a 25% duty cycle of an electrical cooling fan. Technician A says the pulse width is 25% measured in hertz. Technican B says this indicates the fan in ON 25% and off 75% OFF the time.
+			Technician B only
+			Technician A only.
+			Neither Technicians A nor B.
+			Both Technicians A and B.
+		A 4-bit R/2R digital-to-analog (DAC) converter has a reference of 5 volts. What is the analog output for the input code 0101
+			3.125 V
+			0.3125 V
+			-3.125 V
+			0.78125 V
+		The range of an 8-bit twos complement word is from
+			-128<sub>10</sub> to +127<sub>10</sub>
+			+128<sub>10</sub> to -128<sub>10</sub>
+			+127<sub>10</sub> to -127<sub>10</sub>
+			+127<sub>10</sub> to -128<sub>10</sub>
+		What is the next step after discovering a faulty gate within an IC?
+			replace the IC involved
+			repair the gate
+			resolder the tracks
+			recheck the power source
+		A digital logic device used as a buffer should have what input/output characteristics?
+			high input impedance and low output impedance
+			high input impedance and high output impedance
+			low input impedance and high output impedance
+			low input impedance and low output impedance
+		Which digital IC package type makes the most efficient use of printed circuit board space?
+			SMD
+			TO can
+			flat pack
+			DIP
+		CMOS logic is probably the best all-around circuitry because of its
+			low power consumption and very high noise immunity
+			packing density
+			low power consumption
+			very high noise immunity
+		A TTL totem pole circuit is designed so that the output transistors are
+			never on together
+			always on together
+			providing phase splitting
+			providing voltage regulation
+		The main factor, which differentiates a D-MOSFET from an E-MOSFET, in the absence of
+			channel
+			PN junction
+			insulated gate
+			electrons
+		Which JFET configuration would connect a high-resistance signal source to a low-resistance load?
+			source follower
+			common-source
+			common-drain
+			common-gate
+		With a JFET, a ratio of output current change against an input voltage change is called
+			Transconductance
+			Seimens
+			Resistivity
+			Gain
+		The only way to close an SCR is with
+			Forward breakover voltage
+			A trigger input applied to the gate
+			Reverse voltage
+			Low-current dropout
+		What type of application would use a photovoltaic cell?
+			a remote power source
+			an automobile horn
+			a TI 92 calculator
+			a magnetic field detector
+		Once a DIAC is conducting, the only way to turn it off is with
+			low-current dropout
+			a positive gate voltage
+			a negative gate voltage
+			breakover Voltage
+		What type of application would use an injection laser diode?
+			a fiber optic transmission line
+			a 10 BASE-T Ethernet
+			a liquid crystal display
+			a good flashlight

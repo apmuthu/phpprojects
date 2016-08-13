@@ -4,6 +4,7 @@
 * `PHPProgressMonitor` - Monitor progress of execution of a long running php script with examples
 * `phpHitCounter` - Implements a single webpage hit counter for a single file or set of files
 * `SpriteCSSImages` - Deploy several images from single Sprite Image using CSS. Use in counter digits display.
+* `LimeSurveyQAImport` - SQLs generated to import List Radio Questions and Answers from Formatted Text file into LimeSurvey v2.051's DB
 * `MSAccessInPHP/mdbtest.php` - Illustrates the usage of MSAccess MDB file in PHP on Windows
 * `SubnetMaskcalc` - Subnet Mask Calculator by [subnetmask.info](http://www.subnetmask.info)
 * `translation` - [Easy PHP Site Translation](http://tympanus.net/codrops/2009/12/30/easy-php-site-translation/) class
