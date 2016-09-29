@@ -1,0 +1,168 @@
+<?php
+// Ref: http://www.askapache.com/htaccess/crazy-advanced-mod_rewrite-tutorial.html
+header("Content-Type: text/plain");
+$INFO=$MISS=array();
+foreach($_SERVER as $v=>$r)
+{
+  if(substr($v,0,5)=='HTTP_')
+  {
+    if(!empty($r) && $r!='(null)')$INFO[substr($v,5)]=$r;
+    else $MISS[substr($v,5)]=$r;
+  }
+}
+ 
+/* thanks Mike! */
+ksort($INFO);
+ksort($MISS);
+ksort($_SERVER);
+ 
+echo "Received These Variables:\n";
+print_r($INFO);
+ 
+echo "Missed These Variables:\n";
+print_r($MISS);
+ 
+echo "ALL Variables:\n";
+print_r($_SERVER);
+
+/*
+// Place following in httpd.conf file:
+RewriteEngine On
+RewriteBase /
+RewriteRule .* - [E=INFO_API_VERSION:%{API_VERSION},NE]
+RewriteRule .* - [E=INFO_AUTH_TYPE:%{AUTH_TYPE},NE]
+RewriteRule .* - [E=INFO_CONTENT_LENGTH:%{CONTENT_LENGTH},NE]
+RewriteRule .* - [E=INFO_CONTENT_TYPE:%{CONTENT_TYPE},NE]
+RewriteRule .* - [E=INFO_DOCUMENT_ROOT:%{DOCUMENT_ROOT},NE]
+RewriteRule .* - [E=INFO_GATEWAY_INTERFACE:%{GATEWAY_INTERFACE},NE]
+RewriteRule .* - [E=INFO_HTTPS:%{HTTPS},NE]
+RewriteRule .* - [E=INFO_HTTP_ACCEPT:%{HTTP_ACCEPT},NE]
+RewriteRule .* - [E=INFO_HTTP_ACCEPT_CHARSET:%{HTTP_ACCEPT_CHARSET},NE]
+RewriteRule .* - [E=INFO_HTTP_ACCEPT_ENCODING:%{HTTP_ACCEPT_ENCODING},NE]
+RewriteRule .* - [E=INFO_HTTP_ACCEPT_LANGUAGE:%{HTTP_ACCEPT_LANGUAGE},NE]
+RewriteRule .* - [E=INFO_HTTP_CACHE_CONTROL:%{HTTP_CACHE_CONTROL},NE]
+RewriteRule .* - [E=INFO_HTTP_CONNECTION:%{HTTP_CONNECTION},NE]
+RewriteRule .* - [E=INFO_HTTP_COOKIE:%{HTTP_COOKIE},NE]
+RewriteRule .* - [E=INFO_HTTP_FORWARDED:%{HTTP_FORWARDED},NE]
+RewriteRule .* - [E=INFO_HTTP_HOST:%{HTTP_HOST},NE]
+RewriteRule .* - [E=INFO_HTTP_KEEP_ALIVE:%{HTTP_KEEP_ALIVE},NE]
+RewriteRule .* - [E=INFO_HTTP_MOD_SECURITY_MESSAGE:%{HTTP_MOD_SECURITY_MESSAGE},NE]
+RewriteRule .* - [E=INFO_HTTP_PROXY_CONNECTION:%{HTTP_PROXY_CONNECTION},NE]
+RewriteRule .* - [E=INFO_HTTP_REFERER:%{HTTP_REFERER},NE]
+RewriteRule .* - [E=INFO_HTTP_USER_AGENT:%{HTTP_USER_AGENT},NE]
+RewriteRule .* - [E=INFO_IS_SUBREQ:%{IS_SUBREQ},NE]
+RewriteRule .* - [E=INFO_ORIG_PATH_INFO:%{ORIG_PATH_INFO},NE]
+RewriteRule .* - [E=INFO_ORIG_PATH_TRANSLATED:%{ORIG_PATH_TRANSLATED},NE]
+RewriteRule .* - [E=INFO_ORIG_SCRIPT_FILENAME:%{ORIG_SCRIPT_FILENAME},NE]
+RewriteRule .* - [E=INFO_ORIG_SCRIPT_NAME:%{ORIG_SCRIPT_NAME},NE]
+RewriteRule .* - [E=INFO_PATH:%{PATH},NE]
+RewriteRule .* - [E=INFO_PATH_INFO:%{PATH_INFO},NE]
+RewriteRule .* - [E=INFO_PHP_SELF:%{PHP_SELF},NE]
+RewriteRule .* - [E=INFO_QUERY_STRING:%{QUERY_STRING},NE]
+RewriteRule .* - [E=INFO_REDIRECT_QUERY_STRING:%{REDIRECT_QUERY_STRING},NE]
+RewriteRule .* - [E=INFO_REDIRECT_REMOTE_USER:%{REDIRECT_REMOTE_USER},NE]
+RewriteRule .* - [E=INFO_REDIRECT_STATUS:%{REDIRECT_STATUS},NE]
+RewriteRule .* - [E=INFO_REDIRECT_URL:%{REDIRECT_URL},NE]
+RewriteRule .* - [E=INFO_REMOTE_ADDR:%{REMOTE_ADDR},NE]
+RewriteRule .* - [E=INFO_REMOTE_HOST:%{REMOTE_HOST},NE]
+RewriteRule .* - [E=INFO_REMOTE_IDENT:%{REMOTE_IDENT},NE]
+RewriteRule .* - [E=INFO_REMOTE_PORT:%{REMOTE_PORT},NE]
+RewriteRule .* - [E=INFO_REMOTE_USER:%{REMOTE_USER},NE]
+RewriteRule .* - [E=INFO_REQUEST_FILENAME:%{REQUEST_FILENAME},NE]
+RewriteRule .* - [E=INFO_REQUEST_METHOD:%{REQUEST_METHOD},NE]
+RewriteRule .* - [E=INFO_REQUEST_TIME:%{REQUEST_TIME},NE]
+RewriteRule .* - [E=INFO_REQUEST_URI:%{REQUEST_URI},NE]
+RewriteRule .* - [E=INFO_SCRIPT_FILENAME:%{SCRIPT_FILENAME},NE]
+RewriteRule .* - [E=INFO_SCRIPT_GROUP:%{SCRIPT_GROUP},NE]
+RewriteRule .* - [E=INFO_SCRIPT_NAME:%{SCRIPT_NAME},NE]
+RewriteRule .* - [E=INFO_SCRIPT_URI:%{SCRIPT_URI},NE]
+RewriteRule .* - [E=INFO_SCRIPT_URL:%{SCRIPT_URL},NE]
+RewriteRule .* - [E=INFO_SCRIPT_USER:%{SCRIPT_USER},NE]
+RewriteRule .* - [E=INFO_SERVER_ADDR:%{SERVER_ADDR},NE]
+RewriteRule .* - [E=INFO_SERVER_ADMIN:%{SERVER_ADMIN},NE]
+RewriteRule .* - [E=INFO_SERVER_NAME:%{SERVER_NAME},NE]
+RewriteRule .* - [E=INFO_SERVER_PORT:%{SERVER_PORT},NE]
+RewriteRule .* - [E=INFO_SERVER_PROTOCOL:%{SERVER_PROTOCOL},NE]
+RewriteRule .* - [E=INFO_SERVER_SIGNATURE:%{SERVER_SIGNATURE},NE]
+RewriteRule .* - [E=INFO_SERVER_SOFTWARE:%{SERVER_SOFTWARE},NE]
+RewriteRule .* - [E=INFO_THE_REQUEST:%{THE_REQUEST},NE]
+RewriteRule .* - [E=INFO_TIME:%{TIME},NE]
+RewriteRule .* - [E=INFO_TIME_DAY:%{TIME_DAY},NE]
+RewriteRule .* - [E=INFO_TIME_HOUR:%{TIME_HOUR},NE]
+RewriteRule .* - [E=INFO_TIME_MIN:%{TIME_MIN},NE]
+RewriteRule .* - [E=INFO_TIME_MON:%{TIME_MON},NE]
+RewriteRule .* - [E=INFO_TIME_SEC:%{TIME_SEC},NE]
+RewriteRule .* - [E=INFO_TIME_WDAY:%{TIME_WDAY},NE]
+RewriteRule .* - [E=INFO_TIME_YEAR:%{TIME_YEAR},NE]
+RewriteRule .* - [E=INFO_TZ:%{TZ},NE]
+RewriteRule .* - [E=INFO_UNIQUE_ID:%{UNIQUE_ID},NE]
+ 
+RequestHeader set INFO_API_VERSION "%{INFO_API_VERSION}e"
+RequestHeader set INFO_AUTH_TYPE "%{INFO_AUTH_TYPE}e"
+RequestHeader set INFO_CONTENT_LENGTH "%{INFO_CONTENT_LENGTH}e"
+RequestHeader set INFO_CONTENT_TYPE "%{INFO_CONTENT_TYPE}e"
+RequestHeader set INFO_DOCUMENT_ROOT "%{INFO_DOCUMENT_ROOT}e"
+RequestHeader set INFO_GATEWAY_INTERFACE "%{INFO_GATEWAY_INTERFACE}e"
+RequestHeader set INFO_HTTPS "%{INFO_HTTPS}e"
+RequestHeader set INFO_HTTP_ACCEPT "%{INFO_HTTP_ACCEPT}e"
+RequestHeader set INFO_HTTP_ACCEPT_CHARSET "%{INFO_HTTP_ACCEPT_CHARSET}e"
+RequestHeader set INFO_HTTP_ACCEPT_ENCODING "%{INFO_HTTP_ACCEPT_ENCODING}e"
+RequestHeader set INFO_HTTP_ACCEPT_LANGUAGE "%{INFO_HTTP_ACCEPT_LANGUAGE}e"
+RequestHeader set INFO_HTTP_CACHE_CONTROL "%{INFO_HTTP_CACHE_CONTROL}e"
+RequestHeader set INFO_HTTP_CONNECTION "%{INFO_HTTP_CONNECTION}e"
+RequestHeader set INFO_HTTP_COOKIE "%{INFO_HTTP_COOKIE}e"
+RequestHeader set INFO_HTTP_FORWARDED "%{INFO_HTTP_FORWARDED}e"
+RequestHeader set INFO_HTTP_HOST "%{INFO_HTTP_HOST}e"
+RequestHeader set INFO_HTTP_KEEP_ALIVE "%{INFO_HTTP_KEEP_ALIVE}e"
+RequestHeader set INFO_HTTP_MOD_SECURITY_MESSAGE "%{INFO_HTTP_MOD_SECURITY_MESSAGE}e"
+RequestHeader set INFO_HTTP_PROXY_CONNECTION "%{INFO_HTTP_PROXY_CONNECTION}e"
+RequestHeader set INFO_HTTP_REFERER "%{INFO_HTTP_REFERER}e"
+RequestHeader set INFO_HTTP_USER_AGENT "%{INFO_HTTP_USER_AGENT}e"
+RequestHeader set INFO_IS_SUBREQ "%{INFO_IS_SUBREQ}e"
+RequestHeader set INFO_ORIG_PATH_INFO "%{INFO_ORIG_PATH_INFO}e"
+RequestHeader set INFO_ORIG_PATH_TRANSLATED "%{INFO_ORIG_PATH_TRANSLATED}e"
+RequestHeader set INFO_ORIG_SCRIPT_FILENAME "%{INFO_ORIG_SCRIPT_FILENAME}e"
+RequestHeader set INFO_ORIG_SCRIPT_NAME "%{INFO_ORIG_SCRIPT_NAME}e"
+RequestHeader set INFO_PATH "%{INFO_PATH}e"
+RequestHeader set INFO_PATH_INFO "%{INFO_PATH_INFO}e"
+RequestHeader set INFO_PHP_SELF "%{INFO_PHP_SELF}e"
+RequestHeader set INFO_QUERY_STRING "%{INFO_QUERY_STRING}e"
+RequestHeader set INFO_REDIRECT_QUERY_STRING "%{INFO_REDIRECT_QUERY_STRING}e"
+RequestHeader set INFO_REDIRECT_REMOTE_USER "%{INFO_REDIRECT_REMOTE_USER}e"
+RequestHeader set INFO_REDIRECT_STATUS "%{INFO_REDIRECT_STATUS}e"
+RequestHeader set INFO_REDIRECT_URL "%{INFO_REDIRECT_URL}e"
+RequestHeader set INFO_REMOTE_ADDR "%{INFO_REMOTE_ADDR}e"
+RequestHeader set INFO_REMOTE_HOST "%{INFO_REMOTE_HOST}e"
+RequestHeader set INFO_REMOTE_IDENT "%{INFO_REMOTE_IDENT}e"
+RequestHeader set INFO_REMOTE_PORT "%{INFO_REMOTE_PORT}e"
+RequestHeader set INFO_REMOTE_USER "%{INFO_REMOTE_USER}e"
+RequestHeader set INFO_REQUEST_FILENAME "%{INFO_REQUEST_FILENAME}e"
+RequestHeader set INFO_REQUEST_METHOD "%{INFO_REQUEST_METHOD}e"
+RequestHeader set INFO_REQUEST_TIME "%{INFO_REQUEST_TIME}e"
+RequestHeader set INFO_REQUEST_URI "%{INFO_REQUEST_URI}e"
+RequestHeader set INFO_SCRIPT_FILENAME "%{INFO_SCRIPT_FILENAME}e"
+RequestHeader set INFO_SCRIPT_GROUP "%{INFO_SCRIPT_GROUP}e"
+RequestHeader set INFO_SCRIPT_NAME "%{INFO_SCRIPT_NAME}e"
+RequestHeader set INFO_SCRIPT_URI "%{INFO_SCRIPT_URI}e"
+RequestHeader set INFO_SCRIPT_URL "%{INFO_SCRIPT_URL}e"
+RequestHeader set INFO_SCRIPT_USER "%{INFO_SCRIPT_USER}e"
+RequestHeader set INFO_SERVER_ADDR "%{INFO_SERVER_ADDR}e"
+RequestHeader set INFO_SERVER_ADMIN "%{INFO_SERVER_ADMIN}e"
+RequestHeader set INFO_SERVER_NAME "%{INFO_SERVER_NAME}e"
+RequestHeader set INFO_SERVER_PORT "%{INFO_SERVER_PORT}e"
+RequestHeader set INFO_SERVER_PROTOCOL "%{INFO_SERVER_PROTOCOL}e"
+RequestHeader set INFO_SERVER_SIGNATURE "%{INFO_SERVER_SIGNATURE}e"
+RequestHeader set INFO_SERVER_SOFTWARE "%{INFO_SERVER_SOFTWARE}e"
+RequestHeader set INFO_THE_REQUEST "%{INFO_THE_REQUEST}e"
+RequestHeader set INFO_TIME "%{INFO_TIME}e"
+RequestHeader set INFO_TIME_DAY "%{INFO_TIME_DAY}e"
+RequestHeader set INFO_TIME_HOUR "%{INFO_TIME_HOUR}e"
+RequestHeader set INFO_TIME_MIN "%{INFO_TIME_MIN}e"
+RequestHeader set INFO_TIME_MON "%{INFO_TIME_MON}e"
+RequestHeader set INFO_TIME_SEC "%{INFO_TIME_SEC}e"
+RequestHeader set INFO_TIME_WDAY "%{INFO_TIME_WDAY}e"
+RequestHeader set INFO_TIME_YEAR "%{INFO_TIME_YEAR}e"
+RequestHeader set INFO_TZ "%{INFO_TZ}e"
+RequestHeader set INFO_UNIQUE_ID "%{INFO_UNIQUE_ID}e"
+
+?>
