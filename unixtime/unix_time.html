@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Online Conversion - Unix time conversion</title>
+<meta name="DESCRIPTION" content="Convert Unix time to a readable date">
+<meta name="KEYWORDS" content="unix, UT, GMT, seconds, epoch, milliseconds">
+
+<!-- Source: http://www.onlineconversion.com/ -->
+<!-- Alternate: http://www.epochconverter.com/ -->
+
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+<!--
+  function timeToHuman()
+  {
+    var theDate = new Date(document.u2h.timeStamp.value * 1000);
+    dateString = theDate.toGMTString();
+	document.u2h.result.value = dateString;
+  }
+  function humanToTime()
+  {
+    var humDate = new Date(Date.UTC(document.h2u.inYear.value,
+          (stripLeadingZeroes(document.h2u.inMon.value)-1),
+          stripLeadingZeroes(document.h2u.inDay.value),
+          stripLeadingZeroes(document.h2u.inHr.value),
+          stripLeadingZeroes(document.h2u.inMin.value),
+          stripLeadingZeroes(document.h2u.inSec.value)));
+    document.h2u.result.value = (humDate.getTime()/1000.0);
+  }
+
+  function stripLeadingZeroes(input)
+  {
+    if((input.length > 1) && (input.substr(0,1) == "0"))
+      return input.substr(1);
+    else
+      return input;
+  }
+//  End -->
+</script>
+
+<link href="style.css" rel="stylesheet" type="text/css">
+<link href="print.css" rel="stylesheet" type="text/css"  media="print">
+
+</head>
+
+<body>
+<center>
+
+<table border="0" cellpadding="1" cellspacing="0" width="502" id="mainbg"><tr><td>
+<!-- The above table places the 1 pixel gray outline around the whole page -->
+
+<table border="0" cellspacing="0" cellpadding="0" width="500">
+<tr>
+<td width="500" valign="top">
+<table border="0" cellpadding="10" cellspacing="0" width="500">
+<tr>
+
+<td width="500" valign="top" class="content">
+<div align="center">
+<h2>Online Unix Time Conversion</h2>
+<span class="red">(based on seconds since standard epoch of Jan 01, 1970)</span>
+</div>
+
+<!-- Place main data here -->
+<script language="JavaScript" src="browser_detection.js" type="text/javascript"></script>
+<noscript>
+<blockquote>
+<p><font size="3" color="#FF0000"><b>You do not have JavaScript enabled.</b></font><br>
+<font size="2" color="#000080">The conversions on this site require the use of JavaScript so please enable before continuing.
+For assistance in enabling JavaScript, please contact the webmaster.</font></p>
+</blockquote>
+</noscript>
+
+<p>&nbsp;</p>
+<form name="u2h">
+<center>
+<table border=1><tr><td align="center">
+<p><font color="#000080"><font size="3"><b>Convert Unix timestamp to Readable Date/time</b><br></font></font><br>
+<font color="#800000" size="2">UNIX TimeStamp:</font> <input type="text" name="timeStamp" size="20"><br>
+<input type="button" value="Submit" onClick="timeToHuman();">&nbsp;<input type="reset" value="Reset"><br>
+<input name="result" type="text" value="" size="30" READONLY>
+</p>
+</td></tr></table>
+</center>
+</form>
+
+<form name="h2u">
+<center>
+<table border="1"><tr><td>
+<table border="0">
+  <tr>
+  <td colspan="11" align="center"><p><font color="#000080"><font size="3"><b>Convert a Date/Time to a Unix timestamp</b><br></font></font><br></td>
+  </tr>
+  <tr>
+    <th>Mon:</th>
+    <th>&nbsp;</th>
+    <th>Day:</th>
+    <th>&nbsp;</th>
+    <th>Year:</th>
+    <th>&nbsp;</th>
+    <th>Hr:</th>
+    <th>&nbsp;</th>
+    <th>Min:</th>
+    <th>&nbsp;</th>
+    <th>Sec:</th>
+  </tr>
+  <tr>
+    <td><input type="text" size="4" maxlength="2" name="inMon"></td>
+    <th>/</th>
+    <td><input type="text" size="4" maxlength="2" name="inDay"></td>
+    <th>/</th>
+    <td><input type="text" size="4" maxlength="4" name="inYear"></td>
+    <th>at</th>
+    <td><input type="text" size="4" maxlength="2" name="inHr"></td>
+    <th>:</th>
+    <td><input type="text" size="4" maxlength="2" name="inMin"></td>
+    <th>:</th>
+    <td><input type="text" size="4" maxlength="2" name="inSec"></td>
+  </tr>
+  <tr>
+    <td colspan="11" align="center"><input type="button" value="Submit" onClick="humanToTime();">&nbsp;<input type="reset" value="Reset"></td>
+  </tr>
+  <tr>
+    <td colspan="11" align="center"><input name="result" type="text" value="" size="30" READONLY></td>
+  </tr>
+</table>
+</td></tr></table>
+</center>
+</form>
+
+
+
+</td>
+</tr>
+</table>
+
+</td>
+
+<td width="1" bgcolor="#000000" valign="top"><img src="spacer.gif" width="1" height="2" alt="" border="0"></td>
+
+
+</tr>
+<tr> 
+<td height="1" colspan="3"><img src="black.gif" width="500" height="1" alt=""></td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+<br> 
+</center>
+</body>
+</html>
