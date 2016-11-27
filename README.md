@@ -8,7 +8,7 @@
 * `MSAccessInPHP/mdbtest.php` - Illustrates the usage of MSAccess MDB file in PHP on Windows
 * `SubnetMaskcalc` - Subnet Mask Calculator by [subnetmask.info](http://www.subnetmask.info)
 * `translation` - [Easy PHP Site Translation](http://tympanus.net/codrops/2009/12/30/easy-php-site-translation/) class
-* `unixtime/unix_time.html` - Epoch Convertor from [Online Conversion](http://www.onlineconversion.com) | [Demo](https://rawgit.com/apmuthu/phpprojects/master/unixtime/unix_time.html) | (Production](https://cdn.rawgit.com/apmuthu/phpprojects/master/unixtime/unix_time.html)
+* `unixtime/unix_time.html` - Epoch Convertor from [Online Conversion](http://www.onlineconversion.com) | [Demo](https://rawgit.com/apmuthu/phpprojects/master/unixtime/unix_time.html) | [Production](https://cdn.rawgit.com/apmuthu/phpprojects/master/unixtime/unix_time.html)
 * `cplusplus` - C++ tutorial examples
 * `docgenerator` - Generates a sample contractual agreement with data from a html form
 * `display_paged.php` - Display a paged set of records from a MySQL table
