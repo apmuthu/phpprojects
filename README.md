@@ -25,6 +25,7 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 ````
 * `DecryptCSinPHP.php` - decrypt C# in php
 * `mod_rewrite_test.php` - Advanced mod_rewrite troubleshooting tester
+* `PHP_SourceCodeViewer.php` - Place this file in a folder called `source` and name it `index.php` to view source code of all php files under it.
 * `phpLuhn.php` - generate and verify credit card checksums
 * `var2file.php` - Save a PHP variable in a file for including it in another PHP file.
 * `PDFMerger.php` - [Split and Merge PDF](https://pdfmerger.codeplex.com/releases/view/37934) files using [fpdf](http://www.fpdf.org) and [fpdi](https://www.setasign.com/products/fpdi/about/)
