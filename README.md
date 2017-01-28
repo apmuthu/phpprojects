@@ -24,6 +24,7 @@
 pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 ````
 * `DecryptCSinPHP.php` - decrypt C# in php
+* `xlate.php` - Encode / Decode strings / binary in PHP
 * `mod_rewrite_test.php` - Advanced mod_rewrite troubleshooting tester
 * `PHP_SourceCodeViewer.php` - Place this file in a folder called `source` and name it `index.php` to view source code of all php files under it.
 * `phpLuhn.php` - generate and verify credit card checksums
