@@ -12,6 +12,7 @@
 * `cplusplus` - C++ tutorial examples
 * `docgenerator` - Generates a sample contractual agreement with data from a html form
 * `display_paged.php` - Display a paged set of records from a MySQL table
+* `ExtractOptions.php` - HTML select box options string to array
 * `jsDynaField` - [jQuery](https://jquery.org/) based Dynamic Form Field Addition
 * `phpGetDomains` - domain_lister.php - Get Insert SQL statements from registrar records at [Daily Changes](http://www.dailychanges.com)
 * `phpunzip` - Unzip archives using php by [PHPConcepts](http://www.phpconcept.net)
