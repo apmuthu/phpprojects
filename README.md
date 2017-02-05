@@ -12,7 +12,6 @@
 * `cplusplus` - C++ tutorial examples
 * `docgenerator` - Generates a sample contractual agreement with data from a html form
 * `display_paged.php` - Display a paged set of records from a MySQL table
-* `ExtractOptions.php` - HTML select box options string to array
 * `jsDynaField` - [jQuery](https://jquery.org/) based Dynamic Form Field Addition
 * `phpGetDomains` - domain_lister.php - Get Insert SQL statements from registrar records at [Daily Changes](http://www.dailychanges.com)
 * `phpunzip` - Unzip archives using php by [PHPConcepts](http://www.phpconcept.net)
@@ -39,3 +38,7 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `Bloomberg_Rates.php` - Get currency exchange rate from Bloomberg
 * `fxratenet_rates.php` - Get currency exchange rate from fx-rate.net
 * `XE/xe_xchg_rate.php` - Get all From/To exchange rates from [XE](http://www.xe.com)
+
+### XML and HTML Parsers
+* `ExtractOptions.php` - HTML select box options string to array
+* `HTML2Links.php` - Extract all unique filtered URLs with their display values from XML / HTML content
