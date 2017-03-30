@@ -10,7 +10,7 @@
 	 */
 	 
 	echo"<a href=\"./sql2excel_example1.php\">Download Excel Example1<a><br>";
-	$query="Select * From employees";
+	$query="SELECT * FROM employees";
 	$query=urlencode($query);
 	echo"<a href=\"./sql2excel_example2.php?query=$query\">Download Excel Example2<a>";
 ?>

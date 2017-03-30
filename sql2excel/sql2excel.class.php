@@ -38,7 +38,7 @@
 				  
 		  Return: None
 		*/
-		function ExcelOutput($query="")
+		function ExcelOutput($query="", $save=false)
 		{
 			//connect mysql database
 			mysql_select_db($this->db_name,$this->db_link);
@@ -84,7 +84,8 @@
 				}//for($colscounter..) END
 				$rowscounter++;
 			}// while($row=mysql..) END
-			$excel->SendFile();
+			if ($save) return $excel->SaveFile();
+			else $excel->SendFile();
 			return;		
 		}//ExcelOut() END		
 	}//class Sql2Excel END

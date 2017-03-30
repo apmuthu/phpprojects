@@ -21,7 +21,7 @@
 	$col=0;
 	
 	//write text in cell(0,0)
-	$excel->WriteText($row,$col,"This is a ExcelGen Clas Example");
+	$excel->WriteText($row,$col,"This is an ExcelGen Class Example");
 	$row++;
 	
 	//write number in cell($row,$col)	

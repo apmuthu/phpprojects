@@ -12,7 +12,7 @@
 	include_once('sql2excel.class.php');
 		
 	//the query string you want to show
-	$query="Select * From employees";
+	$query="SELECT * FROM employees";
 	
 	//setup parameters for initiating Sql2Excel class instance
 	//modify your mysql connection parameters & database name below:
@@ -26,4 +26,16 @@
 	//Output excel file to user's browser
 	$excel->ExcelOutput($query);
 	echo"<h1>Exel Generate Completed!!</h1>";
+
+/*
+// Saving the excel file on the server
+	$file = '/var/www/files/MyExcel'; // .xls will get suffixed by ExcelGen class constructor
+	$relpath = '../files'; // relative url path to retrieve excel file from
+	$excel=new Sql2Excel($dbhost,$dbuser,$dbpass,$dbname, $file);
+	//Output excel file to user's browser
+	$savfile = $excel->ExcelOutput($query, true); // save the file
+	$savfile = basename($savfile);
+	echo "Saved <a href=\"$relpath$savfile\">$savfile</a>". $brlf;
+*/
+
 ?>
