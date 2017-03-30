@@ -8,7 +8,7 @@
 	 * purpose: This class is used to generate simple MS Excel file (xls) via
 	 * PHP & stream to user's browser.
 	 * Credits: This class is based on Erol Ozcan's psxlsgen
-	 *          Excel library functions.
+	 *          Excel library functions. https://sourceforge.net/projects/psxlsgen/
 	 */
 
 	class  ExcelGen {
@@ -17,7 +17,7 @@
       
 
 	     // Default constructor
-	     function  ExcelGen($excel_filename='excelgen',$excel_wksheetname='david')
+	     function  ExcelGen($excel_filename='excelgen')
 	     {
 		$this->excel_data="";		             // a buffer for store excel stream data
 		$this->excel_filename=$excel_filename;	     // excel filename
