@@ -17,8 +17,8 @@ Electronics 101
 			Measure resistance
 
 		When using an ammeter to measure current
-			open the circuit at one point and connect the meter to one end.
 			open the circuit and connect the meter in series between the two open ends.
+			open the circuit at one point and connect the meter to one end.
 			open the circuit at the positive and negative terminals of the battery.
 			connect the meter across the battery or load.
 		What is the color code for a 220 Ohms 5% resistor? 
@@ -37,7 +37,7 @@ Electronics 101
 			A corroded connection.
 			A pin pushed out of a connector
 		When checking a normally open relay (with four terminals) with and ohmmeter, no continuity will be shown between two terminals and the other two terminals will show
-			Resistance somewhere between 40ohms and 120 ohms.
+			Resistance somewhere between 40 ohms and 120 ohms.
 			No continuity.
 			About 2000 ohms.
 			Perfect continuity (0 ohms).
@@ -47,7 +47,7 @@ Electronics 101
 			in series, between the connector and the circuit load
 			in parallel, between the connector and the battery.
 		With all accessories turned off, the current (Parasitic) drain on the battery should be
-			under 35 milliamperes
+			under 35 milliamperes.
 			zero.
 			under 3 amperes.
 			under 100 milliamperes.
@@ -61,7 +61,7 @@ Electronics 101
 			Technician A only.
 			Neither Technicians A nor B.
 			Both Technicians A and B.
-		A 4-bit R/2R digital-to-analog (DAC) converter has a reference of 5 volts. What is the analog output for the input code 0101
+		A 4-bit R/2R digital-to-analog (DAC) converter has a reference of 10 volts. What is the analog output for the input code 0101
 			3.125 V
 			0.3125 V
 			-3.125 V

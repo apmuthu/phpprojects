@@ -47,6 +47,7 @@ unlink($_FILES['QAFile']['tmp_name']);
 // $a = file_get_contents( $qfile );
 // $QCodePfx = 'CMP';
 // $QSfxSize = 3;
+$QTRand = (isset($_POST['QTRand']) && ($_POST['QTRand'])+0 == 1);
 $QCodePfx = trim($_POST['QTPfx']);
 $QSfxSize = $_POST['QTSfx']+0;
 $QSfxPad = '0';
@@ -105,8 +106,8 @@ foreach ($a as $line) {
 			// Generate Default Answer SQLs
 			if ($ans == 1) {
 				$aval = 1;
-				$outsqls .= "INSERT INTO $tblpfx".'defaultvalues (`qid`,`scale_id`,`sqid`,`language`,`specialtype`,`defaultvalue`) VALUES (';
-				$outsqls .= $qid . ", 0, 0, '$slang', '', 'A$ans');" . $lf;
+//				$outsqls .= "INSERT INTO $tblpfx".'defaultvalues (`qid`,`scale_id`,`sqid`,`language`,`specialtype`,`defaultvalue`) VALUES (';
+//				$outsqls .= $qid . ", 0, 0, '$slang', '', 'A$ans');" . $lf;
 			}
 			// Generate Answer SQLs
 			$outsqls .= "INSERT INTO $tblpfx".'answers (`qid`,`code`,`answer`,`sortorder`,`assessment_value`,`language`,`scale_id`) VALUES (';
@@ -119,12 +120,18 @@ foreach ($a as $line) {
 			$b[$sid][$gid][$qid]['Q'] = $d;
 			// Generate Question Attribute SQLs;
 			$outsqls .= $lf;
-			$outsqls .= "INSERT INTO $tblpfx".'question_attributes (`qaid`,`qid`,`attribute`,`value`,`language`) VALUES (NULL, ';
-			$outsqls .= $qid . ", 'random_order', '1', NULL);" . $lf;
+			$outsqls .= "INSERT INTO $tblpfx".'question_attributes (`qaid`,`qid`,`attribute`,`value`,`language`) VALUES ';
+			if ($QTRand)
+				$outsqls .= "(NULL, " . $qid . ", 'random_order', '1', NULL), (NULL, " . $qid . ", 'random_group', '1', NULL);" . $lf;
+			else
+				$outsqls .= "(NULL, " . $qid . ", 'random_order', '1', NULL);" . $lf;
 			// Generate Question SQLs
 			$QCode = $QCodePfx . str_pad($QSfxStart, $QSfxSize, $QSfxPad, STR_PAD_LEFT);  
 			$outsqls .= "INSERT INTO $tblpfx".'questions (`qid`,`parent_qid`,`sid`,`gid`,`type`,`title`,`question`,`preg`,`help`,`other`,`mandatory`,`question_order`,`language`,`scale_id`,`same_default`,`relevance`) VALUES (';
-			$outsqls .= $qid . ", 0, $sid, $gid, 'L', '$QCode', '$d', '', '', 'N', 'N', $qid,'$slang', 0, 0, '1');" . $lf;
+			if ($QTRand)
+				$outsqls .= $qid . ", 0, $sid, $gid, 'L', '$QCode', '$d', '', '', 'N', 'N', 1,'$slang', 0, 0, '1');" . $lf; // Randomisation
+			else
+				$outsqls .= $qid . ", 0, $sid, $gid, 'L', '$QCode', '$d', '', '', 'N', 'N', $qid,'$slang', 0, 0, '1');" . $lf; // Non Randomisation
 
 			$ans = 1;
 		} elseif (substr($line,0,1) == $t1) { 
@@ -146,8 +153,16 @@ foreach ($a as $line) {
 		}
 	}
 }
+// close PDO
+$conn = null;
+
+$ymd = date('YmdHis');
+
+header("Content-type: text/csv");
+header("Content-Disposition: attachment; filename=LMsqls_s$sid"."_$slang"."_g$gid"."_$ymd.sql");
+header("Pragma: no-cache");
+header("Expires: 0");
+
 //echo print_r($b, true);
 echo $outsqls;
 
-// close PDO
-$conn = null; 
