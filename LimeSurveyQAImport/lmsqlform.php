@@ -1,4 +1,14 @@
 <?php
+/*
+Program       : LimeSurvey Txt to SQL Import of List Radio Questions and Answers
+Author        : Ap.Muthu <apmuthu@usa.net>
+Version       : 2.0
+Release Date  : 2016-08-13
+Modified Date : 2017-06-14
+Example Usage : http://DOMAIN.TLD/LIMESURVEY_PATH/lmsqlform.php
+Usage Notes   : The output SQLs generated can be executed on the LimeSurvey Database
+*/
+
 $lf = chr(10);
 $brlf = '<br>' . $lf;
 

@@ -1,5 +1,15 @@
 <?php
 /*
+Program       : Bridge to use LimeSurvey PDO Database Connection
+Author        : Ap.Muthu <apmuthu@usa.net>
+Version       : 1.0
+Release Date  : 2016-08-13
+Example Usage : include in target file
+Usage Notes   : LimeSurvey Database PDO connection is $conn
+Has Function  : get_max_ls_db_values() provides summary info on existing surveys in the database
+*/
+
+/*
 Settings: Array
 (
     [components] => Array
