@@ -2,10 +2,10 @@
 /*
 // Program       : Obtain Exchange Rate from DBS Bank in Singapore Dollars
 // Author        : Ap.Muthu <apmuthu@usa.net>
-// Version       : 2.11
+// Version       : 2.50
 // Release Date  : 2015-09-27
-// Last Updated  : 2015-11-27
-// Notes         : html code template of source page changed on 2015-09-26, 2015-11-21/27
+// Last Updated  : 2017-11-07
+// Notes         : html code template of source page changed on 2015-09-26, 2015-11-21/27, 2017-10-xx
                    now with TSV and cross currency rates
 // Example Usage : http://DOMAIN.TLD/PATH/dbs_xchg_rate.php?c=IDR
 //                 http://DOMAIN.TLD/PATH/dbs_xchg_rate.php?c=INR&b=USD
@@ -23,9 +23,10 @@ $url='https://www.posb.com.sg/personal/rates-online/foreign-currency-foreign-exc
 $bcurrency = isset($_REQUEST['b']) ? substr(strtoupper(trim($_REQUEST['b'])),0,3) : 'SGD';
 $currency  = isset($_REQUEST['c']) ? substr(strtoupper(trim($_REQUEST['c'])),0,3) : (($bcurrency != 'SGD') ? 'SGD' :'INR');
 // TSV only if target currency is not given
-$tsvlist   = (isset($_REQUEST['r']) && !isset($_REQUEST['c']) && $_REQUEST['r'] != 0) ? 1 : 0;
+$tsvlist   = (isset($_REQUEST['r']) && !isset($_REQUEST['c']) && $_REQUEST['r'] != 0);
 
 // Chinese Renminbi(Offshore) => Chinese Renminbi
+// TRL, RUB, MXN are zeroes for now
 $currencies = Array(
 'SGD' => 'Singapore Dollar',
 
@@ -45,8 +46,8 @@ $currencies = Array(
 'JPY' => 'Japanese Yen',
 'THB' => 'Thai Baht',
 'IDR' => 'Indonesian Rupiah',
-// 'RUB' => 'Russian Ruble',
-// 'MXN' => 'Mexican Peso',
+'RUB' => 'Russian Ruble',
+'MXN' => 'Mexican Peso',
 
 'BND' => 'Brunei Dollar',
 'ZAR' => 'South African Rand',
@@ -71,669 +72,822 @@ if ($curr === FALSE) { echo 0; exit; }
 
 if ($debug) {
 $a = <<<EOT
-<!DOCTYPE html><!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]--><!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]--><!--[if IE 8]><html class="no-js lt-ie9"><![endif]--><!--[if gt IE 8]><html class="no-js"><![endif]--><head><META http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Foreign Currencies - Foreign Exchange | POSB Bank Singapore</title><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta name="keywords" content=""><meta name="description" content=""><meta name="vpath" content=""><meta name="page-locale-name" content=""><script type="text/javascript" src="/iwov-resources/scripts/web/jquery.min.js"></script><script type="text/javascript" src="/iwov-resources/scripts/web/cf69c6f2.modernizr.min.js"></script><script type="text/javascript" src="/iwov-resources/scripts/web/09c81293.bootstrap.js"></script><script type="text/javascript" src="/iwov-resources/scripts/web/global.js"></script><script type="text/javascript" src="/iwov-resources/scripts/web/load-desktop-or-devices.js"></script><script type="text/javascript" src="/iwov-resources/scripts/web/common_utility.js"></script><script type="text/javascript" src="/iwov-resources/js/gtm_code/sgposb_gtm.js"></script><script type="text/javascript" src="/iwov-resources/js/pweb_custom.js"></script><script type="text/javascript" src="/iwov-resources/scripts/web/url-changer.js"></script><script type="text/javascript" src="/iwov-resources/scripts/gsa/gsa-auto-complete.js"></script><script type="text/javascript" src="/iwov-resources/scripts/web/banner_cookie.js"></script><script type="text/javascript" src="//assets.adobedtm.com/71d06aac4e562e3a2278bf493855202cacdacaa2/satelliteLib-4ab03b68669b8ad64b4f3ccd8af6d95a83002f1c.js"></script><script type="text/javascript" src="/iwov-resources/scripts/web/sgrates.js"></script><script type="text/javascript" src="/iwov-resources/scripts/web/jquery.selectbox-1.0.js"></script><script type="text/javascript" src="/iwov-resources/scripts/web/orientation.js"></script><link href="/iwov-resources/fixed-layout/default-layout-with-side-modules-and-breadcrumb.css" type="text/css" rel="stylesheet"></head><body itemtype="http://schema.org/WebPage" itemscope="itemscope" class=""><div class=" main-container container"><div class=" row-fluid"><div class=" span12"><script type="text/javascript">var language= "en";var country= "sg";var segmentName= "posb";var gsaSearchCollection= "posb&Client1=dbssg";</script><div class="header row-fluid hidden-phone" id="header">
-<div class="span12">
-<div class="header-container">
-<a class="logo" target="_self" href="/personal/default.page"><img src="/iwov-resources/images/logos/POSBlogo.png" alt="POSB Banking" title="POSB Banking"></a>
+<!DOCTYPE html>
+<!DOCTYPE html><!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]--><!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]--><!--[if IE 8]><html class="no-js lt-ie9"><![endif]--><!--[if gt IE 8]><html class="no-js"><![endif]--><head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Foreign Currencies - Foreign Exchange | POSB Singapore</title>
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta content="IE=EmulateIE7; IE=EmulateIE8" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="vpath" content="">
+<meta name="page-locale-name" content="">
+<link type="text/css" href="/iwov-resources/flp/css/vendor/bootstrap.min.css" rel="stylesheet">
+<link type="text/css" href="/iwov-resources/flp/css/component.css" rel="stylesheet">
+<link type="text/css" href="/iwov-resources/flp/css/flp.css" rel="stylesheet">
+<link type="text/css" href="/iwov-resources/flp/css/posb.css" rel="stylesheet">
+<script type="text/javascript" src="/iwov-resources/flp/js/vendor/html5shiv.js"></script><script type="text/javascript" src="/iwov-resources/flp/js/vendor/jquery-min.js"></script><script type="text/javascript" src="/iwov-resources/flp/js/vendor/bootstrap.min.js"></script><script type="text/javascript" src="/iwov-resources/flp/js/script.js"></script><script type="text/javascript" src="/iwov-resources/flp/js/flp.js"></script><script type="text/javascript" src="/iwov-resources/flp/js/mbchat.js"></script><script type="text/javascript" src="//assets.adobedtm.com/71d06aac4e562e3a2278bf493855202cacdacaa2/satelliteLib-3145f6b319cc00978cdb815fdbdf4a767b992f1f.js"></script><script type="text/javascript" src="/iwov-resources/flp/js/sgposb_gtm.js"></script>
+<link href="/iwov-resources/fixed-layout/flp-freehtml-detail-three-areas.css" type="text/css" rel="stylesheet"><meta name='chat.enabled' content='true' /> <meta name="Product" content="Foreign Currencies - Foreign Exchange, posb, singapore, deposits"/><meta name='page.destinationURL' content='www.posb.com.sg//i-bank/rates-online/foreign-currency-foreign-exchange.page' /><meta name='page.pageType' content='section home' /><meta name='page.site' content='pweb' /><meta name='page.primaryCat' content='posb' /><meta name='page.language' content='en' /><meta name='page.country' content='sg' /><meta name='page.brand' content='posb' /><meta name='form.primaryCat' content=''  /></head><body class="">
+<div class=" read-freehtml">
+<div class="" id="main-wrapper">
+<div class="" id="header-section"><!--component-1489849593883--><div class="mobile-slideleft hidden-lg" id="mobileSlideMenu">
+<div class="search-group">
+<div class="search-box open">
+<input autocomplete="off" class="mm-searchbox" placeholder="Search" type="text"><button class="btn-search" data-url="/personal/searchresults.page" data-target="_blank" id="btnMainMobSearch" type="button"><span class="icon ico-search"></span></button><a class="btn-close hide" href="javascript:void(0);"><span class="icon ico-cancel4"></span></a>
+</div>
+<div id="search_suggest_m_0" class="ss-gac-m">
+<div data-max="5" class="search-section"></div>
+</div>
+</div>
+<div class="clearfix"></div>
+<ul class="mega-panel" id="megaMenuParent">
+<li class="separator-hr"></li>
+<li class="panel">
+<a href="/personal/deposits/default.page" data-node="j7nnjyml">Bank</a>
+</li>
+<li class="panel">
+<a href="/personal/cards/default.page" data-node="j7nnjymm">Cards</a>
+</li>
+<li class="panel">
+<a href="/personal/insurance/default.page" data-node="j7nnjymn">Insure</a>
+</li>
+<li class="panel">
+<a href="/personal/loans/default.page" data-node="j7nnjymo">Borrow</a>
+</li>
+<li class="panel">
+<a href="/personal/investments/default.page" data-node="j7nnjymp">Invest</a>
+</li>
+<li class="panel">
+<a href="/personal/learn/default.page" data-node="j7nnjymq">Learn</a>
+</li>
+<li class="panel">
+<a href="/personal/marketplace/default.page" data-node="j7nnjymr">Marketplace</a>
+</li>
+<li class="separator-hr"></li>
+<li class="panel txt-small">
+<a target="_blank" href="/personal/locator.page?pid=sg-posb-pweb-header-default-atm-branch-textlink">ATM & Branch</a>
+</li>
+<li class="panel txt-small">
+<a href="#LinkN10019" data-parent="#megaMenuParent" data-toggle="collapse" class="collapsed"><i class="icon ico-play icon-animate-tri"></i>You are in Personal Banking</a>
+<ul class="last-menu panel-group collapse" id="LinkN10019">
+<li class="panel-header">
+<label>Personal Banking</label>
+</li>
+<li>
+<a target="_blank" href="http://www.dbs.com.sg/personal/default.page">DBS</a>
+</li>
+<li class="active">
+<a target="_blank" href="http://www.posb.com.sg/personal/default.page">POSB</a>
+</li>
+<li class="spacer"></li>
+<li class="panel-header">
+<label>Wealth Management</label>
+</li>
+<li>
+<a target="_blank" href="http://www.dbs.com.sg/treasures/default.page">DBS Treasures</a>
+</li>
+<li>
+<a target="_blank" href="http://www.dbs.com.sg/treasures-private-client/default.page">DBS Treasures Private Client</a>
+</li>
+<li>
+<a target="_blank" href="http://www.dbs.com.sg/private-banking/default.page">DBS Private Bank</a>
+</li>
+<li class="spacer"></li>
+<li class="panel-header">
+<label>DBS Vickers Securities</label>
+</li>
+<li>
+<a target="_blank" href="http://www.dbsvonline.com">DBS Vickers Online</a>
+</li>
+<li class="spacer"></li>
+<li class="panel-header">
+<label>Business Banking</label>
+</li>
+<li>
+<a target="_blank" href="http://www.dbs.com.sg/sme/default.page">SME Banking</a>
+</li>
+<li>
+<a target="_blank" href="http://www.dbs.com.sg/corporate/default.page">Corporate Banking</a>
+</li>
+<li>
+<a target="_blank" href="http://www.dbs.com.sg/institutional-investors/index.html">Institutional Investors</a>
+</li>
+<li class="spacer"></li>
+<li class="panel-header">
+<label>DBS Group</label>
+</li>
+<li>
+<a target="_blank" href="http://www.dbs.com/default.page">About DBS</a>
+</li>
+</ul>
+</li>
+</ul>
+<div class="clearfix"></div>
+</div><div data-locale="en" class="header-placeholder flp-type" id="flpHeader">
+<div class="mini-navbar hidden-xs">
+<div class="mini-navbar-body">
+<ul>
+<li>
+<a class="menu-link" href="javascript:void(0);">You are in Personal Banking<i class="icon ico-play"></i></a>
+<dl class="navbar-list long">
+<dt>
+<label>Personal Banking</label>
+</dt>
+<dd>
+<a target="_blank" href="http://www.dbs.com.sg/personal/default.page">DBS</a>
+</dd>
+<dd class="active">
+<a target="_blank" href="http://www.posb.com.sg/personal/default.page">POSB</a>
+</dd>
+<dt>
+<label>Wealth Management</label>
+</dt>
+<dd>
+<a target="_blank" href="http://www.dbs.com.sg/treasures/default.page">DBS Treasures</a>
+</dd>
+<dd>
+<a target="_blank" href="http://www.dbs.com.sg/treasures-private-client/default.page">DBS Treasures Private Client</a>
+</dd>
+<dd>
+<a target="_blank" href="http://www.dbs.com.sg/private-banking/default.page">DBS Private Bank</a>
+</dd>
+<dt>
+<label>DBS Vickers Securities</label>
+</dt>
+<dd>
+<a target="_blank" href="http://www.dbsvonline.com">DBS Vickers Online</a>
+</dd>
+<dt>
+<label>Business Banking</label>
+</dt>
+<dd>
+<a target="_blank" href="http://www.dbs.com.sg/sme/default.page">SME Banking</a>
+</dd>
+<dd>
+<a target="_blank" href="http://www.dbs.com.sg/corporate/default.page">Corporate Banking</a>
+</dd>
+<dd>
+<a target="_blank" href="http://www.dbs.com.sg/institutional-investors/index.html">Institutional Investors</a>
+</dd>
+<dt>
+<label>DBS Group</label>
+</dt>
+<dd>
+<a target="_blank" href="http://www.dbs.com/default.page">About DBS</a>
+</dd>
+</dl>
+</li>
+<li>
+<a target="_blank" href="/personal/locator.page?pid=sg-posb-pweb-header-default-atm-branch-textlink">ATM & Branch</a>
+</li>
+<li>
+<a target="_blank" href="/personal/support/home.html?pid=sg-posb-pweb-header-default-help-support-textlink">Help & Support</a>
+</li>
+</ul>
+</div>
+</div>
+<header class="navbar mega-menu">
+<div class="navbar-inner">
+<a class="img-logo bg-none hidden-xs" target="_self" href="/personal/default.page"><img alt="POSB logo" src="/iwov-resources/flp/images/posb_logo.svg"></a>
+<div class="navbar-header  hidden-sm hidden-md hidden-lg">
+<div class="pull-left">
+<div class="mobile-box">
+<a data-target="#mobileSlideMenu" id="mobileSlideId" class="mobile-menu" href="javascript:void(0);">
+<div class="hamburger-menu" id="btnHamburger">
+<span></span><span></span>
+</div>
+</a>
+</div>
+<a class="navbar-brand" target="_self" href="/personal/default.page"><img alt="POSB logo" src="/iwov-resources/flp/images/posb_logo.svg"></a>
+</div>
+<div class="pull-right">
+<div class="mobile-box">
+<a target="_blank" href="/personal/support/home.html?pid=sg-posb-pweb-header-default-help-support-textlink" class="mobile-menu"><i class="icon ico-help2"></i></a>
+</div>
+<div class="dark-menu-group">
+<a aria-expanded="false" aria-haspopup="true" class="button-wrapper" href="https://internet-banking.dbs.com.sg/posb" target="_blank"><i class="icon ico-lock2"></i>Login</a>
+</div>
+</div>
+</div>
+<div class="navbar-links-left hidden-xs ">
+<ul>
+<li>
+<a data-node="j7nnjyml" href="/personal/deposits/default.page">Bank</a>
+</li>
+<li>
+<a data-node="j7nnjymm" href="/personal/cards/default.page">Cards</a>
+</li>
+<li>
+<a data-node="j7nnjymn" href="/personal/insurance/default.page">Insure</a>
+</li>
+<li>
+<a data-node="j7nnjymo" href="/personal/loans/default.page">Borrow</a>
+</li>
+<li>
+<a data-node="j7nnjymp" href="/personal/investments/default.page">Invest</a>
+</li>
+<li class="divider"></li>
+<li>
+<a data-node="j7nnjymq" href="/personal/learn/default.page">Learn</a>
+</li>
+<li>
+<a data-node="j7nnjymr" href="/personal/marketplace/default.page">Marketplace</a>
+</li>
+</ul>
+</div>
+<div class="header-navigation hidden-xs ">
 <ul class="header-menu">
-<li class="divider">
-<div class="dropdown highlightable">
-<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" accesskey="U">Choose Your Website<img src="/iwov-resources/images/git-arrow-down.png"></a>
-<ul class="dropdown-menu" id="bu-dropdown">
-<li class="list-heading">
-<span class="seo-span">Personal Banking</span>
-</li>
-<li class="business-segment">
-<a tabindex="8" href="http://www.dbs.com.sg/personal/default.page" target="_self">DBS</a>
-</li>
-<li class="business-segment selected">
-<a tabindex="8" href="http://www.posb.com.sg/personal/default.page" target="_self">POSB</a>
-</li>
-<li class="list-heading">
-<span class="seo-span">Wealth Management</span>
-</li>
-<li class="business-segment">
-<a tabindex="8" href="http://www.dbs.com.sg/treasures/default.page" target="_self">DBS Treasures</a>
-</li>
-<li class="business-segment">
-<a tabindex="8" href="http://www.dbs.com.sg/treasures-private-client/default.page" target="_self">DBS Treasures Private Client</a>
-</li>
-<li class="business-segment">
-<a tabindex="8" href="http://www.dbs.com.sg/private-banking/default.page" target="_self">DBS Private Bank</a>
-</li>
-<li class="list-heading">
-<span class="seo-span">DBS Vickers Securities</span>
-</li>
-<li class="business-segment">
-<a tabindex="8" href="http://www.dbsvonline.com" target="_blank">DBS Vickers Online</a>
-</li>
-<li class="list-heading">
-<span class="seo-span">Business Banking</span>
-</li>
-<li class="business-segment">
-<a tabindex="8" href="http://www.dbs.com.sg/sme/default.page" target="_self">SME Banking</a>
-</li>
-<li class="business-segment">
-<a tabindex="8" href="http://www.dbs.com.sg/corporate/default.page" target="_self">Corporate Banking</a>
-</li>
-<li class="list-heading">
-<span class="seo-span">DBS Group</span>
-</li>
-<li class="business-segment">
-<a tabindex="8" href="http://www.dbs.com/default.page" target="_self">About DBS</a>
-</li>
-</ul>
-</div>
-</li>
-<input id="unSelectedLanguage" name="unSelectedLanguage" type="hidden" value="en">
-<li class="login">
-<div class="dropdown">
-<a href="https://internet-banking.dbs.com.sg/posb" target="_blank">Login</a>
-<div class="login-lock">
-<span class="icons-lock"></span>
+<li class="submenulist">
+<div class="dropdown" id="searchMenuId">
+<a aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="button-wrapper" href="javascript:void(0);"><span class="icon ico-search"></span></a>
+<div role="menu" class="dropdown-menu dark-menu">
+<form role="form" class="form-horizontal" method="post">
+<div class="search-menu">
+<div class="search-menu-content">
+<div class="row">
+<div class="search-box open col-md-12 col-sm-12 ">
+<input autocomplete="off" class="m-searchbox" name="search" placeholder="Search" type="text">
+<div id="search_suggest_m_m0" class="ss-gac-mm">
+<div data-max="5" class="search-section"></div>
+<div>
+<button data-url="/personal/searchresults.page" data-target="_blank" class="btn-view-all-results form-control text-center">View all results</button>
 </div>
 </div>
-</li>
-<li class="search">
-<input id="searchurl" type="hidden" value="/personal/searchresults.page"><input id="issearchnewwindow" value="false" type="hidden">
-<div class="dropdown highlightable">
-<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
-<div class="icons-search"></div>
-</a>
-<ul class="dropdown-menu pull-right" id="search-dropdown">
-<li class="search-item">
-<div class="input-append" style="position: relative">
-<input type="text" id="search" class="gsa-search-box" name="search" placeholder="Search">
-<table id="search_suggest_0" style="width: 146px; visibility: hidden;" class="ss-gac-m"></table>
-<button id="hsearchbutton" class="btn btn-info" type="button"><span class="icn-arrow-red"></span></button>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div id="header-mobile" class="row-fluid visible-phone">
-<div class="span12">
-<div class="main-navigation-phone">
-<div class="visible-phone nav-bar-mobile clearfix">
-<a href="#" data-target="main-navigation-container-phone" class="pull-left icn-mobile-nav-menu mobile-trigger"></a><a class="logo pull-left" href="/personal/default.page"></a><a href="#" data-target="mobile-search" class="pull-right icn-flag  mobile-trigger-searchbox"></a><a id="mobile-login-dropdown-section" href="#" data-target="login-dropdown-mobile" class="pull-right icn-mobile-nav-menu mobile-trigger"></a><a href="#" id="mobile-lang-country-section" data-target="language-country-dropdown" class="pull-right icn-mobile-nav-menu mobile-trigger"></a><a id="mobile-segment-dropdown-section" href="#" data-target="segment-dropdown" class="pull-right icn-mobile-nav-menu mobile-trigger"></a>
-</div>
-<div class="mobile-dropdown" id="main-navigation-container-phone">
-<ul class="clearfix">
-<a href="/personal/default.page" target="_self">
-<li class="active">Home<div class="scope-note">POSB Banking</div>
-</li>
-</a><a href="/personal/deposits/default.page" target="_self">
-<li class="">Bank<div class="scope-note">Day to Day</div>
-</li>
-</a><a href="/personal/cards/default.page" target="_self">
-<li class="">Cards<div class="scope-note">Rewards & Offers</div>
-</li>
-</a><a href="/personal/investments/default.page" target="_self">
-<li class="">Invest<div class="scope-note">Your Wealth</div>
-</li>
-</a><a href="/personal/loans/default.page" target="_self">
-<li class="">Borrow<div class="scope-note">For Home & more</div>
-</li>
-</a><a href="/personal/insurance/default.page" target="_self">
-<li class="">Protect<div class="scope-note">You & Your Family</div>
-</li>
-</a><a href="/personal/retirement/default.page" target="_self">
-<li class="">Retirement<div class="scope-note">Plan Ahead</div>
-</li>
-</a>
-</ul>
-</div>
-<div id="segment-dropdown" class="mobile-dropdown">
-<ul class="clearfix">
-<li class="list-heading">
-<span class="seo-span-msegmentheading">Choose Your Website</span>
-</li>
-<li class="list-heading">
-<span class="seo-span">Personal Banking</span>
-</li>
-<li class="">
-<a tabindex="-1" data-value=" TODO when branch structure has been decided" href="http://www.dbs.com.sg/personal/default.page">DBS</a>
-</li>
-<li class="divider selected">
-<a tabindex="-1" data-value=" TODO when branch structure has been decided" href="http://www.posb.com.sg/personal/default.page">POSB</a>
-</li>
-<li class="list-heading">
-<span class="seo-span">Wealth Management</span>
-</li>
-<li class="">
-<a tabindex="-1" data-value=" TODO when branch structure has been decided" href="http://www.dbs.com.sg/treasures/default.page">DBS Treasures</a>
-</li>
-<li class="">
-<a tabindex="-1" data-value=" TODO when branch structure has been decided" href="http://www.dbs.com.sg/treasures-private-client/default.page">DBS Treasures Private Client</a>
-</li>
-<li class="">
-<a tabindex="-1" data-value=" TODO when branch structure has been decided" href="http://www.dbs.com.sg/private-banking/default.page">DBS Private Bank</a>
-</li>
-<li class="list-heading">
-<span class="seo-span">DBS Vickers Securities</span>
-</li>
-<li class="">
-<a tabindex="-1" data-value=" TODO when branch structure has been decided" href="http://www.dbsvonline.com">DBS Vickers Online</a>
-</li>
-<li class="list-heading">
-<span class="seo-span">Business Banking</span>
-</li>
-<li class="">
-<a tabindex="-1" data-value=" TODO when branch structure has been decided" href="http://www.dbs.com.sg/sme/default.page">SME Banking</a>
-</li>
-<li class="">
-<a tabindex="-1" data-value=" TODO when branch structure has been decided" href="http://www.dbs.com.sg/corporate/default.page">Corporate Banking</a>
-</li>
-<li class="list-heading">
-<span class="seo-span">DBS Group</span>
-</li>
-<li class="">
-<a tabindex="-1" data-value=" TODO when branch structure has been decided" href="http://www.dbs.com/default.page">About DBS</a>
-</li>
-</ul>
-</div>
-<div id="login-dropdown-mobile" class="mobile-dropdown">
-<ul class="clearfix">
-<li class="mobile-login">
-<a href="javascript:void(0)">Login<div class="icons-lock"></div>
-</a>
-</li>
-<li class="divider">
-<a href="https://internet-banking.dbs.com.sg/posb" target="_blank">POSB iBanking</a>
-</li>
-</ul>
-</div>
-<div id="language-country-dropdown" class="mobile-dropdown">
-<ul class="clearfix">
-<li class="list-heading">
-<span class="seo-span">sg</span>
-</li>
-<input id="unSelectedLanguage" name="unSelectedLanguage" type="hidden" value="en">
-</ul>
-</div>
-<div id="mobile-search" class="mobile-dropdown-searchbox">
-<ul class="clearfix">
-<li class="search-item">
-<div style="position: relative;" class="input-append">
-<button id="hsearchbuttonmobile" class="btn btn-info" type="button"><span class="icn-search"></span></button><input type="text" name="searchmobile" class="gsad-search-box" id="searchmobile" placeholder="Search">
-<table id="search_suggest_1" style="width: 146px; visibility: hidden;" class="ss-gac-m"></table>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div></div><div class=" row-fluid"><div class=" navigation-area span12"><div class="navigation-area span12">
-<div class="main-navigation " tooltip="true" data-tooltiptimer="10" data-tooltipdescription="Have a look here" data-tooltiptitle="Results saved to Your DBS">
-<div class="main-navigation-container">
-<ul class="clearfix">
-<li style="width:14.285714285714286%" class="active">
-<a href="/personal/default.page" target="_self">Home<div class="scope-note">POSB Banking</div>
-</a>
-</li>
-<li style="width:14.285714285714286%">
-<a href="/personal/deposits/default.page" target="_self">Bank<div class="scope-note">Day to Day</div>
-</a>
-</li>
-<li style="width:14.285714285714286%">
-<a href="/personal/cards/default.page" target="_self">Cards<div class="scope-note">Rewards & Offers</div>
-</a>
-</li>
-<li style="width:14.285714285714286%">
-<a href="/personal/investments/default.page" target="_self">Invest<div class="scope-note">Your Wealth</div>
-</a>
-</li>
-<li style="width:14.285714285714286%">
-<a href="/personal/loans/default.page" target="_self">Borrow<div class="scope-note">For Home & more</div>
-</a>
-</li>
-<li style="width:14.285714285714286%">
-<a href="/personal/insurance/default.page" target="_self">Protect<div class="scope-note">You & Your Family</div>
-</a>
-</li>
-<li style="width:14.285714285714286%">
-<a href="/personal/retirement/default.page" target="_self">Retirement<div class="scope-note">Plan Ahead</div>
-</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div></div><div class=" row-fluid"><div class=" breadcrumb-area span12"><div itemprop="breadcrumb" class="row-fluid dbs-breadcrumb">
-<div class="span12">
-<ul class="breadcrumb">
+<table id="search_suggest_recent" class="ss-gac-recent hide"></table>
+<button class="btn-search" data-url="/personal/searchresults.page" data-target="_blank" id="btnMainSearch" type="button"><span class="icon ico-search"></span></button><a class="btn-close hide" href="javascript:void(0);"><span class="icon ico-cancel4"></span></a><a class="btn-history m-btn-history" href="javascript:void(0);"><span class="icon ico-time1"></span></a><label class="pop-search-label">Popular searches</label>
+<ol class="pop-search-list">
 <li>
-<a href="/personal/default.page">Home</a><span class="divider">&gt;</span>
+<a target="_blank" href="/personal/searchresults.page?q=Retirement">Retirement</a>
 </li>
 <li>
-<a href="/personal/rates-online/default.page">Rates Online</a><span class="divider">&gt;</span>
+<a target="_blank" href="/personal/searchresults.page?q=Savings">Savings</a>
 </li>
-<li class="active">Foreign Exchange</li>
+<li>
+<a target="_blank" href="/personal/searchresults.page?q=Travel">Travel</a>
+</li>
+<li>
+<a target="_blank" href="/personal/searchresults.page?q=Protection">Protection</a>
+</li>
+<li>
+<a target="_blank" href="/personal/searchresults.page?q=Education">Education</a>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+</div>
+</li>
+<li class="submenulist last-child">
+<div class="dark-menu-group">
+<a aria-expanded="false" aria-haspopup="true" class="button-wrapper" href="https://internet-banking.dbs.com.sg/posb" target="_blank"><i class="icon ico-lock2"></i>Login</a>
+</div>
+</li>
 </ul>
 </div>
 </div>
-</div></div><div class=" row-fluid page-module"><div class=" span8"><h1 class="paddingBottom margin-change">Foreign Currencies - Foreign Exchange</h1><div class="row-fluid">
-<div class="span12">
-<div class="visible-mobile RatesSelect">
-<div class="span7  marginBot20">
-<label><strong>Select Currency</strong></label>
-<div class="customDropdown customDropdownLarge">
-<select data-filtergroup="currency" class="span12 filter exchangeFilter" tabindex="1" id="selectCurrency" name="selectCurrency"><option selected value="">View All Currencies</option><option value="US Dollar">US Dollar</option><option value="Euro">Euro</option><option value="Sterling Pound">Sterling Pound</option><option value="Australian Dollar">Australian Dollar</option><option value="Canadian Dollar">Canadian Dollar</option><option value="New Zealand Dollar">New Zealand Dollar</option><option value="Danish Kroner">Danish Kroner</option><option value="Hong Kong Dollar">Hong Kong Dollar</option><option value="Norwegian Kroner">Norwegian Kroner</option><option value="Swedish Kroner">Swedish Kroner</option><option value="Swiss Franc">Swiss Franc</option><option value="Chinese Renminbi(Offshore)">Chinese Renminbi(Offshore)</option><option value="UAE Dirham">UAE Dirham</option><option value="Turkish Lira">Turkish Lira</option><option value="Japanese Yen">Japanese Yen</option><option value="Thai Baht">Thai Baht</option><option value="Indonesian Rupiah">Indonesian Rupiah</option><option value="Russian Ruble">Russian Ruble</option><option value="Mexican Peso">Mexican Peso</option><option value="Brunei Dollar" data-filterHld="otherCurrency">Brunei Dollar</option><option value="South African Rand" data-filterHld="otherCurrency">South African Rand</option><option value="Chinese Renminbi" data-filterHld="otherCurrency">Chinese Renminbi</option><option value="Indian Rupee" data-filterHld="otherCurrency">Indian Rupee</option><option value="Korean Won" data-filterHld="otherCurrency">Korean Won</option><option value="Sri Lanka Rupee" data-filterHld="otherCurrency">Sri Lanka Rupee</option><option value="Philippine Peso" data-filterHld="otherCurrency">Philippine Peso</option><option value="New Taiwan Dollar" data-filterHld="otherCurrency">New Taiwan Dollar</option><option value="Saudi Rial" data-filterHld="otherCurrency">Saudi Rial</option></select>
+</header>
+</div><script type="text/javascript">
+            var gsaSearchCollection= "sg_ibank_posb_upgrade&Client1=dbssg_ibank";
+            var directory = 'personal';
+            context_s = 'i-bank';
+            context_d = 'personal';
+            $(document).ready(function() {
+            var navLinkHref = $('.breadcrumb li:eq(1) a').attr('href');
+            if (navLinkHref != '') {
+            $.hightlightMegaMenu(navLinkHref);
+            }
+            });
+        </script>
+</div>
+<div class=" main-container" id="bodywrapper"><!--ForiegnExchange Rates-1489849593884--><div class="container flp-freestyle flp-fx">
+<section class="mTop-24">
+<div class="row">
+<div class="col-md-4 col-sm-4">
+<div class="left-wrapper fix-left-wrapper">
+<div class="breadcrumb-wrapper">
+<ol class="breadcrumb">
+<li>
+<a href="../default.page">Home<i class="icon ico-arrowright2"></i></a>
+</li>
+<li>
+<a href="../rates-online/default.page">Rates Online<i class="icon ico-arrowright2"></i></a>
+</li>
+<li class="active">Foreign Currencies - Foreign Exchange</li>
+</ol>
+</div>
+<h1 class="h1-big mBot-16">Foreign Currencies - Foreign Exchange</h1>
+<div class="list-box" id="mb-menu-top">
+<a class="select-section hasShadow"></a><span class="icon ico-arrowdown1 icon-arrow"></span>
+<ul class="top-nav">
+<li class="clearfix">
+<a class="active" href="#" name="section1">Main Currency Rates</a><span class="icon ico-arrowup1 icon-arrow"></span>
+</li>
+<li class="clearfix">
+<a href="#" name="section2">Other Currency Rates</a><span class="icon ico-arrowup1 icon-arrow"></span>
+</li>
+</ul>
+</div>
+<div class="list-box" id="sideNav">
+<ul class="left-nav">
+<li class="clearfix">
+<span class="nav-icon ico-arrowright3"></span><a class="active" href="#" name="section1">Main Currency Rates</a>
+</li>
+<li class="clearfix">
+<span class="nav-icon ico-arrowright3"></span><a href="#" name="section2">Other Currency Rates</a>
+</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="rates-table">
-<div class="filterHld">
-<p class="padding0 subtle">
-               Effective Date:
-              
-               27/11/2015
-                    &nbsp;
-               
-               Last Updated:
-                
-                7:03pm</p>
-<table class="table table-eight-colm forex-rates margin-table">
-<thead class="mobile-hidden">
-<tr>
-<th>
-                              &nbsp;
-                           </th><th>
-                              &nbsp;
-                           </th><th class="align-right" colspan="3">
-<h3>For amounts less than S$50,000</h3>
-</th><th class="align-right" colspan="3">
-<h3>For amounts S$50,000 to S$200,000</h3>
-</th>
+<div class="col-md-8 col-sm-8 left-content">
+<span id="section1" class="anchor"></span>
+<div class="dropdown-wrapper mBot-24">
+<div class="custom-dropdown fx-fe-dropdown">
+<select><option value="All">View All</option><option value="usdollar">US Dollar</option><option value="euro">Euro</option><option value="sterlingpound">Sterling Pound</option><option value="australiandollar">Australian Dollar</option><option value="canadiandollar">Canadian Dollar</option><option value="newzealanddollar">New Zealand Dollar</option><option value="danishkroner">Danish Kroner</option><option value="hongkongdollar">Hong Kong Dollar</option><option value="norwegiankroner">Norwegian Kroner</option><option value="swedishkroner">Swedish Kroner</option><option value="swissfranc">Swiss Franc</option><option value="chineserenminbi(offshore)">Chinese Renminbi(Offshore)</option><option value="uaedirham">UAE Dirham</option><option value="turkishlira">Turkish Lira</option><option value="japaneseyen">Japanese Yen</option><option value="thaibaht">Thai Baht</option><option value="indonesianrupiah">Indonesian Rupiah</option><option value="russianruble">Russian Ruble</option><option value="mexicanpeso">Mexican Peso</option><option value="bruneidollar">Brunei Dollar</option><option value="southafricanrand">South African Rand</option><option value="chineserenminbi">Chinese Renminbi</option><option value="indianrupee">Indian Rupee</option><option value="koreanwon">Korean Won</option><option value="srilankarupee">Sri Lanka Rupee</option><option value="philippinepeso">Philippine Peso</option><option value="newtaiwandollar">New Taiwan Dollar</option><option value="saudirial">Saudi Rial</option></select>
+</div>
+</div>
+<div class="table-wrapper mBot-24 table-primary-wrapper">
+<h2 class="h2-big mBot-16">Main Currency Rates</h2>
+<table class="tbl-primary mBot-16 tbl-fe-primary">
+<colgroup>
+<col width="30%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+</colgroup>
+<thead>
+<tr class="table-subHeader">
+<th colspan="3" class="align-right">
+                                        &nbsp;
+                                    </th><th>
+                                        &nbsp;
+                                    </th><th colspan="3" class="align-right">For amount less than S$50,000</th><th colspan="3" class="align-right">For amounts S$50,000 to S$200,000</th>
 </tr>
-<tr class="desktop-no-border-red subheader">
-<th class="column-1 first no-before mobile-header">
-<h3>Currency</h3>
-</th><th class="column-2 mobile-no-border-red">
-<h3>Unit</h3>
-</th><th class="column-3">
-<h3 class="align-right">Selling TT/OD</h3>
-</th><th class="column-4">
-<h3 class="align-right">Buying TT</h3>
-</th><th class="column-5">
-<h3 class="align-right">Buying OD</h3>
-</th><th class="column-6">
-<h3 class="align-right">Selling TT/OD</h3>
-</th><th class="column-7">
-<h3 class="align-right">Buying TT</h3>
-</th><th class="column-8 last-coulmn last">
-<h3 class="align-right">Buying OD</h3>
-</th>
+<tr>
+<th colspan="3" class="align-bottom pLeft-0">Currency</th><th data-after-text="For amount less than $50,000" data-before-text="Unit" class="align-bottom align-right ">Unit</th><th class="align-right ">Selling TT/OD</th><th class="align-right ">Buying TT</th><th class="align-right ">Buying OD</th><th data-before-text="For amount less than $50,000" class="align-right ">Selling TT/OD</th><th class="align-right ">Buying TT</th><th class="align-right ">Buying OD</th>
 </tr>
 </thead>
 <tbody>
-<tr class="even filter_currency filter_US_Dollar">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/usdollar_flg.gif" class="country_flag"><span>US Dollar</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">1.4204</td><td class="column-4 odd" data-label="Buying TT">1.4024</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">1.3964</th><td class="column-6" data-label="Selling TT/OD">1.4194</td><td class="column-7 odd" data-label="Buying TT">1.4034</td><td class="column-8 last-coulmn last" data-label="Buying OD">1.3977</td>
+<tr name="usdollar">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>US Dollar</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/usdollar_flg.png" alt="usdollar"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">1.3737</td><td data-before-text="Buying TT" class="column4 align-right">1.3556</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">1.3496</td><td data-before-text="Selling TT/OD" class="column6 align-right">1.3727</td><td data-before-text="Buying TT" class="column7 align-right">1.3566</td><td data-before-text="Buying OD" class="column8 align-right">1.3509</td>
 </tr>
-<tr class="odd filter_currency filter_Euro">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/euro_flg.gif" class="country_flag"><span>Euro</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">1.5123</td><td class="column-4 odd" data-label="Buying TT">1.4784</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">1.4734</th><td class="column-6" data-label="Selling TT/OD">1.5117</td><td class="column-7 odd" data-label="Buying TT">1.4790</td><td class="column-8 last-coulmn last" data-label="Buying OD">1.4742</td>
+<tr name="euro">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Euro</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/euro_flg.png" alt="euro"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">1.5957</td><td data-before-text="Buying TT" class="column4 align-right">1.5615</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">1.5565</td><td data-before-text="Selling TT/OD" class="column6 align-right">1.5955</td><td data-before-text="Buying TT" class="column7 align-right">1.5617</td><td data-before-text="Buying OD" class="column8 align-right">1.5573</td>
 </tr>
-<tr class="even filter_currency filter_Sterling_Pound">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/sterlingpound_flg.gif" class="country_flag"><span>Sterling Pound</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">2.1434</td><td class="column-4 odd" data-label="Buying TT">2.1055</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">2.0945</th><td class="column-6" data-label="Selling TT/OD">2.1414</td><td class="column-7 odd" data-label="Buying TT">2.1075</td><td class="column-8 last-coulmn last" data-label="Buying OD">2.0370</td>
+<tr name="sterlingpound">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Sterling Pound</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/sterlingpound_flg.png" alt="sterlingpound"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">1.8128</td><td data-before-text="Buying TT" class="column4 align-right">1.7756</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">1.7651</td><td data-before-text="Selling TT/OD" class="column6 align-right">1.8112</td><td data-before-text="Buying TT" class="column7 align-right">1.7772</td><td data-before-text="Buying OD" class="column8 align-right">1.7676</td>
 </tr>
-<tr class="odd filter_currency filter_Australian_Dollar">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/australiandollar_flg.gif" class="country_flag"><span>Australian Dollar</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">1.0287</td><td class="column-4 odd" data-label="Buying TT">1.0060</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">1.0000</th><td class="column-6" data-label="Selling TT/OD">1.0279</td><td class="column-7 odd" data-label="Buying TT">1.0068</td><td class="column-8 last-coulmn last" data-label="Buying OD">1.0017</td>
+<tr name="australiandollar">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Australian Dollar</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/australiandollar_flg.png" alt="australiandollar"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">1.0572</td><td data-before-text="Buying TT" class="column4 align-right">1.0325</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">1.0275</td><td data-before-text="Selling TT/OD" class="column6 align-right">1.0554</td><td data-before-text="Buying TT" class="column7 align-right">1.0343</td><td data-before-text="Buying OD" class="column8 align-right">1.0292</td>
 </tr>
-<tr class="even filter_currency filter_Canadian_Dollar">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/canadiandollar_flg.gif" class="country_flag"><span>Canadian Dollar</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">1.0692</td><td class="column-4 odd" data-label="Buying TT">1.0478</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">1.0418</th><td class="column-6" data-label="Selling TT/OD">1.0680</td><td class="column-7 odd" data-label="Buying TT">1.0490</td><td class="column-8 last-coulmn last" data-label="Buying OD">1.0439</td>
+<tr name="canadiandollar">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Canadian Dollar</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/canadiandollar_flg.png" alt="canadiandollar"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">1.0804</td><td data-before-text="Buying TT" class="column4 align-right">1.0587</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">1.0526</td><td data-before-text="Selling TT/OD" class="column6 align-right">1.0802</td><td data-before-text="Buying TT" class="column7 align-right">1.0589</td><td data-before-text="Buying OD" class="column8 align-right">1.0547</td>
 </tr>
-<tr class="odd filter_currency filter_New_Zealand_Dollar">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/newzealanddollar_flg.gif" class="country_flag"><span>New Zealand Dollar</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">0.9348</td><td class="column-4 odd" data-label="Buying TT">0.9119</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">0.9049</th><td class="column-6" data-label="Selling TT/OD">0.9336</td><td class="column-7 odd" data-label="Buying TT">0.9131</td><td class="column-8 last-coulmn last" data-label="Buying OD">0.9080</td>
+<tr name="newzealanddollar">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>New Zealand Dollar</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/newzealanddollar_flg.png" alt="newzealanddollar"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.9569</td><td data-before-text="Buying TT" class="column4 align-right">0.9325</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">0.9263</td><td data-before-text="Selling TT/OD" class="column6 align-right">0.9557</td><td data-before-text="Buying TT" class="column7 align-right">0.9337</td><td data-before-text="Buying OD" class="column8 align-right">0.9294</td>
 </tr>
-<tr class="even filter_currency filter_Danish_Kroner">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/danishkroner_flg.gif" class="country_flag"><span>Danish Kroner</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">0.2029</td><td class="column-4 odd" data-label="Buying TT">0.1977</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">0.1947</th><td class="column-6" data-label="Selling TT/OD">0.2024</td><td class="column-7 odd" data-label="Buying TT">0.1982</td><td class="column-8 last-coulmn last" data-label="Buying OD">0.1956</td>
+<tr name="danishkroner">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Danish Kroner</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/danishkroner_flg.png" alt="danishkroner"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.2153</td><td data-before-text="Buying TT" class="column4 align-right">0.2090</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">0.2064</td><td data-before-text="Selling TT/OD" class="column6 align-right">0.2148</td><td data-before-text="Buying TT" class="column7 align-right">0.2095</td><td data-before-text="Buying OD" class="column8 align-right">0.2073</td>
 </tr>
-<tr class="odd filter_currency filter_Hong_Kong_Dollar">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/hongkongdollar_flg.gif" class="country_flag"><span>Hong Kong Dollar</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">0.1841</td><td class="column-4 odd" data-label="Buying TT">0.1801</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">0.1786</th><td class="column-6" data-label="Selling TT/OD">0.1838</td><td class="column-7 odd" data-label="Buying TT">0.1804</td><td class="column-8 last-coulmn last" data-label="Buying OD">0.1791</td>
+<tr name="hongkongdollar">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Hong Kong Dollar</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/hongkongdollar_flg.png" alt="hongkongdollar"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.1769</td><td data-before-text="Buying TT" class="column4 align-right">0.1729</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">0.1714</td><td data-before-text="Selling TT/OD" class="column6 align-right">0.1766</td><td data-before-text="Buying TT" class="column7 align-right">0.1732</td><td data-before-text="Buying OD" class="column8 align-right">0.1719</td>
 </tr>
-<tr class="even filter_currency filter_Norwegian_Kroner">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/norwegiankroner_flg.gif" class="country_flag"><span>Norwegian Kroner</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">0.1645</td><td class="column-4 odd" data-label="Buying TT">0.1604</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">0.1574</th><td class="column-6" data-label="Selling TT/OD">0.1641</td><td class="column-7 odd" data-label="Buying TT">0.1608</td><td class="column-8 last-coulmn last" data-label="Buying OD">0.1582</td>
+<tr name="norwegiankroner">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Norwegian Kroner</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/norwegiankroner_flg.png" alt="norwegiankroner"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.1696</td><td data-before-text="Buying TT" class="column4 align-right">0.1649</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">0.1621</td><td data-before-text="Selling TT/OD" class="column6 align-right">0.1692</td><td data-before-text="Buying TT" class="column7 align-right">0.1653</td><td data-before-text="Buying OD" class="column8 align-right">0.1629</td>
 </tr>
-<tr class="odd filter_currency filter_Swedish_Kroner">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/swedishkroner_flg.gif" class="country_flag"><span>Swedish Kroner</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">0.1643</td><td class="column-4 odd" data-label="Buying TT">0.1594</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">0.1564</th><td class="column-6" data-label="Selling TT/OD">0.1636</td><td class="column-7 odd" data-label="Buying TT">0.1601</td><td class="column-8 last-coulmn last" data-label="Buying OD">0.1575</td>
+<tr name="swedishkroner">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Swedish Kroner</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/swedishkroner_flg.png" alt="swedishkroner"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.1648</td><td data-before-text="Buying TT" class="column4 align-right">0.1592</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">0.1565</td><td data-before-text="Selling TT/OD" class="column6 align-right">0.1641</td><td data-before-text="Buying TT" class="column7 align-right">0.1599</td><td data-before-text="Buying OD" class="column8 align-right">0.1576</td>
 </tr>
-<tr class="even filter_currency filter_Swiss_Franc">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/swissfranc_flg.gif" class="country_flag"><span>Swiss Franc</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">1.3836</td><td class="column-4 odd" data-label="Buying TT">1.3555</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">1.3515</th><td class="column-6" data-label="Selling TT/OD">1.3823</td><td class="column-7 odd" data-label="Buying TT">1.3568</td><td class="column-8 last-coulmn last" data-label="Buying OD">1.3530</td>
+<tr name="swissfranc">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Swiss Franc</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/swissfranc_flg.png" alt="swissfranc"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">1.3792</td><td data-before-text="Buying TT" class="column4 align-right">1.3476</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">1.3458</td><td data-before-text="Selling TT/OD" class="column6 align-right">1.3779</td><td data-before-text="Buying TT" class="column7 align-right">1.3489</td><td data-before-text="Buying OD" class="column8 align-right">1.3473</td>
 </tr>
-<tr class="odd filter_currency filter_Chinese_Renminbi_Offshore_">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/chineserenminbi(offshore)_flg.gif" class="country_flag"><span>Chinese Renminbi(Offshore)</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">0.2209</td><td class="column-4 odd" data-label="Buying TT">0.2163</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">0.0000</th><td class="column-6" data-label="Selling TT/OD">0.2204</td><td class="column-7 odd" data-label="Buying TT">0.2168</td><td class="column-8 last-coulmn last" data-label="Buying OD">0.0000</td>
+<tr name="chineserenminbi(offshore)">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Chinese Renminbi(Offshore)</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/chineserenminbi(offshore)_flg.png" alt="chineserenminbi(offshore)"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.2083</td><td data-before-text="Buying TT" class="column4 align-right">0.2030</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">0.0000</td><td data-before-text="Selling TT/OD" class="column6 align-right">0.2078</td><td data-before-text="Buying TT" class="column7 align-right">0.2035</td><td data-before-text="Buying OD" class="column8 align-right">0.0000</td>
 </tr>
-<tr class="even filter_currency filter_UAE_Dirham">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/uaedirham_flg.gif" class="country_flag"><span>UAE Dirham</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">0.3921</td><td class="column-4 odd" data-label="Buying TT">0.3764</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">0.0000</th><td class="column-6" data-label="Selling TT/OD">0.3921</td><td class="column-7 odd" data-label="Buying TT">0.3764</td><td class="column-8 last-coulmn last" data-label="Buying OD">0.0000</td>
+<tr name="uaedirham">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>UAE Dirham</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/uaedirham_flg.png" alt="uaedirham"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.3816</td><td data-before-text="Buying TT" class="column4 align-right">0.3615</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">0.0000</td><td data-before-text="Selling TT/OD" class="column6 align-right">0.3798</td><td data-before-text="Buying TT" class="column7 align-right">0.3633</td><td data-before-text="Buying OD" class="column8 align-right">0.0000</td>
 </tr>
-<tr class="odd filter_currency filter_Turkish_Lira">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/turkishlira_flg.gif" class="country_flag"><span>Turkish Lira</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">1</th><td class="column-3" data-label="Selling TT/OD">0.0000</td><td class="column-4 odd" data-label="Buying TT">0.0000</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">0.0000</th><td class="column-6" data-label="Selling TT/OD">0.0000</td><td class="column-7 odd" data-label="Buying TT">0.0000</td><td class="column-8 last-coulmn last" data-label="Buying OD">0.0000</td>
+<tr name="turkishlira">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Turkish Lira</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/turkishlira_flg.png" alt="turkishlira"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.0000</td><td data-before-text="Buying TT" class="column4 align-right">0.0000</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">0.0000</td><td data-before-text="Selling TT/OD" class="column6 align-right">0.0000</td><td data-before-text="Buying TT" class="column7 align-right">0.0000</td><td data-before-text="Buying OD" class="column8 align-right">0.0000</td>
 </tr>
-<tr class="even filter_currency filter_Japanese_Yen">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/japaneseyen_flg.gif" class="country_flag"><span>Japanese Yen</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">100</th><td class="column-3" data-label="Selling TT/OD">1.1615</td><td class="column-4 odd" data-label="Buying TT">1.1410</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">1.1380</th><td class="column-6" data-label="Selling TT/OD">1.1603</td><td class="column-7 odd" data-label="Buying TT">1.1422</td><td class="column-8 last-coulmn last" data-label="Buying OD">1.1396</td>
+<tr name="japaneseyen">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Japanese Yen</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/japaneseyen_flg.png" alt="japaneseyen"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">100</td><td data-before-text="Selling TT/OD" class="column3 align-right">1.2084</td><td data-before-text="Buying TT" class="column4 align-right">1.1801</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">1.1794</td><td data-before-text="Selling TT/OD" class="column6 align-right">1.2072</td><td data-before-text="Buying TT" class="column7 align-right">1.1813</td><td data-before-text="Buying OD" class="column8 align-right">1.1810</td>
 </tr>
-<tr class="odd filter_currency filter_Thai_Baht">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/thaibaht_flg.gif" class="country_flag"><span>Thai Baht</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">100</th><td class="column-3" data-label="Selling TT/OD">3.9924</td><td class="column-4 odd" data-label="Buying TT">3.8839</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">3.8039</th><td class="column-6" data-label="Selling TT/OD">3.9874</td><td class="column-7 odd" data-label="Buying TT">3.8889</td><td class="column-8 last-coulmn last" data-label="Buying OD">3.8209</td>
+<tr name="thaibaht">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Thai Baht</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/thaibaht_flg.png" alt="thaibaht"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">100</td><td data-before-text="Selling TT/OD" class="column3 align-right">4.1781</td><td data-before-text="Buying TT" class="column4 align-right">4.0526</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">3.9782</td><td data-before-text="Selling TT/OD" class="column6 align-right">4.1675</td><td data-before-text="Buying TT" class="column7 align-right">4.0632</td><td data-before-text="Buying OD" class="column8 align-right">3.9952</td>
 </tr>
-<tr class="even filter_currency filter_Indonesian_Rupiah">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/indonesianrupiah_flg.gif" class="country_flag"><span>Indonesian Rupiah</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">100</th><td class="column-3" data-label="Selling TT/OD">0.0104</td><td class="column-4 odd" data-label="Buying TT">0.0000</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">0.0000</th><td class="column-6" data-label="Selling TT/OD">0.0000</td><td class="column-7 odd" data-label="Buying TT">0.0000</td><td class="column-8 last-coulmn last" data-label="Buying OD">0.0000</td>
+<tr name="indonesianrupiah">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Indonesian Rupiah</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/indonesianrupiah_flg.png" alt="indonesianrupiah"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">100</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.0103</td><td data-before-text="Buying TT" class="column4 align-right">0.0000</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">0.0000</td><td data-before-text="Selling TT/OD" class="column6 align-right">0.0000</td><td data-before-text="Buying TT" class="column7 align-right">0.0000</td><td data-before-text="Buying OD" class="column8 align-right">0.0000</td>
 </tr>
-<tr class="odd filter_currency filter_Russian_Ruble">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/russianruble_flg.gif" class="country_flag"><span>Russian Ruble</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">100</th><td class="column-3" data-label="Selling TT/OD">0.0000</td><td class="column-4 odd" data-label="Buying TT">0.0000</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">0.0000</th><td class="column-6" data-label="Selling TT/OD">0.0000</td><td class="column-7 odd" data-label="Buying TT">0.0000</td><td class="column-8 last-coulmn last" data-label="Buying OD">0.0000</td>
+<tr name="russianruble">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Russian Ruble</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/russianruble_flg.png" alt="russianruble"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">100</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.0000</td><td data-before-text="Buying TT" class="column4 align-right">0.0000</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">0.0000</td><td data-before-text="Selling TT/OD" class="column6 align-right">0.0000</td><td data-before-text="Buying TT" class="column7 align-right">0.0000</td><td data-before-text="Buying OD" class="column8 align-right">0.0000</td>
 </tr>
-<tr class="even filter_currency filter_Mexican_Peso">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/mexicanpeso_flg.gif" class="country_flag"><span>Mexican Peso</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts less than S$50,000">100</th><td class="column-3" data-label="Selling TT/OD">0.0000</td><td class="column-4 odd" data-label="Buying TT">0.0000</td><th class="column-5 mobile-no-border-red" data-label="Buying OD" data-group-label="For amounts S$50,000 to S$200,000">0.0000</th><td class="column-6" data-label="Selling TT/OD">0.0000</td><td class="column-7 odd" data-label="Buying TT">0.0000</td><td class="column-8 last-coulmn last" data-label="Buying OD">0.0000</td>
+<tr name="mexicanpeso">
+<td data-before-text="Currency" colspan="3" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Mexican Peso</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/mexicanpeso_flg.png" alt="mexicanpeso"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">100</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.0000</td><td data-before-text="Buying TT" class="column4 align-right">0.0000</td><td data-after-text="For amounts S$50,000 to S$200,000" data-before-text="Buying OD" class="column5 align-right">0.0000</td><td data-before-text="Selling TT/OD" class="column6 align-right">0.0000</td><td data-before-text="Buying TT" class="column7 align-right">0.0000</td><td data-before-text="Buying OD" class="column8 align-right">0.0000</td>
 </tr>
 </tbody>
 </table>
-<div class="notes">
-<b class="disclaimerHeading">Notes:</b>
-<ul class="disclaimer paddRight">
+<h4 class="mBot-24 mTop-0 eff-note">Effective Date: 07/11/2017  Last Updated: 5:59pm</h4>
+<div class="table-notes">
+<h3 class="mBot-24">Notes :</h3>
+<ul>
 <li>Telegraphic Transfer ("TT") rates and On Demand ("OD") are rates available involving foreign exchange.</li>
 <li>The TT rate is applicable to funds that has already been cleared with the Bank while the OD rate is applied otherwise.</li>
 <li>The buying rate is used when foreign currency is sold to the Bank and the selling rate is used when foreign currency is bought from the Bank.</li>
 </ul>
 </div>
 </div>
-</div>
-<div class="filterHld otherCurrency rates-table">
-<div class="fxtitle">
-<h2>Other Currency Types</h2>
-<p class="padding0 subtle span12">
-                  Effective Date:
-                 
-
-                  27/11/2015
-                   
-                  Last Updated:
-                  
-                   7:03pm</p>
-</div>
-<table class="table table-eight-colm forex-rates">
-<thead class="mobile-hidden">
-<tr class="">
-<th>
-                           &nbsp;
-                        </th><th>
-                           &nbsp;
-                        </th><th class="align-right" colspan="4">
-<h3>For amounts less than S$200,000</h3>
-</th>
+<br>
+<span id="section2" class="anchor"></span>
+<div class="table-wrapper mBot-24 table-other-wrapper">
+<h2 class="h2-big mBot-16">Other Currency Rates</h2>
+<table class="tbl-primary mBot-16 tbl-fe-other">
+<colgroup>
+<col width="30%">
+<col width="10%">
+<col width="20%">
+<col width="20%">
+<col width="20%">
+</colgroup>
+<thead>
+<tr class="table-subHeader">
+<th colspan="3" class="align-right">
+                                                &nbsp;
+                                            </th><th colspan="2" class="align-right">For amount less than S$50,000</th>
 </tr>
-<tr class="desktop-no-border-red subheader">
-<th class="column-1 first no-before mobile-header">
-<h3>Currency</h3>
-</th><th class="column-2 mobile-no-border-red">
-<h3>Unit</h3>
-</th><th class="column-3">
-<h3 class="align-right">Selling TT/OD</h3>
-</th><th class="column-4 ">
-<h3 class="align-right">Buying TT</h3>
-</th><th class="column-5 last last-coulmn">
-<h3 class="align-right">Buying OD</h3>
-</th>
+<tr>
+<th class="align-bottom pLeft-0">Currency</th><th data-after-text="For amount less than $50,000" data-before-text="Unit" class="align-bottom align-right ">Unit</th><th class="align-right ">Selling TT/OD</th><th class="align-right ">Buying TT</th><th class="align-right ">Buying OD</th>
 </tr>
 </thead>
 <tbody>
-<tr class="even filter_currency filter_Brunei_Dollar">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/bruneidollar_flg.gif" class="country_flag"><span>Brunei Dollar</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts up to S$200,000">1</th><td class="column-3" data-label="Selling TT/OD">1.0000</td><td class="column-4 odd" data-label="Buying TT">1.0000</td><td class="column-5 last last-coulmn" data-label="Buying OD">0.9950</td>
+<tr name="bruneidollar" class="other">
+<td data-before-text="Currency" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Brunei Dollar</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/bruneidollar_flg.png" alt="bruneidollar"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">1.0000</td><td data-before-text="Buying TT" class="column4 align-right">1.0000</td><td data-before-text="Buying OD" class="column5 align-right">0.9926</td>
 </tr>
-<tr class="odd filter_currency filter_South_African_Rand">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/southafricanrand_flg.gif" class="country_flag"><span>South African Rand</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts up to S$200,000">1</th><td class="column-3" data-label="Selling TT/OD">0.0999</td><td class="column-4 odd" data-label="Buying TT">0.0969</td><td class="column-5 last last-coulmn" data-label="Buying OD">0.0000</td>
+<tr name="southafricanrand" class="other">
+<td data-before-text="Currency" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>South African Rand</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/southafricanrand_flg.png" alt="southafricanrand"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.0978</td><td data-before-text="Buying TT" class="column4 align-right">0.0944</td><td data-before-text="Buying OD" class="column5 align-right">0.0000</td>
 </tr>
-<tr class="even filter_currency filter_Chinese_Renminbi">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/chineserenminbi_flg.gif" class="country_flag"><span>Chinese Renminbi</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts up to S$200,000">1</th><td class="column-3" data-label="Selling TT/OD">0.0000</td><td class="column-4 odd" data-label="Buying TT">0.0000</td><td class="column-5 last last-coulmn" data-label="Buying OD">0.0000</td>
+<tr name="chineserenminbi" class="other">
+<td data-before-text="Currency" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Chinese Renminbi</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/chineserenminbi_flg.png" alt="chineserenminbi"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">1</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.0000</td><td data-before-text="Buying TT" class="column4 align-right">0.0000</td><td data-before-text="Buying OD" class="column5 align-right">0.0000</td>
 </tr>
-<tr class="odd filter_currency filter_Indian_Rupee">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/indianrupee_flg.gif" class="country_flag"><span>Indian Rupee</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts up to S$200,000">100</th><td class="column-3" data-label="Selling TT/OD">2.1346</td><td class="column-4 odd" data-label="Buying TT">0.0000</td><td class="column-5 last last-coulmn" data-label="Buying OD">0.0000</td>
+<tr name="indianrupee" class="other">
+<td data-before-text="Currency" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Indian Rupee</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/indianrupee_flg.png" alt="indianrupee"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">100</td><td data-before-text="Selling TT/OD" class="column3 align-right">2.1170</td><td data-before-text="Buying TT" class="column4 align-right">0.0000</td><td data-before-text="Buying OD" class="column5 align-right">0.0000</td>
 </tr>
-<tr class="even filter_currency filter_Korean_Won">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/koreanwon_flg.gif" class="country_flag"><span>Korean Won</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts up to S$200,000">100</th><td class="column-3" data-label="Selling TT/OD">0.1240</td><td class="column-4 odd" data-label="Buying TT">0.0000</td><td class="column-5 last last-coulmn" data-label="Buying OD">0.0000</td>
+<tr name="koreanwon" class="other">
+<td data-before-text="Currency" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Korean Won</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/koreanwon_flg.png" alt="koreanwon"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">100</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.1247</td><td data-before-text="Buying TT" class="column4 align-right">0.0000</td><td data-before-text="Buying OD" class="column5 align-right">0.0000</td>
 </tr>
-<tr class="odd filter_currency filter_Sri_Lanka_Rupee">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/srilankarupee_flg.gif" class="country_flag"><span>Sri Lanka Rupee</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts up to S$200,000">100</th><td class="column-3" data-label="Selling TT/OD">1.0020</td><td class="column-4 odd" data-label="Buying TT">0.0000</td><td class="column-5 last last-coulmn" data-label="Buying OD">0.0000</td>
+<tr name="srilankarupee" class="other">
+<td data-before-text="Currency" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Sri Lanka Rupee</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/srilankarupee_flg.png" alt="srilankarupee"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">100</td><td data-before-text="Selling TT/OD" class="column3 align-right">0.9071</td><td data-before-text="Buying TT" class="column4 align-right">0.0000</td><td data-before-text="Buying OD" class="column5 align-right">0.0000</td>
 </tr>
-<tr class="even filter_currency filter_Philippine_Peso">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/philippinepeso_flg.gif" class="country_flag"><span>Philippine Peso</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts up to S$200,000">100</th><td class="column-3" data-label="Selling TT/OD">3.0183</td><td class="column-4 odd" data-label="Buying TT">0.0000</td><td class="column-5 last last-coulmn" data-label="Buying OD">0.0000</td>
+<tr name="philippinepeso" class="other">
+<td data-before-text="Currency" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Philippine Peso</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/philippinepeso_flg.png" alt="philippinepeso"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">100</td><td data-before-text="Selling TT/OD" class="column3 align-right">2.6805</td><td data-before-text="Buying TT" class="column4 align-right">0.0000</td><td data-before-text="Buying OD" class="column5 align-right">0.0000</td>
 </tr>
-<tr class="odd filter_currency filter_New_Taiwan_Dollar">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/newtaiwandollar_flg.gif" class="country_flag"><span>New Taiwan Dollar</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts up to S$200,000">100</th><td class="column-3" data-label="Selling TT/OD">4.3721</td><td class="column-4 odd" data-label="Buying TT">0.0000</td><td class="column-5 last last-coulmn" data-label="Buying OD">0.0000</td>
+<tr name="newtaiwandollar" class="other">
+<td data-before-text="Currency" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>New Taiwan Dollar</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/newtaiwandollar_flg.png" alt="newtaiwandollar"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">100</td><td data-before-text="Selling TT/OD" class="column3 align-right">4.5820</td><td data-before-text="Buying TT" class="column4 align-right">0.0000</td><td data-before-text="Buying OD" class="column5 align-right">0.0000</td>
 </tr>
-<tr class="even filter_currency filter_Saudi_Rial">
-<th class="column-1 first no-before mobile-header"><img src="/iwov-resources/images/rates/saudirial_flg.gif" class="country_flag"><span>Saudi Rial</span></th><th class="column-2 mobile-no-border-red" data-label="Unit" data-group-label="For amounts up to S$200,000">100</th><td class="column-3" data-label="Selling TT/OD">37.8711</td><td class="column-4 odd" data-label="Buying TT">0.0000</td><td class="column-5 last last-coulmn" data-label="Buying OD">0.0000</td>
+<tr name="saudirial" class="other">
+<td data-before-text="Currency" class="column1 pLeft-0 ">
+<div class="clearfix rateHeadContent-wrapper">
+<span class="text-wrapper dscTxt"><span>Saudi Rial</span></span><span class="img-wrapper"><img width="16px" height="16px" src="/iwov-resources/flp/images/rates/saudirial_flg.png" alt="saudirial"></span>
+</div>
+</td><td data-after-text="For amount less than $50,000" data-before-text="Unit" class="column2 align-right fx-unit">100</td><td data-before-text="Selling TT/OD" class="column3 align-right">36.7619</td><td data-before-text="Buying TT" class="column4 align-right">0.0000</td><td data-before-text="Buying OD" class="column5 align-right">0.0000</td>
 </tr>
 </tbody>
 </table>
-<div class="notes">
-<b class="disclaimerHeading boldFont">Notes:</b>
-<ul class="disclaimer marginBot">
+<h4 class="mBot-24 mTop-0 eff-note">Effective Date: 07/11/2017  Last Updated: 5:59pm</h4>
+<div class="table-notes">
+<h3 class="mBot-24">Notes :</h3>
+<ul>
 <li>Rates quoted are subject to change without prior notice.</li>
 <li>Rates information is also available toll free on 1800-111 1111.</li>
 </ul>
 </div>
 </div>
 </div>
+<div class="clearfix"></div>
 </div>
-</div><div class=" span4"><div data-interval="0000" class="GIT-container hidden-phone staticGIT">
-<div class="col4-module get-in-touch">
-<div class="git-inner-container row">
-<ul class="unstyled">
-<li class="clearfix first">
-<p class="span8">
-<a target="_self" href="https://internet-banking.dbs.com.sg/posb">Login to iBanking</a>
-</p>
-<span class="pull-right"><img src="/iwov-resources/images/get-in-touch-social-media/git-login.png"></span>
-</li>
-<li class="clearfix">
-<p class="span8">
-<a target="_self" href="/personal/contact-us.page">Contact Us</a>
-</p>
-<span class="pull-right"><img src="/iwov-resources/images/get-in-touch-social-media/git-contactus.png"></span>
-</li>
-<li class="clearfix">
-<p class="span8">
-<a target="_blank" href="/personal/locator.page">Branches and ATMs</a>
-</p>
-<span class="pull-right"><img src="/iwov-resources/images/get-in-touch-social-media/git-locateus.png"></span>
-</li>
-<li class="clearfix">
-<p class="span8">
-<a target="_self" href="/personal/rates-online/foreign-currency-foreign-exchange.page">Foreign Exchange Rates</a>
-</p>
-<span class="pull-right"><img src="/iwov-resources/images/get-in-touch-social-media/git-rates.png"></span>
-</li>
-<li class="clearfix">
-<div class="span8">
-<a class="btn btn-small btn-icon" href="https://www.facebook.com/POSB" target="_blank"><img src="/iwov-resources/images/get-in-touch-social-media/social-icons-facebook.png"></a><a class="btn btn-small btn-icon" href="https://twitter.com/posb" target="_blank"><img src="/iwov-resources/images/get-in-touch-social-media/social-icons-twitter.png"></a><a class="btn btn-small btn-icon" href="https://www.youtube.com/user/POSBSingapore" target="_blank"><img src="/iwov-resources/images/get-in-touch-social-media/social-icons-youtube.png"></a>
+</section>
 </div>
-<span class="pull-right"><img src="/iwov-resources/images/get-in-touch-social-media/git-social.png"></span>
+<!--component-1489849593885-->
+        
+            <script type="text/javascript">
+            fiveStarAjaxURL = "/personal/rates-online/foreign-currency-foreign-exchange/1489849593885.ajax";
+            </script>
+				
+        <div style="display:none" id="ratingHolder">
+<div class="article-star-head">
+<h4 class="h3-xmedium txt-green hide mobMBot-16" id="thanksMsg">Thank you! We appreciate your feedback.</h4>
+<h4 class="h3-xmedium mobMBot-8" id="rateMsg">How would you rate this page?</h4>
+<div class="star-content " id="rateStar">
+<a star-rate="1" href="javascript:void(0);"><i class="icon ico-star"></i></a><a star-rate="2" href="javascript:void(0);"><i class="icon ico-star"></i></a><a star-rate="3" href="javascript:void(0);"><i class="icon ico-star"></i></a><a star-rate="4" href="javascript:void(0);"><i class="icon ico-star"></i></a><a star-rate="5" href="javascript:void(0);"><i class="icon ico-star"></i></a>
+</div>
+</div>
+<div class="clearfix"></div>
+<div class="article-star-box">
+<p class="mTop-8">What issues did you face today?</p>
+<div data-question="required" class="checkbox-group roundedgray mBot-16">
+<div class="checkbox">
+<input value="Content" id="starSample1" type="checkbox" name="chQuestion"><label for="starSample1"><span></span>
+<p>Information is not useful</p>
+</label>
+</div>
+<div class="checkbox">
+<input value="Design" id="starSample2" type="checkbox" name="chQuestion"><label for="starSample2"><span></span>
+<p>Design/layout is poor</p>
+</label>
+</div>
+<div class="checkbox">
+<input value="Navigation" id="starSample3" type="checkbox" name="chQuestion"><label for="starSample3"><span></span>
+<p>Page is hard to find</p>
+</label>
+</div>
+<div class="checkbox">
+<input value="Language" id="starSample4" type="checkbox" name="chQuestion"><label for="starSample4"><span></span>
+<p>Language is hard to understand</p>
+</label>
+</div>
+<div class="checkbox">
+<input value="Technical" id="starSample5" type="checkbox" name="chQuestion"><label for="starSample5"><span></span>
+<p>Technical difficulties</p>
+</label>
+</div>
+<div class="checkbox">
+<input value="Other" id="starSample6" type="checkbox" name="chQuestion"><label for="starSample6"><span></span>
+<p>Other</p>
+</label>
+</div>
+</div>
+<div class="article-textarea">
+<textarea maxlength="500" data-placeholder="What issues did you face today?"></textarea>
+<p class="pull-right" id="rateMaxLength">500</p>
+<span class="pull-left txt-error hide">Please enter only a-z,A-Z,0-9,@!&gt;$&amp;-()',./</span>
+</div>
+<div class="clearfix"></div>
+<div class="action-group">
+<button disabled class="btn btn-primary" id="btnRate">Submit</button>
+</div>
+</div>
+</div><script type="text/javascript">
+            $(function(){
+            if($('.article-star').length > 0){
+            $('.article-star').append($('#ratingHolder').html())
+            $('#ratingHolder').remove();
+            $.fiveStarInit(); //initialize fivestar logic
+            }
+            });
+        </script>
+<footer class="footer footer-gray" id="primaryFooter">
+<div class="footer-content">
+<div class="col-md-3 col-sm-3 col-xs-12">
+<h4>Useful Links</h4>
+<ul class="clearfix">
+<li class="long-txt">
+<a href="https://www.dbs.com/investor/index.html?pid=sg-posb-pweb-footer-default-investor-relations-textlink" target="_blank">Investor Relations</a>
+</li>
+<li class="last">
+<a href="/personal/deposits/terms-conditions-electronic-services.page?pid=sg-posb-pweb-footer-default-term-conditions-governing-electronic-services-textlink" target="_self">Terms & Conditions Governing Electronic Services</a>
+</li>
+</ul>
+</div>
+<div class="col-md-3 col-sm-3 col-xs-12">
+<h4>Others</h4>
+<ul class="clearfix">
+<li class="long-txt">
+<a href="/personal/forms/default.page?pid=sg-posb-pweb-footer-default-forms-textlink" target="_self">Forms</a>
+</li>
+<li class="long-txt">
+<a href="/personal/rates-online/default.page?pid=sg-posb-pweb-footer-default-rates-textlink" target="_self">Rates</a>
+</li>
+<li class="long-txt">
+<a href="/personal/calculators/default.page?pid=sg-posb-pweb-footer-default-tools-textlink" target="_self">Tools</a>
+</li>
+<li class="long-txt">
+<a href="http://www.dbs.com.sg/personal/deposits/maintenance-schedule.page?pid=sg-posb-pweb-footer-default-notices-maintenance-textlink" target="_blank">Notices & Maintenance</a>
+</li>
+<li class="long-txt">
+<a href="http://www.dbs.com.sg/personal/deposits/security-and-you/default.page?pid=sg-posb-pweb-footer-default-security-you-textlink" target="_blank">Security & You</a>
+</li>
+<li class="last">
+<a href="/personal/deposits/bank-with-ease/update-particulars?pid=sg-posb-pweb-footer-default-update-particulars-textlink" target="_self">Update Personal Particulars</a>
+</li>
+</ul>
+</div>
+<div class="col-md-3 col-sm-3 col-xs-12">
+<h4>Contact</h4>
+<ul class="clearfix">
+<li><p style="font-size: 14px;"><strong><a href="/personal/support/home.html?pid=sg-posb-pweb-footer-default-help-support-textlink" target="_blank">Get instant answers</a></strong></p>
+<p>Phone - <a style="font-size: 14px;" href="tel:18001111111">1800 111 1111</a></p></li>
+</ul>
+</div>
+<div class="col-md-3 col-sm-3 col-xs-12 pull-right">
+<h4>Country</h4>
+<div class="country-box mTop-16">
+<div class="row hidden-sm hidden-md hidden-lg">
+<div class="col-xs-6">
+<a aria-controls="countryList" aria-expanded="false" href="#countryList" data-toggle="collapse" role="button" class="hidden-sm hidden-md hidden-lg" id="btnCountryList">Singapore<span class="icon ico-arrowdown1 icon-animate"></span></a>
+</div>
+<div class="clearfix"></div>
+</div>
+<div id="countryList" class="collapse">
+<ul class="country-list">
+<li class="active">
+<a target="_blank">Singapore</a>
+</li>
+<li>
+<a href="http://www.dbs.com.cn/index/default.page" target="_blank">China</a>
+</li>
+<li>
+<a href="http://www.dbs.com.hk/index/default.page" target="_blank">Hong Kong</a>
+</li>
+<li>
+<a href="http://www.dbs.com/in/index/default.page" target="_blank">India</a>
+</li>
+<li>
+<a href="http://www.dbs.com/id/index/default.page" target="_blank">Indonesia</a>
+</li>
+<li class="last">
+<a href="http://www.dbs.com.tw/index/default.page" target="_blank">Taiwan</a>
 </li>
 </ul>
 </div>
 </div>
-</div><div class="GIT-container-phone visible-phone" data-interval="0000">
-<div class="col4-module get-in-touch-git-container">
-<div class="git-inner-container row">
-<ul class="unstyled">
-<li class="clearfix first">
-<a href="https://internet-banking.dbs.com.sg/posb" target="_self">
-<p class="span8">Login to iBanking</p>
-<span class="pull-right"><img src="/iwov-resources/images/get-in-touch-social-media/git-login.png"></span></a>
-</li>
-<li class="clearfix">
-<a href="/personal/contact-us.page" target="_self">
-<p class="span8">Contact Us</p>
-<span class="pull-right"><img src="/iwov-resources/images/get-in-touch-social-media/git-contactus.png"></span></a>
-</li>
-<li class="clearfix">
-<a href="/personal/locator.page" target="_blank">
-<p class="span8">Branches and ATMs</p>
-<span class="pull-right"><img src="/iwov-resources/images/get-in-touch-social-media/git-locateus.png"></span></a>
-</li>
-<li class="clearfix">
-<a href="/personal/rates-online/foreign-currency-foreign-exchange.page" target="_self">
-<p class="span8">Foreign Exchange Rates</p>
-<span class="pull-right"><img src="/iwov-resources/images/get-in-touch-social-media/git-rates.png"></span></a>
-</li>
-<li class="clearfix">
-<div class="span8">
-<a class="btn btn-small btn-icon" href="https://www.facebook.com/POSB" target="_blank"><img src="/iwov-resources/images/get-in-touch-social-media/social-icons-facebook.png"></a><a class="btn btn-small btn-icon" href="https://twitter.com/posb" target="_blank"><img src="/iwov-resources/images/get-in-touch-social-media/social-icons-twitter.png"></a><a class="btn btn-small btn-icon" href="https://www.youtube.com/user/POSBSingapore" target="_blank"><img src="/iwov-resources/images/get-in-touch-social-media/social-icons-youtube.png"></a>
 </div>
-<span class="pull-right"><img src="/iwov-resources/images/get-in-touch-social-media/git-social.png"></span>
+</div>
+</footer>
+</div>
+<div class="" id="global-footer"><!--component-1489849593887--><footer class="footer footer-gray secondary">
+<div class="footer-content">
+<div class="footer-links ">
+<div class="col-md-9 col-sm-12 col-xs-12">
+<ul class="none">
+<li>
+<a href="https://www.dbs.com/terms/default.page" target="_blank" ops="Terms &amp; Conditions">Terms & Conditions</a><span>|</span>
+</li>
+<li>
+<a href="https://www.dbs.com/privacy/default.page" target="_blank" ops="Privacy Policy">Privacy Policy</a><span>|</span>
+</li>
+<li>
+<a href="https://www.dbs.com/fairdealing/default.page" target="_blank" ops="Fair Dealing Commitment">Fair Dealing Commitment</a><span>|</span>
+</li>
+<li>
+<a href="http://www.dbs.com.sg/personal/compliance-tax-requirements/index.html" target="_blank" ops="Compliance with Tax Requirements">Compliance with Tax Requirements</a>
 </li>
 </ul>
-</div>
-</div>
-</div>
-</div></div><div class=" row-fluid"><div class=" footer-span12 span12"><form id="footervarform" action="/personal/searchresults.page?submit=true&componentID=1409243817410" method="post">
-<input id="country" type="hidden" value="sg"><input id="googleFooterLang" type="hidden" value="en"><input id="selectedCountry" type="hidden" value="sg"><input id="googleLanguage" type="hidden" value="en">
-</form><script src="/iwov-resources/scripts/web/footer-on-demand.js" type="text/javascript"></script><div class="page-module footer">
-<div class="row-fluid">
-<div class="span3 clearfix">
-<div>Useful Links</div>
-<ul class="square">
-<li>
-<a class="title" target="_self" href="/personal/deposits/terms-conditions-electronic-services.page">Terms and Conditions Governing Electronic Services</a>
-</li>
-<li>
-<a class="title" target="_self" href="/personal/rates-online/default.page">Rates</a>
-</li>
-<li>
-<a class="title" target="_self" href="/personal/deposits/update-address.page">Update of Address</a>
-</li>
-<li>
-<a class="title" target="_blank" href="http://www.dbs.com.sg/personal/deposits/maintenance-schedule.page">Notices and Maintenance</a>
-</li>
-</ul>
-<div class="back-to-top">
-<div class="icn-back-to-top"></div>
-<div class="label-back-to-top">Back to Top</div>
-</div>
-</div>
-<div class="span3 ">
-<div>Others</div>
-<ul class="square">
-<li>
-<a class="title" target="_self" href="/personal/forms/default.page">Forms</a>
-</li>
-<li>
-<a class="title" target="_self" href="/personal/calculators/default.page">Tools</a>
-</li>
-<li>
-<a class="title" target="_blank" href="http://www.dbs.com.sg/personal/deposits/security-and-you/default.page">Security & you</a>
-</li>
-</ul>
-</div>
-<div id="footer-rightSection" class="span3">
-<div>
-</div>
-<ul class="square"></ul>
-</div>
-<div id="manageYourProfile" class="span3"></div>
-<div class="offset3 span3 block-4">
-<div><p><strong>Talk to a POSB Expert or have someone <a href="/personal/contact-us.page?pid=sg-posb-pweb-footerhome-contact-you-textlink">contact you</a></strong></p></div>
-<br>
-<div>Find a branch near you</div>
-<div class="input-append">
-<input id="geocodeInputFooter" type="text" placeholder="Enter location"><button target="_blank" id="goBranchfinder" class="btn btn-info" type="button" href="/personal/locator.page"><span class="icn-map-marker"></span></button></input>
-</div>
-</br>
-</div>
-</div>
-</div>
-<div class="page-module transparent global-footer">
-<div class="row-fluid">
-<div id="footer-content" class="span12 clearfix">
-<div class="left-section">
-<ul>
-<li>
-<a href="http://www.dbs.com/terms/default.page" target="_self">Terms & Conditions</a><span>|</span>
-</li>
-<li>
-<a href="http://www.dbs.com/privacy/default.page" target="_self">Privacy Policy</a><span>|</span>
-</li>
-<li>
-<a href="http://www.dbs.com/fairdealing/default.page" target="_self">Fair Dealing Commitment</a><span>|</span>
-</li>
-<li>
-<a href="http://www.dbs.com.sg/personal/compliance-tax-requirements/index.html" target="_self">Compliance with Tax Requirements</a><span>|</span>
-</li>
-<li>©2013 DBS Bank Ltd<span>|</span>
+<div class="clearfix"></div>
+<ul class="none">
+<li>&copy;2017 DBS Bank Ltd<span>|</span>
 </li>
 <li>Co. Reg. No. 196800306E</li>
 </ul>
 </div>
-<div class="right-section">
+<div class="col-md-3 col-sm-12 col-xs-12">
+<div class="footer-social-box mobMTop-32 mobMBot-8">
 <ul>
 <li>
-<a class="icn-facebook" href="https://www.facebook.com/POSB" target="_blank"></a>
+<a href="https://www.youtube.com/user/POSBSingapore" target="_blank"><span class="icon ico-youtube"></span></a>
 </li>
 <li>
-<a class="icn-twitter" href="https://twitter.com/posb" target="_blank"></a>
+<a href="https://www.linkedin.com/company/dbs-bank" target="_blank"><span class="icon ico-linkedin"></span></a>
 </li>
 <li>
-<a class="icn-youtube" href="https://www.youtube.com/user/POSBSingapore" target="_blank"></a>
+<a href="https://twitter.com/posb" target="_blank"><span class="icon ico-twitter"></span></a>
+</li>
+<li class="mRight-0">
+<a href="https://www.facebook.com/POSB" target="_blank"><span class="icon ico-facebook"></span></a>
 </li>
 </ul>
-<div class="title">Social Media</div>
 </div>
-<script language="JavaScript">
-<!--
-/* You may give each page an identifying name, server, and channel on
-the next lines. */
-
-//Added for DTM Tracking – Start
-var s = {};
-//Added for DTM Tracking – End
-
-s.pageName=""
-s.server=""
-s.channel=""
-s.pageType=""
-s.prop1=""
-s.prop2=""
-s.prop3=""
-s.prop4=""
-s.prop5=""
-/* Conversion Variables */
-s.campaign=""
-s.state=""
-s.zip=""
-s.events=""
-s.products=""
-s.purchaseID=""
-s.eVar1=""
-s.eVar2=""
-s.eVar3=""
-s.eVar4=""
-s.eVar5=""
-/* Hierarchy Variables */
-s.hier1=""
-/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
--->
-</script>
-<script language="JavaScript">
-<!--
-if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
-//-->
-</script>
-
-
-<noscript> <a href="http://www.omniture.com" title="Web Analytics"><img src="http://dbs.112.2o7.net/b/ss/dbswebsitedev/1/H.13--NS/0" height="1" width="1" border="0" alt="" /></a> </noscript>
-
-
-<script type="text/javascript">_satellite.pageBottom();</script>
-
+</div><script src="/iwov-resources/scripts/flp/aa-digitalData.js" type="text/javascript" language="JavaScript"></script>
+<script src="/iwov-resources/scripts/flp/aa-site-catalyst.js" type="text/javascript" language="JavaScript"></script>
+<script type="text/javascript">_satellite.pageBottom();</script></div>
 </div>
-</div>
-</div>
+</footer><script type="text/javascript">
+			var addthis_config = addthis_config||{};
+			addthis_config.data_track_addressbar = false;
+			addthis_config.data_track_clickback = false;
+		</script>
 <div></div>
-</div></div></div></body><!--</html>-->
+</div>
+</div>
+</div></body><!--</html>-->
 EOT;
 
 } else {
@@ -749,24 +903,22 @@ EOT;
 
 $a = str_replace('Chinese Renminbi(Offshore)','Chinese Renminbi',$a);
 
-$b = explode('filter_currency filter_', $a);
+$b = explode('<tr name=', $a);
 array_shift($b);
 $rates['SGD'] = Array('Currency' => 'Singapore Dollar', 'Rate' => 1);
 foreach ($b as $key => $val) {
-//	$c = explode('.gif">', $val);
-//	$c = explode('</th>', $c[1]);
 	$c = explode('<span>', $val);
 	$c = explode('</span>', $c[1]);
 	$c = $c[0]; // Currency
-	$d = explode('data-label="Selling TT/OD">', $val);
-	$d = explode('</th>', $d[1]); // Rate
-	$d = explode('</td>', $d[0]); // Rate
+	$d = explode('data-before-text="Selling TT/OD" class="column3 align-right">', $val);
+	$d = explode('</td>', $d[1]); // Rate
+	$rate = $d[0];
+	$u = explode('data-before-text="Unit" class="column2 align-right fx-unit">', $val);
+	$u = explode('</td>', $u[1]); // Unit
+	$unit = $u[0];
+	if ($unit <> 1) $rate /= $unit;
 	$e = array_search($c, $currencies); // CurrCode
-	if (!isset($rates[$e])) {
-		$rate = $d[0];
-		if (in_array($e, $hundreds)) $rate /= 100;
-		$rates[$e] = Array('Currency' => $c, 'Rate' => $rate);
-	}
+	if ($rate > 0) $rates[$e] = Array('Currency' => $c, 'Rate' => $rate);
 }
 
 // echo print_r($rates,true);
