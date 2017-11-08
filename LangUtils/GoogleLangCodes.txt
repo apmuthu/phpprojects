@@ -1,0 +1,219 @@
+Language Support - Google Translations
+https://cloud.google.com/translate/docs/languages
+https://sites.google.com/site/tomihasa/google-language-codes
+
+The Translation API's recognition engine supports a wide variety of languages for the Phrase-Based Machine Translation (PBMT) and Neural Machine Translation (NMT) models. These languages are specified within a recognition request using language code parameters as noted on this page. Most language code parameters conform to ISO-639-1 identifiers, except where noted.
+Language Support for the Phrase-Based Machine Translation Model
+
+A complete list of language tags supported by the Phrase-Based Machine Translation (PBMT) model are shown in the following table. This list will be updated as new languages are added to the Translation API's PBMT model.
+Language 	ISO-639-1 Code
+Afrikaans 	af
+Albanian 	sq
+Amharic 	am
+Arabic 	ar
+Armenian 	hy
+Azeerbaijani 	az
+Basque 	eu
+Belarusian 	be
+Bengali 	bn
+Bosnian 	bs
+Bulgarian 	bg
+Catalan 	ca
+Cebuano 	ceb (ISO-639-2)
+Chinese (Simplified) 	zh-CN (BCP-47)
+Chinese (Traditional) 	zh-TW (BCP-47)
+Corsican 	co
+Croatian 	hr
+Czech 	cs
+Danish 	da
+Dutch 	nl
+English 	en
+Esperanto 	eo
+Estonian 	et
+Finnish 	fi
+French 	fr
+Frisian 	fy
+Galician 	gl
+Georgian 	ka
+German 	de
+Greek 	el
+Gujarati 	gu
+Haitian Creole 	ht
+Hausa 	ha
+Hawaiian 	haw (ISO-639-2)
+Hebrew 	iw
+Hindi 	hi
+Hmong 	hmn (ISO-639-2)
+Hungarian 	hu
+Icelandic 	is
+Igbo 	ig
+Indonesian 	id
+Irish 	ga
+Italian 	it
+Japanese 	ja
+Javanese 	jw
+Kannada 	kn
+Kazakh 	kk
+Khmer 	km
+Korean 	ko
+Kurdish 	ku
+Kyrgyz 	ky
+Lao 	lo
+Latin 	la
+Latvian 	lv
+Lithuanian 	lt
+Luxembourgish 	lb
+Macedonian 	mk
+Malagasy 	mg
+Malay 	ms
+Malayalam 	ml
+Maltese 	mt
+Maori 	mi
+Marathi 	mr
+Mongolian 	mn
+Myanmar (Burmese) 	my
+Nepali 	ne
+Norwegian 	no
+Nyanja (Chichewa) 	ny
+Pashto 	ps
+Persian 	fa
+Polish 	pl
+Portuguese (Portugal, Brazil) 	pt
+Punjabi 	pa
+Romanian 	ro
+Russian 	ru
+Samoan 	sm
+Scots Gaelic 	gd
+Serbian 	sr
+Sesotho 	st
+Shona 	sn
+Sindhi 	sd
+Sinhala (Sinhalese) 	si
+Slovak 	sk
+Slovenian 	sl
+Somali 	so
+Spanish 	es
+Sundanese 	su
+Swahili 	sw
+Swedish 	sv
+Tagalog (Filipino) 	tl
+Tajik 	tg
+Tamil 	ta
+Telugu 	te
+Thai 	th
+Turkish 	tr
+Ukrainian 	uk
+Urdu 	ur
+Uzbek 	uz
+Vietnamese 	vi
+Welsh 	cy
+Xhosa 	xh
+Yiddish 	yi
+Yoruba 	yo
+Zulu 	zu
+Language Support for the Neural Machine Translation Model
+
+The Google Cloud Translation API Neural Machine Translation (NMT) model supports the language translation pairs shown in the following table. This list will be updated as new languages are added to the Translation API's NMT model.
+Language Pair 	Language Codes
+Afrikaans <-> English 	af <-> en
+Albanian <-> English 	sq <-> en
+Amharic <-> English 	am <-> en
+Arabic <-> English 	ar <-> en
+Armenian <-> English 	hy <-> en
+Azeerbaijani <-> English 	az <-> en
+Basque <-> English 	eu <-> en
+Bengali <-> English 	bn <-> en
+Bosnian <-> English 	bs <-> en
+Bulgarian <-> English 	bg <-> en
+Catalan <-> English 	ca <-> en
+Cebuano <-> English 	ceb (ISO-639-2) <-> en
+Chinese (Simplified) <-> English 	zh-CN * <-> en
+Chinese (Traditional) <-> English 	zh-TW <-> en
+Corsican <-> English 	co <-> en
+Croatian <-> English 	hr <-> en
+Czech <-> English 	cs <-> en
+Danish <-> English 	da <-> en
+Dutch <-> English 	nl <-> en
+Esperanto <-> English 	eo <-> en
+Estonian <-> English 	et <-> en
+Finnish <-> English 	fi <-> en
+French <-> English 	fr <-> en
+Frisian <-> English 	fy <-> en
+Galician <-> English 	gl <-> en
+Georgian <-> English 	ka <-> en
+German <-> English 	de <-> en
+Greek <-> English 	el <-> en
+Gujarati <-> English 	gu <-> en
+Haitian Creole <-> English 	ht <-> en
+Hausa <-> English 	ha <-> en
+Hawaiian <-> English 	haw (ISO-639-2) <-> en
+Hebrew <-> English 	iw <-> en
+Hindi <-> English 	hi <-> en
+Hmong <-> English 	hmn (ISO-639-2) <-> en
+Hungarian <-> English 	hu <-> en
+Icelandic <-> English 	is <-> en
+Igbo <-> English 	ig <-> en
+Indonesian <-> English 	id <-> en
+Irish <-> English 	ga <-> en
+Italian <-> English 	it <-> en
+Japanese <-> English 	ja <-> en
+Javanese <-> English 	jw <-> en
+Kannada <-> English 	kn <-> en
+Kazakh <-> English 	kk <-> en
+Khmer <-> English 	km <-> en
+Korean <-> English 	ko <-> en
+Kurdish <-> English 	ku <-> en
+Lao <-> English 	lo <-> en
+Latvian <-> English 	lv <-> en
+Lithuanian <-> English 	lt <-> en
+Luxembourgish <-> English 	lb <-> en
+Macedonian <-> English 	mk <-> en
+Malagasy <-> English 	mg <-> en
+Malay <-> English 	ms <-> en
+Malayalam <-> English 	ml <-> en
+Maltese** <- English 	mt <- en
+Maori <-> English 	mi <-> en
+Marathi <-> English 	mr <-> en
+Mongolian <-> English 	mn <-> en
+Nepali <-> English 	ne <-> en
+Norwegian <-> English 	no <-> en
+Nyanja (Chichewa) <-> English 	ny <-> en
+Pashto <-> English 	ps <-> en
+Persian <-> English 	fa <-> en
+Polish <-> English 	pl <-> en
+Portuguese (Portugal, Brazil) <-> English 	pt <-> en
+Punjabi <-> English 	pa <-> en
+Romanian <-> English 	ro <-> en
+Russian <-> English 	ru <-> en
+Samoan <-> English 	sm <-> en
+Scots Gaelic <-> English 	gd <-> en
+Serbian <-> English 	sr <-> en
+Sesotho <-> English 	st <-> en
+Shona <-> English 	sn <-> en
+Sindhi <-> English 	sd <-> en
+Sinhala (Sinhalese) <-> English 	si <-> en
+Slovak <-> English 	sk <-> en
+Slovenian <-> English 	sl <-> en
+Somali <-> English 	so <-> en
+Spanish <-> English 	es <-> en
+Swahili <-> English 	sw <-> en
+Swedish <-> English 	sv <-> en
+Tagalog (Filipino) <-> English 	tl <-> en
+Tajik <-> English 	tg <-> en
+Tamil <-> English 	ta <-> en
+Telugu <-> English 	te <-> en
+Thai <-> English 	th <-> en
+Turkish <-> English 	tr <-> en
+Ukrainian <-> English 	uk <-> en
+Urdu <-> English 	ur <-> en
+Uzbek <-> English 	uz <-> en
+Vietnamese <-> English 	vi <-> en
+Welsh <-> English 	cy <-> en
+Xhosa <-> English 	xh <-> en
+Yiddish <-> English 	yi <-> en
+Yoruba <-> English 	yo <-> en
+Zulu <-> English 	zu <-> en
+
+* Simplified Chinese may be specified either by zh-CN or zh.
+
+** Maltese (mt) to English (en) is currently not supported for the NMT model.
