@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<querybuilder version="8.3">
+<source>
+<database charset="utf8" collation="utf8_unicode_ci">limesurvey</database>
+</source>
+<canvas>
+<table tablename="sdom_questions" alias="" left="885" top="50" width="150" height="278" />
+<table tablename="sdom_question_attributes" alias="" left="1098" top="35" width="191" height="113" />
+<table tablename="sdom_answers" alias="" left="623" top="118" width="150" height="143" />
+<table tablename="sdom_assessments" alias="" left="1312" top="111" width="150" height="173" />
+<table tablename="sdom_surveys" alias="" left="445" top="51" width="177" height="683" />
+<table tablename="sdom_surveys_languagesettings" alias="" left="10" top="51" width="221" height="398" />
+<table tablename="sdom_groups" alias="" left="1097" top="156" width="150" height="158" />
+<table tablename="sdom_surveys" alias="sdom_surveys_1" left="625" top="470" width="179" height="263" />
+<table tablename="sdom_users" alias="" left="256" top="479" width="150" height="248" />
+<table tablename="sdom_user_groups" alias="" left="255" top="355" width="150" height="98" />
+<table tablename="sdom_user_in_groups" alias="" left="65" top="464" width="150" height="113" />
+<join type = "Left Join">
+<from tablename = "sdom_questions" alias = "">qid</from>
+<to tablename = "sdom_question_attributes" alias = "">qid</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_questions" alias = "">language</from>
+<to tablename = "sdom_question_attributes" alias = "">language</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_questions" alias = "">qid</from>
+<to tablename = "sdom_answers" alias = "">qid</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_questions" alias = "">language</from>
+<to tablename = "sdom_answers" alias = "">language</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_questions" alias = "">scale_id</from>
+<to tablename = "sdom_answers" alias = "">scale_id</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_surveys" alias = "">sid</from>
+<to tablename = "sdom_questions" alias = "">sid</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_surveys" alias = "">language</from>
+<to tablename = "sdom_questions" alias = "">language</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_questions" alias = "">language</from>
+<to tablename = "sdom_groups" alias = "">language</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_surveys" alias = "">sid</from>
+<to tablename = "sdom_surveys_languagesettings" alias = "">surveyls_survey_id</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_groups" alias = "">gid</from>
+<to tablename = "sdom_questions" alias = "">gid</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_groups" alias = "">gid</from>
+<to tablename = "sdom_assessments" alias = "">gid</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_groups" alias = "">sid</from>
+<to tablename = "sdom_assessments" alias = "">sid</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_groups" alias = "">language</from>
+<to tablename = "sdom_assessments" alias = "">language</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_surveys" alias = "">sid</from>
+<to tablename = "sdom_groups" alias = "">sid</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_users" alias = "">uid</from>
+<to tablename = "sdom_user_in_groups" alias = "">uid</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_user_groups" alias = "">owner_id</from>
+<to tablename = "sdom_surveys" alias = "">owner_id</to>
+</join>
+<join type = "Left Join">
+<from tablename = "sdom_user_groups" alias = "">ugid</from>
+<to tablename = "sdom_user_in_groups" alias = "">ugid</to>
+</join>
+</canvas>
+<grid>
+</grid>
+</querybuilder>
