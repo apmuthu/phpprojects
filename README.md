@@ -22,9 +22,11 @@
 * `wiki_extract.php` - Extract urls of uploaded files in MediaWiki based Wikis and use with `wget`
 * `sql2excel` - php class to convert an sql to an excel worksheet
 * `gxlate` - PHP Function for Google Translation of single string without using Google Translate API
+* `cidr_match.php` - Check if IPv4 is within subnet range and dynamically get a base URL
 * `ip.php` - Obtain your public / private ip
 * `iprec.php` - Store your public / private ip in a text file on the server and retrieve at will
 * `perm.php` - Set folders to 755 and files to 644 permissions recursively
+
 ````
 pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 ````
