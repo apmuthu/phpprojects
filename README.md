@@ -49,3 +49,17 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 ### XML and HTML Parsers
 * `ExtractOptions.php` - HTML select box options string to array
 * `HTML2Links.php` - Extract all unique filtered URLs with their display values from XML / HTML content
+
+### Format Conversion
+* Debian to FreeBSD md5 format conversion and comparison in bash
+````
+# in Debian / Windows GitBash
+find . -type f -exec md5sum '{}' \; > ../debian_md5.txt
+
+# in FreeBSD
+find . -type f -exec md5 '{}' \; > ../freebsd_md5.txt
+
+awk -F'*' '{ print "MD5 ("$2") = "$1 }' ../debian_md5.txt  | sed 's/\s$//' > ../freebsd_formatted_md5.txt
+
+diff ../freebsd_formatted_md5.txt ../freebsd_md5.txt
+````
