@@ -69,7 +69,7 @@ text.  <br>Only codepoints &lt; 128 are ASCII.  This is provided for educational
 <b>[ <a href="http://home2.paulschou.net/tools/ascii/">TEXT</a> ]</b><br>
 <textarea cols=48 rows=15 wrap="virtual" name="ascii" class="ff"><?php
 
-set_magic_quotes_runtime(0);
+if (function_exists('set_magic_quotes_runtime')) set_magic_quotes_runtime(0);
 foreach($_POST as $key=>$val){ $$key = stripslashes($val); }
 
 #$_POST[ascii] = str_replace("\\'","'",$_POST[ascii]);
