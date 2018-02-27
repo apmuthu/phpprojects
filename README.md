@@ -19,6 +19,7 @@
 * `jsDynaField` - [jQuery](https://jquery.org/) based Dynamic Form Field Addition
 * `phpGetDomains` - domain_lister.php - Get Insert SQL statements from registrar records at [Daily Changes](http://www.dailychanges.com)
 * `php-mysql-functions` - PHP functions for MySQL and Password set/blank bash scripts for MySQL 5.6
+* `phpssh2.php` - PHP Tunnel into remote service on localhost
 * `phpunzip` - Unzip archives using php by [PHPConcepts](http://www.phpconcept.net)
 * `pincodes` - Data Dump of Indian Postal Codes
 * `wiki_extract.php` - Extract urls of uploaded files in MediaWiki based Wikis and use with `wget`
