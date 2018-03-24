@@ -17,6 +17,7 @@
 * `docgenerator` - Generates a sample contractual agreement with data from a html form
 * `display_paged.php` - Display a paged set of records from a MySQL table
 * `jsDynaField` - [jQuery](https://jquery.org/) based Dynamic Form Field Addition
+* `pdfoverlay` - Generate an overlaid PDF populating a template PDF file using data from a database
 * `phpGetDomains` - domain_lister.php - Get Insert SQL statements from registrar records at [Daily Changes](http://www.dailychanges.com)
 * `php-mysql-functions` - PHP functions for MySQL and Password set/blank bash scripts for MySQL 5.6
 * `phpssh2.php` - PHP Tunnel into remote service on localhost
