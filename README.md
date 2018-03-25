@@ -14,7 +14,7 @@
 * `unixtime/unix_time.html` - Epoch Convertor from [Online Conversion](http://www.onlineconversion.com) | [Demo](https://rawgit.com/apmuthu/phpprojects/master/unixtime/unix_time.html) | [Production](https://cdn.rawgit.com/apmuthu/phpprojects/master/unixtime/unix_time.html)
 * `cplusplus` - C++ tutorial examples
 * `data_in_php` - Store, retrieve, include and execute data at the end of a php file
-* `docgenerator` - Generates a sample contractual agreement with data from a html form
+* `docgenerator` - Generates a sample contractual agreement with data from a html form. Generate Disclaimer.
 * `display_paged.php` - Display a paged set of records from a MySQL table
 * `jsDynaField` - [jQuery](https://jquery.org/) based Dynamic Form Field Addition
 * `pdfoverlay` - Generate an overlaid PDF populating a template PDF file using data from a database
