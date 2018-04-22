@@ -51,9 +51,10 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `XE/xe_xchg_rate.php` - Get all From/To exchange rates from [XE](http://www.xe.com)
 * `rbi_inr_rates.php` - Get latest Reserve Bank of India (RBI) Forex rates in INR
 
-### XML and HTML Parsers
+### Format Parsers
 * `ExtractOptions.php` - HTML select box options string to array
 * `HTML2Links.php` - Extract all unique filtered URLs with their display values from XML / HTML content
+* `parse_word.php` - Extract text from Word documents
 
 ### Format Conversion
 * Debian to FreeBSD md5 format conversion and comparison in bash
