@@ -30,6 +30,7 @@
 * `ip.php` - Obtain your public / private ip
 * `iprec.php` - Store your public / private ip in a text file on the server and retrieve at will
 * `perm.php` - Set folders to 755 and files to 644 permissions recursively
+* `php_is_cli.php` - Checks if called from PHP CLI, obtains local server IP
 
 ````
 pubip=`wget -qO- http://www.apmuthu.com/ip.php`
