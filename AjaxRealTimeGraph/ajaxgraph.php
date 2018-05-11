@@ -2,9 +2,9 @@
 /*
 // Program       : Real Time Plot of Values
 // Author        : Ap.Muthu <apmuthu@usa.net>
-// Version       : 1.0
-// Release Date  : 2018-02-20
-// Example Usage : http://DOMAIN.TLD/PATH/display_paged.php
+// Version       : 1.2
+// Release Date  : 2018-05-11
+// Example Usage : http://DOMAIN.TLD/PATH/<file_including_>ajaxgraph.php
 // Ajax GET var  : max, srcid
 // Reference     : JSXGraph <https://jsxgraph.uni-bayreuth.de/wp/download/index.html>
 // Usage Notes   : $sensor_script should be the actual URL of your sensor value acquirer
@@ -18,8 +18,8 @@ $linepoints = 40;
 $lineymax   = 40;
 $ymarker    = 5;
 $updatems   = 750;
-$srcid      = "";
-$sensor_script = "fakesensor.php?max=$lineymax&srcid=$sensorid";
+$srcid      = "1";
+$sensor_script = "fakesensor.php?max=$lineymax&srcid=$srcid";
 
 ?>
 <html>
@@ -43,10 +43,10 @@ $sensor_script = "fakesensor.php?max=$lineymax&srcid=$sensorid";
         <script type='text/javascript'>
 var brd, g, xdata = [], ydata = [], turt,i;
 brd = JXG.JSXGraph.initBoard('jxgbox', {axis:true, boundingbox:[
-   -2
+   -3
   ,<?php echo $lineymax; ?>
   ,<?php echo $linepoints; ?>
-  ,-2
+  ,-5
 ]});
 
 // Draw the additional lines
