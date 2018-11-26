@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NewDataSet>
+<Table>
+<State>Andaman and Nicobar</State>
+<District>Nicobar</District>
+<Market>Car Nicobar</Market>
+<Commodity>Tomato</Commodity>
+<Variety>Other</Variety>
+<Arrival_Date>02/06/2018</Arrival_Date>
+<Min_x0020_Price>4000</Min_x0020_Price>
+<Max_x0020_Price>6000</Max_x0020_Price>
+<Modal_x0020_Price>5000</Modal_x0020_Price>
+</Table>
+<Table diffgr:id="Table2" msdata:rowOrder="1">
+<State>Andaman and Nicobar</State>
+<District>Nicobar</District>
+<Market>Car Nicobar</Market>
+<Commodity>Tomato</Commodity>
+<Variety>Other</Variety>
+<Arrival_Date>21/06/2018</Arrival_Date>
+<Min_x0020_Price>8000</Min_x0020_Price>
+<Max_x0020_Price>12000</Max_x0020_Price>
+<Modal_x0020_Price>10000</Modal_x0020_Price>
+</Table>
+<Table>
+<State>Tripura</State>
+<District>Sepahijala</District>
+<Market>Bishramganj</Market>
+<Commodity>Tomato</Commodity>
+<Variety>Hybrid</Variety>
+<Arrival_Date>07/06/2018</Arrival_Date>
+<Min_x0020_Price>2500</Min_x0020_Price>
+<Max_x0020_Price>3000</Max_x0020_Price>
+<Modal_x0020_Price>2800</Modal_x0020_Price>
+</Table>
+<Table>
+<State>Tripura</State>
+<District>Sepahijala</District>
+<Market>Bishramganj</Market>
+<Commodity>Tomato</Commodity>
+<Variety>Hybrid</Variety>
+<Arrival_Date>10/06/2018</Arrival_Date>
+<Min_x0020_Price>3000</Min_x0020_Price>
+<Max_x0020_Price>3500</Max_x0020_Price>
+<Modal_x0020_Price>3200</Modal_x0020_Price>
+</Table>
+</NewDataSet>

@@ -56,6 +56,7 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `ExtractOptions.php` - HTML select box options string to array
 * `HTML2Links.php` - Extract all unique filtered URLs with their display values from XML / HTML content
 * `parse_word.php` - Extract text from Word documents
+* `xml2tsv` - Convert XML to TSV (Tab Separated Values)
 * `youtube2srt.php` - Convert YouTube Transcript page text into subtitle .srt format
 
 ### Format Conversion
