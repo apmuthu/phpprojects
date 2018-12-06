@@ -1,0 +1,4 @@
+Bug fix in version 1.0.5:
+
+- Undefined variable "bm" for some files...
+- direct auto-determine file name option removed which increases server load (Direct option is still available!)
