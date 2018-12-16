@@ -25,17 +25,23 @@ function fixTables($dbname) {
     }
 }
 
-function getHtmlTable($result){
+function getHtmlTable($result, $border=false, $blankempty = false) {
     // receive a record set and print
     // it into an html table
-    $out = '<table>';
+    $out = '<table';
+	if ($border !== false)
+		$out .= ' border='.($border+0). ' style="border-collapse: collapse;"';
+	$out .= '>';
     for($i = 0; $i < mysql_num_fields($result); $i++){
         $aux = mysql_field_name($result, $i);
         $out .= "<th>".$aux."</th>";
     }
     while ($linea = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $out .= "<tr>";
-        foreach ($linea as $valor_col) $out .= '<td>'.$valor_col.'</td>';
+        foreach ($linea as $valor_col) {
+		    if ($blankempty !== false && empty($valor_col)) $valor_col = '';
+            $out .= '<td>'.$valor_col.'</td>';
+        }
         $out .= "</tr>";
     }
     $out .= "</table>";

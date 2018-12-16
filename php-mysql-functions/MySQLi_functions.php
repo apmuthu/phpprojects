@@ -1,9 +1,9 @@
 <?
 // Ref: http://www.barattalo.it/php/10-php-usefull-functions-for-mysqli-improved-stuff/
-define("WEBDOMAIN", "your host");
-define("DEFDBNAME", "your db name");
+define("WEBDOMAIN",   "your host");
+define("DEFDBNAME",   "your db name");
 define("DEFUSERNAME", "your user");
-define("DEFDBPWD",  "your pwd");
+define("DEFDBPWD",    "your pwd");
 
 if(!$conn = connectDb()) {die("err db");} else {$conn->query("SET NAMES 'utf8';");}
 
@@ -26,14 +26,24 @@ function fixTables($conn,$dbname) {
     }
 }
 
-function getHtmlTable($rs){
+function getHtmlTable($rs, $border=false, $blankempty = false, $skip_cols=array()) {
     // receive a record set and print
     // it into an html table
-    $out = '<table>';
-    while ($field = $rs->fetch_field()) $out .= "<th>".$field->name."</th>";
+    $out = '<table';
+	if ($border !== false)
+		$out .= ' border='.($border+0). ' style="border-collapse: collapse;"';
+	$out .= '>';
+    while ($field = $rs->fetch_field()) {
+		if (!in_array($field->name, $skip_cols))
+			$out .= "<th>".$field->name."</th>";
+	}
     while ($linea = $rs->fetch_assoc()) {
         $out .= "<tr>";
-        foreach ($linea as $valor_col) $out .= '<td>'.$valor_col.'</td>';
+        foreach ($linea as $f => $valor_col) {
+		    if ($blankempty !== false && empty($valor_col)) $valor_col = '';
+			if (!in_array($f, $skip_cols))
+				$out .= '<td>'.$valor_col.'</td>';
+        }
         $out .= "</tr>";
     }
     $out .= "</table>";
@@ -72,6 +82,15 @@ function getScalar($conn,$sql,$def="") {
 function getRow($conn,$sql) {
     if ( $rs = $conn->query($sql) ) {
         $r = $rs->fetch_array();
+        $rs->free();
+        return $r;
+    }
+    return "";
+}
+
+function getRowAssoc($conn,$sql) {
+    if ( $rs = $conn->query($sql) ) {
+        $r = $rs->fetch_array(MYSQLI_ASSOC);
         $rs->free();
         return $r;
     }
