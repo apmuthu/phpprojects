@@ -40,7 +40,8 @@ function getHtmlTable($result, $border=false, $blankempty = false) {
         $out .= "<tr>";
         foreach ($linea as $valor_col) {
 		    if ($blankempty !== false && empty($valor_col)) $valor_col = '';
-            $out .= '<td>'.$valor_col.'</td>';
+			$align= is_numeric($valor_col)? " align='right'" : "";
+            $out .= "<td$align>".$valor_col.'</td>';
         }
         $out .= "</tr>";
     }
