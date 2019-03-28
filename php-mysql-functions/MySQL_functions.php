@@ -1,4 +1,4 @@
-<?
+<?php
 // Ref: http://www.barattalo.it/php/10-php-usefull-functions-for-mysql-stuff/
 define("DBHOST", "your host");
 define("DBNAME", "your db name");

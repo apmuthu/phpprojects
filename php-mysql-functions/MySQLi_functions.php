@@ -1,4 +1,4 @@
-<?
+<?php
 // Ref: http://www.barattalo.it/php/10-php-usefull-functions-for-mysqli-improved-stuff/
 define("WEBDOMAIN",   "your host");
 define("DEFDBNAME",   "your db name");
