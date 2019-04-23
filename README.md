@@ -32,7 +32,7 @@
 * `iprec.php` - Store your public / private ip in a text file on the server and retrieve at will
 * `perm.php` - Set folders to 755 and files to 644 permissions recursively
 * `php_is_cli.php` - Checks if called from PHP CLI, obtains local server IP
-
+* `PortReDirect.html` - Redirects from Port 80 to any other port without port forwarding - plain HTML and JS only
 ````
 pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 ````
@@ -72,4 +72,9 @@ find . -type f -exec md5 '{}' \; > ../freebsd_md5.txt
 awk -F'*' '{ print "MD5 ("$2") = "$1 }' ../debian_md5.txt  | sed 's/\s$//' > ../freebsd_formatted_md5.txt
 
 diff ../freebsd_formatted_md5.txt ../freebsd_md5.txt
+````
+
+### PHP debugging by append marker (AA here) to log file
+````
+$a = file_put_contents('./logs.txt', date('Y-m-d ')."AA".PHP_EOL , FILE_APPEND | LOCK_EX);
 ````

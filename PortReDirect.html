@@ -1,0 +1,24 @@
+<!--
+Purpose       : Redirect From Port 80 to any other port (8080 here) in pure HTML and Javascript
+Author        : Ap.Muthu <apmuthu@usa.net>
+Creation Date : 2019-04-23
+Usage         : This script file should be renamed as index.html and placed in the webroot
+Notes         : The body display string "Look at another port" can be truncated to possibly just a period
+-->
+<html>
+  <head>
+    <script>
+function setHref() {
+document.getElementById('modify-me').href = window.location.protocol + "//" + window.location.hostname + ":8080/";
+}
+
+function autoClick(){
+document.getElementById('modify-me').click();
+}
+
+    </script>
+  </head>
+  <body onload="setHref(); autoClick()">
+    <a href="/" id="modify-me">Look at another port</a>
+  </body>
+</html>
