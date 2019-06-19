@@ -10,6 +10,7 @@
 * `LimeSurveyQAImport` - SQLs generated to import List Radio Questions and Answers from Formatted Text file into LimeSurvey v2.051's DB
 * `MSAccessInPHP/mdbtest.php` - Illustrates the usage of MSAccess MDB file in PHP on Windows
 * `OrangeHRMutils` - External and internal bridges to OrangeHRM's Free Open Source Edition
+* `PHPINICompare` - Compare **php.ini** files across servers
 * `phpRFT` - PHP Remote File Transfer
 * `SubnetMaskcalc` - Subnet Mask Calculator by [subnetmask.info](http://www.subnetmask.info)
 * `translation` - [Easy PHP Site Translation](http://tympanus.net/codrops/2009/12/30/easy-php-site-translation/) class
