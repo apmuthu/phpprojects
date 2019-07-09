@@ -39,6 +39,8 @@ for ($i = $s-1; $i < $n; $i++) {
 	$po .= 'msgid "' . $srcstr . '"'.$lf;
 	$a = $trn[$i];
 	$a = str_replace(chr(13), '', $a);
+	$a = str_replace('٪', '%', $a);
+	$a = str_replace('"', "'", $a);
 	if (strlen($a) == 0) $mis .= $srcstr . $lf;
 	$a = str_replace('&amp;', '', $a);
 	$a = str_replace(' \ N ', '\n', $a);

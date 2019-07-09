@@ -5,6 +5,8 @@
 * `po_make.php` - Assemble the body of a target language PO file with keys and translated strings being alternated.
 * `GoogleLangCodes.txt` - Google Language Codes to be used in forming URLS for translation
 * `makefile.php` - Script to download a session variable on the fly as a .txt file
+* `php-mo.php` - Library for gettext po/mo conversions [on GitHub](https://github.com/phpmo/php.mo)
+* `mo_compiler.php` - Sample code usage of `php-mo` library
 
 ## HowTo Translate
 
@@ -18,3 +20,4 @@
 * Use the likes of POEdit to convert/compile this proofed PO file into a MO file and use it in the target application.
 * Convert PO to MO in PHP using [php.mo](https://github.com/phpmo/php.mo) | [MO Format](http://www.gnu.org/savannah-checkouts/gnu/gettext/manual/html_node/MO-Files.html) | [PO Format](http://pology.nedohodnik.net/doc/user/en_US/ch-poformat.html)
 * The format for Google Translation online is `http://translate.google.com/translate?js=n&sl=auto&tl=hi&u=http://www.mydomain.tld/mypage.html` where `sl` is the soucre language, `tl` is the target language and `u` is the URL to be translated.
+* [This site based on Google Translate](https://www.onlinedoctranslator.com/translationform) does so with no limits.
