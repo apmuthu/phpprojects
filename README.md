@@ -1,5 +1,6 @@
 # phpprojects - Ap.Muthu's PHP Snippets
 
+* `Aadhar` - PHP Class, Non-Class and JS Validation of 12 digit Aadhar Number
 * `AjaxDropDownSelect` - Ajax and JS based cascading dropdown select box
 * `AjaxRealTimeGraph` - PHP based Real Time Plot of sensor values acquired using Ajax
 * `PHPFormToDBonce` - One time update of record using random hash from a field in record
@@ -80,4 +81,9 @@ diff ../freebsd_formatted_md5.txt ../freebsd_md5.txt
 ### PHP debugging by append marker (AA here) to log file
 ````
 $a = file_put_contents('./logs.txt', date('Y-m-d ')."AA".PHP_EOL , FILE_APPEND | LOCK_EX);
+````
+
+### MySQL get first 2 bytes of IPv4
+````
+INET_NTOA(INET_ATON( <IPField> ) & 0xFFFF0000)
 ````
