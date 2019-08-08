@@ -34,6 +34,7 @@
 * `cidr_match.php` - Check if IPv4 is within subnet range and dynamically get a base URL
 * `ip.php` - Obtain your public / private ip
 * `iprec.php` - Store your public / private ip in a text file on the server and retrieve at will
+* `ip2isp_tsv.php` - Lookup the owner ISP of an array of IPs from https://ipinfo.io (free 1000 lookups per day per IP)
 * `perm.php` - Set folders to 755 and files to 644 permissions recursively
 * `php_is_cli.php` - Checks if called from PHP CLI, obtains local server IP
 * `PortReDirect.html` - Redirects from Port 80 to any other port without port forwarding - plain HTML and JS only
