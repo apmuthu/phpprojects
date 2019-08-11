@@ -88,3 +88,7 @@ $a = file_put_contents('./logs.txt', date('Y-m-d ')."AA".PHP_EOL , FILE_APPEND |
 ````
 INET_NTOA(INET_ATON( <IPField> ) & 0xFFFF0000)
 ````
+### Bash extract unique IPv4 addresses from `log.txt` and store in `new.txt`
+````
+grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' log.txt | sort -u > new.txt
+````
