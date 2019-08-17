@@ -88,6 +88,12 @@ $a = file_put_contents('./logs.txt', date('Y-m-d ')."AA".PHP_EOL , FILE_APPEND |
 ````
 INET_NTOA(INET_ATON( <IPField> ) & 0xFFFF0000)
 ````
+
+### MySQL move table
+````
+ALTER TABLE my_old_db.mytable RENAME my_new_db.mytable;
+````
+
 ### Bash extract unique IPv4 addresses from `log.txt` and store in `new.txt`
 ````
 grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' log.txt | sort -u > new.txt
