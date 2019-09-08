@@ -95,6 +95,13 @@ INET_NTOA(INET_ATON( <IPField> ) & 0xFFFF0000)
 ALTER TABLE my_old_db.mytable RENAME my_new_db.mytable;
 ````
 
+### MySQL NULL / Zero (0) Substitutions
+````
+COALESCE( expression, 'a substitute for NULL' ) -- NULL only
+COALESCE( NULLIF( expression, 0 ), 'a substitute for Zero' ) -- Zero only
+IFNULL( NULLIF( expression, 0 ), 'a substitute for NULL or Zero') -- NULL or Zero
+````
+
 ### Bash extract unique IPv4 addresses from `log.txt` and store in `new.txt`
 ````
 grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' log.txt | sort -u > new.txt
