@@ -102,6 +102,24 @@ COALESCE( NULLIF( expression, 0 ), 'a substitute for Zero' ) -- Zero only
 IFNULL( NULLIF( expression, 0 ), 'a substitute for NULL or Zero') -- NULL or Zero
 ````
 
+### MySQL split email addresses
+````
+SELECT SUBSTR(MailID, 1, INSTR(MailID, '@') -1) FROM `users`; -- username
+SELECT (SUBSTRING_INDEX(SUBSTR(MailID, INSTR(MailID, '@') +1),'.',1)) FROM `users`; -- domain first part
+````
+
+### MySQL default CURRENT DATE for default NULL date field `dtable.query_date` using trigger
+````
+USE `ddb`;
+DELIMITER $$
+CREATE TRIGGER `default_date` BEFORE INSERT ON `dtable` FOR EACH ROW
+if ( isnull(new.query_date) ) then
+ set new.query_date=curdate();
+end if;
+$$
+delimiter ;
+````
+
 ### Bash extract unique IPv4 addresses from `log.txt` and store in `new.txt`
 ````
 grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' log.txt | sort -u > new.txt
