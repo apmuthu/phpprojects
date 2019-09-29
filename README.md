@@ -56,6 +56,7 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `Bloomberg_Rates.php` - Get currency exchange rate from Bloomberg
 * `fxratenet_rates.php` - Get currency exchange rate from fx-rate.net
 * `XE/xe_xchg_rate.php` - Get all From/To exchange rates from [XE](http://www.xe.com)
+* `x-rates/x-rates.php` - Get 1 USD Exchange Rate of 53 Currencies from [x-rates](https://www.x-rates.com)
 * `rbi_inr_rates.php` - Get latest Reserve Bank of India (RBI) Forex rates in INR
 
 ### Format Parsers
