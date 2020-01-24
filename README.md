@@ -17,6 +17,7 @@
 * `translation` - [Easy PHP Site Translation](http://tympanus.net/codrops/2009/12/30/easy-php-site-translation/) class
 * `unixtime/unix_time.html` - Epoch Convertor from [Online Conversion](http://www.onlineconversion.com) | [Demo](https://rawgit.com/apmuthu/phpprojects/master/unixtime/unix_time.html) | [Production](https://cdn.rawgit.com/apmuthu/phpprojects/master/unixtime/unix_time.html)
 * `cplusplus` - C++ tutorial examples
+* `clean_csv_quote_strings.php` - Strips line feeds in quoted strings
 * `data_in_php` - Store, retrieve, include and execute data at the end of a php file
 * `docgenerator` - Generates a sample contractual agreement with data from a html form. Generate Disclaimer.
 * `display_paged.php` - Display a paged set of records from a MySQL table
@@ -124,4 +125,9 @@ delimiter ;
 ### Bash extract unique IPv4 addresses from `log.txt` and store in `new.txt`
 ````
 grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' log.txt | sort -u > new.txt
+````
+
+### Windows GETMAC
+````
+getmac -v -fo list
 ````
