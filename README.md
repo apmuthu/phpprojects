@@ -21,6 +21,7 @@
 * `data_in_php` - Store, retrieve, include and execute data at the end of a php file
 * `docgenerator` - Generates a sample contractual agreement with data from a html form. Generate Disclaimer.
 * `display_paged.php` - Display a paged set of records from a MySQL table
+* `domtute.php` - PHP syntax for DOMDocument across PHP versions to treat searched objects as arrays
 * `jsDynaField` - [jQuery](https://jquery.org/) based Dynamic Form Field Addition
 * `oct_repl.php` - Octal to ASCII string replacer
 * `pdfoverlay` - Generate an overlaid PDF populating a template PDF file using data from a database
