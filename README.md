@@ -24,6 +24,7 @@
 * `domtute.php` - PHP syntax for DOMDocument across PHP versions to treat searched objects as arrays
 * `jsDynaField` - [jQuery](https://jquery.org/) based Dynamic Form Field Addition
 * `oct_repl.php` - Octal to ASCII string replacer
+* `opensslver.php` - OpenSSL version checker - useful for checking if TLS alone is enabled
 * `pdfoverlay` - Generate an overlaid PDF populating a template PDF file using data from a database
 * `phpGetDomains` - domain_lister.php - Get Insert SQL statements from registrar records at [Daily Changes](http://www.dailychanges.com)
 * `php-mysql-functions` - PHP functions for MySQL and Password set/blank bash scripts for MySQL 5.6
