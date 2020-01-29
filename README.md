@@ -133,3 +133,9 @@ grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' log.txt | sort 
 ````
 getmac -v -fo list
 ````
+
+### Excel [Reverse Concatenate](https://www.extendoffice.com/documents/excel/3278-excel-reverse-concatenate.html)
+````
+=TRIM(MID(SUBSTITUTE($A2,",",REPT(" ",999)),COLUMNS($A:A)*999-998,999))
+````
+
