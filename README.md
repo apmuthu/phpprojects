@@ -41,6 +41,7 @@
 * `perm.php` - Set folders to 755 and files to 644 permissions recursively
 * `php_is_cli.php` - Checks if called from PHP CLI, obtains local server IP
 * `PortReDirect.html` - Redirects from Port 80 to any other port without port forwarding - plain HTML and JS only
+* `UnixTS2DateTS.php` - Convert Unix Timestamp to Readable Date Format in PHP
 ````
 pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 ````
