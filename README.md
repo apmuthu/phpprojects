@@ -40,6 +40,7 @@
 * `ip2isp_tsv.php` - Lookup the owner ISP of an array of IPs from https://ipinfo.io (free 1000 lookups per day per IP)
 * `perm.php` - Set folders to 755 and files to 644 permissions recursively
 * `php_is_cli.php` - Checks if called from PHP CLI, obtains local server IP
+* `php_cli_param_usage.php` - Various ways to pass on parameters into a PHP script for CLI usage
 * `PortReDirect.html` - Redirects from Port 80 to any other port without port forwarding - plain HTML and JS only
 * `UnixTS2DateTS.php` - Convert Unix Timestamp to Readable Date Format in PHP
 ````
