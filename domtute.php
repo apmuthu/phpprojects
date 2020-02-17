@@ -39,6 +39,7 @@ This is the mango div. It has some text and a form too.
 </html>';
 
 $dom = new DOMDocument;
+libxml_use_internal_errors(true); // suppress non-well formed html5 errors
 $dom->loadHTML($html); 
 $dom->preserveWhiteSpace = false;
 $tables = $dom->getElementsByTagName('span');
