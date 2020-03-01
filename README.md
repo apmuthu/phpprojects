@@ -129,6 +129,11 @@ $$
 delimiter ;
 ````
 
+### Bash unzip
+````
+find . -name "*.zip" | while read filename; do unzip -o -d "`basename "$filename" | cut -d"." -f1`" "$filename"; done;
+````
+
 ### Bash extract unique IPv4 addresses from `log.txt` and store in `new.txt`
 ````
 grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' log.txt | sort -u > new.txt
