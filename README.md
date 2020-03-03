@@ -115,6 +115,7 @@ IFNULL( NULLIF( expression, 0 ), 'a substitute for NULL or Zero') -- NULL or Zer
 ````
 SELECT SUBSTR(MailID, 1, INSTR(MailID, '@') -1) FROM `users`; -- username
 SELECT (SUBSTRING_INDEX(SUBSTR(MailID, INSTR(MailID, '@') +1),'.',1)) FROM `users`; -- domain first part
+SELECT RIGHT(MailID, LENGTH(MailID)-INSTR(MailID, '@')) AS Domain FROM `users`; -- Full Domain only
 ````
 
 ### MySQL default CURRENT DATE for default NULL date field `dtable.query_date` using trigger
