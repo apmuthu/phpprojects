@@ -89,6 +89,11 @@ awk -F'*' '{ print "MD5 ("$2") = "$1 }' ../debian_md5.txt  | sed 's/\s$//' > ../
 diff ../freebsd_formatted_md5.txt ../freebsd_md5.txt
 ````
 
+### Bash watch clone (command here is `ls -al`)
+````
+while (true); do clear; ls -al; sleep 2; done
+````
+
 ### PHP debugging by append marker (AA here) to log file
 ````
 $a = file_put_contents('./logs.txt', date('Y-m-d ')."AA".PHP_EOL , FILE_APPEND | LOCK_EX);
