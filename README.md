@@ -30,6 +30,7 @@
 * `php-mysql-functions` - PHP functions for MySQL and Password set/blank bash scripts for MySQL 5.6
 * `phpssh2.php` - PHP Tunnel into remote service on localhost
 * `phpunzip` - Unzip archives using php by [PHPConcepts](http://www.phpconcept.net)
+* `php_wget.php` - Use shell commands from within PHP (in windows too) and grab with wget
 * `pincodes` - Data Dump of Indian Postal Codes
 * `wiki_extract.php` - Extract urls of uploaded files in MediaWiki based Wikis and use with `wget`
 * `sql2excel` - php class to convert an sql to an excel worksheet
