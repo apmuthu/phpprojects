@@ -76,6 +76,7 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `ParseSQLstr.php` - Parse SELECT columns of any SQL string without connecting to DB
 * `xml2tsv` - Convert XML to TSV (Tab Separated Values)
 * `youtube2srt.php` - Convert YouTube Transcript page text into subtitle .srt format
+* `netgear_logs.sh` - Netgear DG834G Router Log Parser
 
 ### Format Conversion
 * Debian to FreeBSD md5 format conversion and comparison in bash
