@@ -138,6 +138,13 @@ $$
 delimiter ;
 ````
 
+### MySQL [validate EMail](https://stackoverflow.com/questions/12759596/validate-email-addresses-in-mysql) addresses
+````
+SELECT * FROM tblExample
+WHERE fldEMail IS NOT NULL 
+  AND fldEMail NOT REGEXP '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._+-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,63}$';
+````
+
 ### Bash unzip
 ````
 find . -name "*.zip" | while read filename; do unzip -o -d "`basename "$filename" | cut -d"." -f1`" "$filename"; done;
