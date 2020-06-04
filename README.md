@@ -3,6 +3,7 @@
 * `Aadhar` - PHP Class, Non-Class and JS Validation of 12 digit Aadhar Number
 * `AjaxDropDownSelect` - Ajax and JS based cascading dropdown select box
 * `AjaxRealTimeGraph` - PHP based Real Time Plot of sensor values acquired using Ajax
+* `phpDBF_Import.php` - DBF to MySQL import - Schema and Data - using php-dbase extension
 * `PHPFormToDBonce` - One time update of record using random hash from a field in record
 * `PHPProgressMonitor` - Monitor progress of execution of a long running php script with examples
 * `phpHitCounter` - Implements a single webpage hit counter for a single file or set of files
