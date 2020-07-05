@@ -149,6 +149,12 @@ WHERE fldEMail IS NOT NULL
   AND fldEMail NOT REGEXP '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._+-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,63}$';
 ````
 
+### PHP code to check if string $a is unicode
+````
+if (strlen($a) != strlen(utf8_decode($a)))
+	echo $a . " is unicode";
+````
+
 ### Bash unzip
 ````
 find . -name "*.zip" | while read filename; do unzip -o -d "`basename "$filename" | cut -d"." -f1`" "$filename"; done;
