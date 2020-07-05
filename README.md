@@ -57,6 +57,9 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `AjaxJSselect.html` - Javascript based drop down select controlled by another select box
 * `TandC.php` - Place defined constants in a PHP String
 
+## HowTo Articles
+* [DOS_FileListInMySQL.md](DOS_FileListInMySQL.md) - Organise DOS File and Folder List into a MySQL table and generate Delete and Move commands
+
 ### PHP CLI
 * `php_is_cli.php` - Checks if called from PHP CLI, obtains local server IP
 * `php_cli_param_usage.php` - Various ways to pass on parameters into a PHP script for CLI usage
