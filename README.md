@@ -56,6 +56,7 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `PDFMerger.php` - [Split and Merge PDF](https://pdfmerger.codeplex.com/releases/view/37934) files using [fpdf](http://www.fpdf.org) and [fpdi](https://www.setasign.com/products/fpdi/about/)
 * `AjaxJSselect.html` - Javascript based drop down select controlled by another select box
 * `TandC.php` - Place defined constants in a PHP String
+* `mask_download_url.php` - Mask the real URL of a downloadable file in php
 
 ## HowTo Articles
 * [DOS_FileListInMySQL.md](DOS_FileListInMySQL.md) - Organise DOS File and Folder List into a MySQL table and generate Delete and Move commands
