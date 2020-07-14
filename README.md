@@ -26,7 +26,6 @@
 * `jsDynaField` - [jQuery](https://jquery.org/) based Dynamic Form Field Addition
 * `oct_repl.php` - Octal to ASCII string replacer
 * `opensslver.php` - OpenSSL version checker - useful for checking if TLS alone is enabled
-* `pdfoverlay` - Generate an overlaid PDF populating a template PDF file using data from a database
 * `phpGetDomains` - domain_lister.php - Get Insert SQL statements from registrar records at [Daily Changes](http://www.dailychanges.com)
 * `php-mysql-functions` - PHP functions for MySQL and Password set/blank bash scripts for MySQL 5.6
 * `phpssh2.php` - PHP Tunnel into remote service on localhost
@@ -53,20 +52,25 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `PHP_SourceCodeViewer.php` - Place this file in a folder called `source` and name it `index.php` to view source code of all php files under it.
 * `phpLuhn.php` - generate and verify credit card checksums
 * `var2file.php` - Save a PHP variable in a file for including it in another PHP file.
-* `PDFMerger.php` - [Split and Merge PDF](https://pdfmerger.codeplex.com/releases/view/37934) files using [fpdf](http://www.fpdf.org) and [fpdi](https://www.setasign.com/products/fpdi/about/)
 * `AjaxJSselect.html` - Javascript based drop down select controlled by another select box
 * `TandC.php` - Place defined constants in a PHP String
 * `mask_download_url.php` - Mask the real URL of a downloadable file in php
 
-## HowTo Articles
+## PDF Scripts
+* `images_to_pdf.php` - Join images in a folder into a single PDF file using FPDF library
+* `pdfoverlay` - Generate an overlaid PDF populating a template PDF file using data from a database
+* `PDFMerger.php` - [Split and Merge PDF](https://pdfmerger.codeplex.com/releases/view/37934) files using [fpdf](http://www.fpdf.org) and [fpdi](https://www.setasign.com/products/fpdi/about/)
+
+
+# HowTo Articles
 * [DOS_FileListInMySQL.md](DOS_FileListInMySQL.md) - Organise DOS File and Folder List into a MySQL table and generate Delete and Move commands
 
-### PHP CLI
+## PHP CLI
 * `php_is_cli.php` - Checks if called from PHP CLI, obtains local server IP
 * `php_cli_param_usage.php` - Various ways to pass on parameters into a PHP script for CLI usage
 * `php_cli_console_input.php` - Get user input from console into PHP variable
 
-### Forex Parsers
+## Forex Parsers
 * `dbs_xchg_rate.php` - Get Exchange Rate from DBS Bank in Singapore Dollars
 * `Bloomberg_Rates.php` - Get currency exchange rate from Bloomberg
 * `fxratenet_rates.php` - Get currency exchange rate from fx-rate.net
@@ -74,7 +78,7 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `x-rates/x-rates.php` - Get 1 USD Exchange Rate of 53 Currencies from [x-rates](https://www.x-rates.com)
 * `rbi_inr_rates.php` - Get latest Reserve Bank of India (RBI) Forex rates in INR
 
-### Format Parsers
+## Format Parsers
 * `ExtractOptions.php` - HTML select box options string to array
 * `HTML2Links.php` - Extract all unique filtered URLs with their display values from XML / HTML content
 * `parse_word.php` - Extract text from Word documents
@@ -83,7 +87,7 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `youtube2srt.php` - Convert YouTube Transcript page text into subtitle .srt format
 * `netgear_logs.sh` - Netgear DG834G Router Log Parser
 
-### Format Conversion
+## Format Conversion
 * Debian to FreeBSD md5 format conversion and comparison in bash
 ````
 # in Debian / Windows GitBash
@@ -97,41 +101,41 @@ awk -F'*' '{ print "MD5 ("$2") = "$1 }' ../debian_md5.txt  | sed 's/\s$//' > ../
 diff ../freebsd_formatted_md5.txt ../freebsd_md5.txt
 ````
 
-### Bash watch clone (command here is `ls -al`)
+## Bash watch clone (command here is `ls -al`)
 ````
 while (true); do clear; ls -al; sleep 2; done
 ````
 
-### PHP debugging by append marker (AA here) to log file
+## PHP debugging by append marker (AA here) to log file
 ````
 $a = file_put_contents('./logs.txt', date('Y-m-d ')."AA".PHP_EOL , FILE_APPEND | LOCK_EX);
 ````
 
-### MySQL get first 2 bytes of IPv4
+## MySQL get first 2 bytes of IPv4
 ````
 INET_NTOA(INET_ATON( <IPField> ) & 0xFFFF0000)
 ````
 
-### MySQL move table
+## MySQL move table
 ````
 ALTER TABLE my_old_db.mytable RENAME my_new_db.mytable;
 ````
 
-### MySQL NULL / Zero (0) Substitutions
+## MySQL NULL / Zero (0) Substitutions
 ````
 COALESCE( expression, 'a substitute for NULL' ) -- NULL only
 COALESCE( NULLIF( expression, 0 ), 'a substitute for Zero' ) -- Zero only
 IFNULL( NULLIF( expression, 0 ), 'a substitute for NULL or Zero') -- NULL or Zero
 ````
 
-### MySQL split email addresses
+## MySQL split email addresses
 ````
 SELECT SUBSTR(MailID, 1, INSTR(MailID, '@') -1) FROM `users`; -- username
 SELECT (SUBSTRING_INDEX(SUBSTR(MailID, INSTR(MailID, '@') +1),'.',1)) FROM `users`; -- domain first part
 SELECT RIGHT(MailID, LENGTH(MailID)-INSTR(MailID, '@')) AS Domain FROM `users`; -- Full Domain only
 ````
 
-### MySQL default CURRENT DATE for default NULL date field `dtable.query_date` using trigger
+## MySQL default CURRENT DATE for default NULL date field `dtable.query_date` using trigger
 ````
 USE `ddb`;
 DELIMITER $$
@@ -143,35 +147,35 @@ $$
 delimiter ;
 ````
 
-### MySQL [validate EMail](https://stackoverflow.com/questions/12759596/validate-email-addresses-in-mysql) addresses
+## MySQL [validate EMail](https://stackoverflow.com/questions/12759596/validate-email-addresses-in-mysql) addresses
 ````
 SELECT * FROM tblExample
 WHERE fldEMail IS NOT NULL 
   AND fldEMail NOT REGEXP '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._+-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,63}$';
 ````
 
-### PHP code to check if string $a is unicode
+## PHP code to check if string $a is unicode
 ````
 if (strlen($a) != strlen(utf8_decode($a)))
 	echo $a . " is unicode";
 ````
 
-### Bash unzip
+## Bash unzip
 ````
 find . -name "*.zip" | while read filename; do unzip -o -d "`basename "$filename" | cut -d"." -f1`" "$filename"; done;
 ````
 
-### Bash extract unique IPv4 addresses from `log.txt` and store in `new.txt`
+## Bash extract unique IPv4 addresses from `log.txt` and store in `new.txt`
 ````
 grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' log.txt | sort -u > new.txt
 ````
 
-### Windows GETMAC
+## Windows GETMAC
 ````
 getmac -v -fo list
 ````
 
-### Excel [Reverse Concatenate](https://www.extendoffice.com/documents/excel/3278-excel-reverse-concatenate.html)
+## Excel [Reverse Concatenate](https://www.extendoffice.com/documents/excel/3278-excel-reverse-concatenate.html)
 ````
 =TRIM(MID(SUBSTITUTE($A2,",",REPT(" ",999)),COLUMNS($A:A)*999-998,999))
 ````
