@@ -61,6 +61,8 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `pdfoverlay` - Generate an overlaid PDF populating a template PDF file using data from a database
 * `PDFMerger.php` - [Split and Merge PDF](https://pdfmerger.codeplex.com/releases/view/37934) files using [fpdf](http://www.fpdf.org) and [fpdi](https://www.setasign.com/products/fpdi/about/)
 
+## Page Generators
+* `DMCA.php` - Generate and/or use a DMCA page in your site
 
 # HowTo Articles
 * [DOS_FileListInMySQL.md](DOS_FileListInMySQL.md) - Organise DOS File and Folder List into a MySQL table and generate Delete and Move commands
