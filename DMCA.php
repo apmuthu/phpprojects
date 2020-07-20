@@ -24,6 +24,7 @@ $charset = 'iso-8859-1'; // can be utf-8 if other language / UTF8 characters are
 <body bgcolor="#FFFFFF">
 
 <p><span><h1>Digital Millenium Copyright Act Policy (DMCA)</h1></span></p>
+<p><span>All images and documents found here at <?php echo $domain; ?> are believed to be in the "Public domain". We do not intend to infringe any legitimate intellectual right, artistic right or copyright. All of the documents are either linked to or collected / created from the internet.</span></p>
 <p><span>It is <?php echo $domain; ?>'s policy to respond to clear notices of alleged copyright infringement. If you believe that your intellectual property rights have been infringed upon by one of <?php echo $domain; ?>'s users, <?php echo $domain; ?> needs you to send a proper notification. All notices should comply with the notification requirements of the DMCA. You MUST provide the following information:</span></p>
 <div class='code-block code-block-3' style='margin: 8px 0; clear: both;'>
 <ol>
