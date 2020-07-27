@@ -40,6 +40,7 @@
 * `ip.php` - Obtain your public / private ip
 * `iprec.php` - Store your public / private ip in a text file on the server and retrieve at will
 * `ip2isp_tsv.php` - Lookup the owner ISP of an array of IPs from https://ipinfo.io (free 1000 lookups per day per IP)
+* `jsBase64Form.php` - Submit a form field after base64 encoding it in javascript
 * `perm.php` - Set folders to 755 and files to 644 permissions recursively
 * `PortReDirect.html` - Redirects from Port 80 to any other port without port forwarding - plain HTML and JS only
 * `UnixTS2DateTS.php` - Convert Unix Timestamp to Readable Date Format in PHP
