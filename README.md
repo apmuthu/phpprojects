@@ -103,6 +103,11 @@ awk -F'*' '{ print "MD5 ("$2") = "$1 }' ../debian_md5.txt  | sed 's/\s$//' > ../
 
 diff ../freebsd_formatted_md5.txt ../freebsd_md5.txt
 ````
+## Bash Get External IP
+````
+curl -s ifconfig.me/ip # Using curl silently without progress bar
+wget -qO- ifconfig.me/ip # Using wget quietly
+````
 
 ## Bash watch clone (command here is `ls -al`)
 ````
