@@ -114,6 +114,18 @@ wget -qO- ifconfig.me/ip # Using wget quietly
 while (true); do clear; ls -al; sleep 2; done
 ````
 
+## Bash `awk` Remove duplicate lines
+````
+awk '!seen[$0]++'
+````
+
+## Bash `awk` Remove First and Last lines
+`awk` executes the action print last only when `NR > 2` (that is, on all lines but the first 2). On all lines, it sets the variable `last` to the current line. So when awk reads the third line, it prints line 2 (which was stored in `last`). When it reads the last line (line `n`) it prints the content of line `n-1`. The net effect is that lines `2` through `n-1` are printed. 
+````
+awk 'NR>2 {print last} {last=$0}'
+
+````
+
 ## PHP debugging by append marker (AA here) to log file
 ````
 $a = file_put_contents('./logs.txt', date('Y-m-d ')."AA".PHP_EOL , FILE_APPEND | LOCK_EX);
