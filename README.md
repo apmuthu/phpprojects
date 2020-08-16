@@ -200,3 +200,8 @@ getmac -v -fo list
 =TRIM(MID(SUBSTITUTE($A2,",",REPT(" ",999)),COLUMNS($A:A)*999-998,999))
 ````
 
+## [VLC Player CLI Merge](https://wiki.videolan.org/VLC_HowTo/Merge_videos_together/) MP3 files when in same format in windows
+````
+"%PROGRAMFILES%\VideoLAN\VLC\vlc.exe" -vv 1.mp3 2.mp3 3.mp3 --sout-keep --sout=#gather:transcode{acodec=mp3,ab=128}:standard{access=file,mux=dummy,dst=combinedout.mp3}
+````
+
