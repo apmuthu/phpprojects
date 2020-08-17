@@ -17,6 +17,7 @@
 * `SubnetMaskcalc` - Subnet Mask Calculator by [subnetmask.info](http://www.subnetmask.info)
 * `translation` - [Easy PHP Site Translation](http://tympanus.net/codrops/2009/12/30/easy-php-site-translation/) class
 * `unixtime/unix_time.html` - Epoch Convertor from [Online Conversion](http://www.onlineconversion.com) | [Demo](https://rawgit.com/apmuthu/phpprojects/master/unixtime/unix_time.html) | [Production](https://cdn.rawgit.com/apmuthu/phpprojects/master/unixtime/unix_time.html)
+* `booklet-page-calculator.html` - Booklet Page Calculator
 * `cplusplus` - C++ tutorial examples
 * `clean_csv_quote_strings.php` - Strips line feeds in quoted strings
 * `data_in_php` - Store, retrieve, include and execute data at the end of a php file
