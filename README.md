@@ -90,6 +90,7 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `xml2tsv` - Convert XML to TSV (Tab Separated Values)
 * `youtube2srt.php` - Convert YouTube Transcript page text into subtitle .srt format
 * `netgear_logs.sh` - Netgear DG834G Router Log Parser
+* `hierarchial_parser.php` - Category, Sub-Category, Items parser from formatted text file
 
 ## Format Conversion
 * Debian to FreeBSD md5 format conversion and comparison in bash
