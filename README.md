@@ -24,6 +24,7 @@
 * `docgenerator` - Generates a sample contractual agreement with data from a html form. Generate Disclaimer.
 * `display_paged.php` - Display a paged set of records from a MySQL table
 * `domtute.php` - PHP syntax for DOMDocument across PHP versions to treat searched objects as arrays
+* `ipmon.php` - Monitor status of devices using `ping`
 * `jsDynaField` - [jQuery](https://jquery.org/) based Dynamic Form Field Addition
 * `oct_repl.php` - Octal to ASCII string replacer
 * `opensslver.php` - OpenSSL version checker - useful for checking if TLS alone is enabled
