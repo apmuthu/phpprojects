@@ -30,6 +30,7 @@
 * `opensslver.php` - OpenSSL version checker - useful for checking if TLS alone is enabled
 * `phpGetDomains` - domain_lister.php - Get Insert SQL statements from registrar records at [Daily Changes](http://www.dailychanges.com)
 * `php-mysql-functions` - PHP functions for MySQL and Password set/blank bash scripts for MySQL 5.6
+* `php_recursive_menu.php` - Assemble Menu Array from single MySQL query using recursive self lookup 
 * `phpssh2.php` - PHP Tunnel into remote service on localhost
 * `phpunzip` - Unzip archives using php by [PHPConcepts](http://www.phpconcept.net)
 * `php_wget.php` - Use shell commands from within PHP (in windows too) and grab with wget
