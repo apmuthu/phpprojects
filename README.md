@@ -14,6 +14,7 @@
 * `OrangeHRMutils` - External and internal bridges to OrangeHRM's Free Open Source Edition
 * `PHPINICompare` - Compare **php.ini** files across servers
 * `phpRFT` - PHP Remote File Transfer
+* `phpTamilTabUniFont` - Tamil TAB Font to Unicode and vice-versa functions
 * `SubnetMaskcalc` - Subnet Mask Calculator by [subnetmask.info](http://www.subnetmask.info)
 * `translation` - [Easy PHP Site Translation](http://tympanus.net/codrops/2009/12/30/easy-php-site-translation/) class
 * `unixtime/unix_time.html` - Epoch Convertor from [Online Conversion](http://www.onlineconversion.com) | [Demo](https://rawgit.com/apmuthu/phpprojects/master/unixtime/unix_time.html) | [Production](https://cdn.rawgit.com/apmuthu/phpprojects/master/unixtime/unix_time.html)
