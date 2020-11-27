@@ -77,6 +77,9 @@ $a = str_replace(" IDENTITY(1,1) ", " AUTO_INCREMENT ", $a);
 $a = str_replace(" nvarchar(", " varchar(", $a);
 $a = str_replace(" numeric(18,0)", " bigint(18)", $a);
 $a = str_replace(" numeric(18,", " double(18,", $a);
+$a = str_replace(" image ", " BLOB ", $a);
+$a = str_replace(" money ", " double(18,2) ", $a);
+$a = str_replace(" smalldatetime ", " DATETIME ", $a);
 $a = str_replace(" numeric(", " int(", $a);
 $a = str_replace(" int(10,0)", " INT(10)", $a);
 
