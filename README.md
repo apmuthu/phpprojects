@@ -109,60 +109,94 @@ awk -F'*' '{ print "MD5 ("$2") = "$1 }' ../debian_md5.txt  | sed 's/\s$//' > ../
 
 diff ../freebsd_formatted_md5.txt ../freebsd_md5.txt
 ````
-## Bash Get External IP
+## Bash
+
+### Get External IP
 ````
 curl -s ifconfig.me/ip # Using curl silently without progress bar
 wget -qO- ifconfig.me/ip # Using wget quietly
 ````
 
-## Bash watch clone (command here is `ls -al`)
+### Watch clone (command here is `ls -al`)
 ````
 while (true); do clear; ls -al; sleep 2; done
 ````
 
-## Bash `awk` Remove duplicate lines
-````
+### `awk` Remove duplicate lines
+```bash
 awk '!seen[$0]++'
-````
+```
 
-## Bash `awk` Remove First and Last lines
+### `awk` Remove First and Last lines
 `awk` executes the action print last only when `NR > 2` (that is, on all lines but the first 2). On all lines, it sets the variable `last` to the current line. So when awk reads the third line, it prints line 2 (which was stored in `last`). When it reads the last line (line `n`) it prints the content of line `n-1`. The net effect is that lines `2` through `n-1` are printed. 
-````
+```bash
 awk 'NR>2 {print last} {last=$0}'
+```
 
-````
+### `awk` Filter Unique lines without Sort
+```bash
+cat my_infile.txt | \
+awk '!seen[$0]++' | \
+awk '!seen[$0]++' > my_outfile.txt
+```
 
-## PHP debugging by append marker (AA here) to log file
-````
+### `paste` Remove alternate new lines
+```bash
+cat my_infile.txt | \
+paste - - > my_outfile.txt
+```
+
+### unzip
+```bash
+find . -name "*.zip" | while read filename; do unzip -o -d "`basename "$filename" | cut -d"." -f1`" "$filename"; done;
+```
+
+### extract unique IPv4 addresses from `log.txt` and store in `new.txt`
+```bash
+grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' log.txt | sort -u > new.txt
+```
+
+## PHP
+
+### Debugging by append marker (AA here) to log file
+```php
 $a = file_put_contents('./logs.txt', date('Y-m-d ')."AA".PHP_EOL , FILE_APPEND | LOCK_EX);
-````
+```
 
-## MySQL get first 2 bytes of IPv4
-````
+### Check if string $a is unicode
+```php
+if (strlen($a) != strlen(utf8_decode($a)))
+	echo $a . " is unicode";
+```
+
+## MySQL
+
+### get first 2 bytes of IPv4
+```sql
 INET_NTOA(INET_ATON( <IPField> ) & 0xFFFF0000)
-````
+```
 
-## MySQL move table
-````
+### move table
+```sql
 ALTER TABLE my_old_db.mytable RENAME my_new_db.mytable;
-````
+```
 
-## MySQL NULL / Zero (0) Substitutions
-````
+### NULL / Zero (0) Substitutions
+```sql
 COALESCE( expression, 'a substitute for NULL' ) -- NULL only
 COALESCE( NULLIF( expression, 0 ), 'a substitute for Zero' ) -- Zero only
 IFNULL( NULLIF( expression, 0 ), 'a substitute for NULL or Zero') -- NULL or Zero
-````
+```
 
-## MySQL split email addresses
-````
+### split email addresses
+```sql
 SELECT SUBSTR(MailID, 1, INSTR(MailID, '@') -1) FROM `users`; -- username
 SELECT (SUBSTRING_INDEX(SUBSTR(MailID, INSTR(MailID, '@') +1),'.',1)) FROM `users`; -- domain first part
 SELECT RIGHT(MailID, LENGTH(MailID)-INSTR(MailID, '@')) AS Domain FROM `users`; -- Full Domain only
-````
+```
 
-## MySQL default CURRENT DATE for default NULL date field `dtable.query_date` using trigger
-````
+### Default CURRENT DATE for DEFAULT NULL date field `dtable.query_date` using trigger
+```sql
 USE `ddb`;
 DELIMITER $$
 CREATE TRIGGER `default_date` BEFORE INSERT ON `dtable` FOR EACH ROW
@@ -171,30 +205,14 @@ if ( isnull(new.query_date) ) then
 end if;
 $$
 delimiter ;
-````
+```
 
-## MySQL [validate EMail](https://stackoverflow.com/questions/12759596/validate-email-addresses-in-mysql) addresses
-````
+### [validate EMail](https://stackoverflow.com/questions/12759596/validate-email-addresses-in-mysql) addresses
+```sql
 SELECT * FROM tblExample
 WHERE fldEMail IS NOT NULL 
   AND fldEMail NOT REGEXP '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._+-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,63}$';
-````
-
-## PHP code to check if string $a is unicode
-````
-if (strlen($a) != strlen(utf8_decode($a)))
-	echo $a . " is unicode";
-````
-
-## Bash unzip
-````
-find . -name "*.zip" | while read filename; do unzip -o -d "`basename "$filename" | cut -d"." -f1`" "$filename"; done;
-````
-
-## Bash extract unique IPv4 addresses from `log.txt` and store in `new.txt`
-````
-grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' log.txt | sort -u > new.txt
-````
+```
 
 ## Windows GETMAC
 ````
