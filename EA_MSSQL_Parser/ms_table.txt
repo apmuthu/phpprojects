@@ -1,0 +1,497 @@
+Public varchar(25)
+  TRANSID  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:  Ordered 
+ 
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public varchar(14)
+  VCN  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:  Ordered 
+ 
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public datetime2(0)
+  ETA  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public datetime2(0)
+  ETD  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public datetime2(0)
+  ETB  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public numeric(4,2)
+  DRAFT_AFT  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public numeric(4,2)
+  DRAFT_FWD  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public numeric(4,2)
+  FREE_BOARD_AFT_DRAFT  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public numeric(4,2)
+  FREE_BOARD_FWD_DRAFT  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public numeric(4,2)
+  SAILING_AFT_DRAFT  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public numeric(4,2)
+  SAILING_FWD_DRAFT  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public varchar(100)
+  REASON_OF_REQUEST  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public varchar(100)
+  REASON_OF_RESPONSE  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public varchar(20)
+  STATUS  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public varchar(35)
+  CREATED_BY  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public datetime2(0)
+  CREATED_DATE  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public varchar(35)
+  APPROVED_BY  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Public datetime2(0)
+  APPROVED_DATE  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Attribute 
+Public varchar(25)
+  TRANSID  
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:  Ordered 
+ 
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public varchar(14)
+  VCN  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:  Ordered 
+ 
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public datetime2(0)
+  ETA  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public datetime2(0)
+  ETD  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public datetime2(0)
+  ETB  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public numeric(4,2)
+  DRAFT_AFT  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public numeric(4,2)
+  DRAFT_FWD  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public numeric(4,2)
+  FREE_BOARD_AFT_DRAFT  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public numeric(4,2)
+  FREE_BOARD_FWD_DRAFT  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public numeric(4,2)
+  SAILING_AFT_DRAFT  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public numeric(4,2)
+  SAILING_FWD_DRAFT  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public varchar(100)
+  REASON_OF_REQUEST  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public varchar(100)
+  REASON_OF_RESPONSE  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public varchar(20)
+  STATUS  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public varchar(35)
+  CREATED_BY  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public datetime2(0)
+  CREATED_DATE  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public varchar(35)
+  APPROVED_BY  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+
+Public datetime2(0)
+  APPROVED_DATE  
+
+Details: Alias:  
+Initial:  
+Stereotype:  <<column>> 
+Ordered:   
+Range:   
+Transient:  False 
+Derived:  False 
+IsID:  False 
+   
+Operation 
+Public
+TPCS_ETA_ETD_PK( TRANSID: varchar, Default:  
+Kind: in 
+Stereotype:   
+  
+VCN: varchar, Default:  
+Kind: in 
+Stereotype:   
+  
+):  
+Details: <<PK>> Tags:  NonClustered=0
+property=PKNonClustered=0;
+ 
+ 
+Public
+CREATED_BY_IDX( CREATED_BY: varchar, Default:  
+Kind: in 
+Stereotype:   
+  
+):  
+Details: <<index>> Tags:  Clustered=0
+Include=VCN,ETA,ETD,ETB,DRAFT_AFT,DRAFT_FWD,FREE_BOARD_AFT_DRAFT,FREE_BOARD_FWD_DRAFT,SAILING_AFT_DRAFT,SAILING_FWD_DRAFT,REASON_OF_REQUEST,REASON_OF_RESPONSE,STATUS,CREATED_DATE,APPROVED_BY,APPROVED_DATE
+property=Unique=0;Clustered=0;
+Unique=0
+ 
+ 
+Public
+INDEX_ETA_ETD( CREATED_DATE: datetime2, Default:  
+Kind: in 
+Stereotype:   
+  
+VCN: varchar, Default:  
+Kind: in 
+Stereotype:   
+  
+):  
+Details: <<index>> Tags:  Clustered=0
+property=Unique=0;Clustered=0;
+Unique=0
+ 
+ 
+Public
+VCN_IDX( VCN: varchar, Default:  
+Kind: in 
+Stereotype:   
+  
+STATUS: varchar, Default:  
+Kind: in 
+Stereotype:   
+  
+):  
+Details: <<index>> Tags:  Clustered=0
+Include=ETA,CREATED_DATE,ETD
+property=Unique=0;Clustered=0;
+Unique=0
+ 
+ 
+
+Tag Value 
+Owner MYOWNER 
+Details:    

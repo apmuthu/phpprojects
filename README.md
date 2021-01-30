@@ -87,6 +87,7 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `rbi_inr_rates.php` - Get latest Reserve Bank of India (RBI) Forex rates in INR
 
 ## Format Parsers
+* `EA_MSSQL_Parser` - Enterprise Architect MS SQL Table format parse to MySQL table creation fragment
 * `ExtractOptions.php` - HTML select box options string to array
 * `HTML2Links.php` - Extract all unique filtered URLs with their display values from XML / HTML content
 * `parse_word.php` - Extract text from Word documents
