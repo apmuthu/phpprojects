@@ -26,4 +26,4 @@ No database require.
 
 * [Sourceforge Project Page](https://sourceforge.net/projects/phprft/files/)
 * [Wiki](https://sourceforge.net/p/phprft/wiki/)
-* [Demo 1](http://yourhousepetsitting.com/wordpress/) | [Demo 2](http://www.mprovefitness.com/test/)
+* [Demo 1](https://web.archive.org/web/20180729170505/http://yourhousepetsitting.com/wordpress/) | [Demo 2](https://web.archive.org/web/20180718220536/http://www.mprovefitness.com/test/)
