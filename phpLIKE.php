@@ -20,9 +20,8 @@
  * @param string $string The string from which to strip the diacritical marks.
  * @return string Stripped string.
  */
-function stripDiacriticalMarks(string $string): string
-{
-    return preg_replace('/[\x{0300}-\x{036f}]/u', '', \Normalizer::normalize($string , \Normalizer::FORM_KD));
+function stripDiacriticalMarks($string) {
+    return preg_replace('/[\x{0300}-\x{036f}]/u', '', \Normalizer::normalize($string, \Normalizer::FORM_KD));
 }
 
 /**
@@ -33,8 +32,7 @@ function stripDiacriticalMarks(string $string): string
  * @param string $str The string to escape.
  * @return string The escaped string.
  */
-function escapeLike(string $str): string
-{
+function escapeLike($str) {
     return strtr($str, ['\\' => '\\\\', '%' => '\%', '_' => '\_']);
 }
 
@@ -49,8 +47,7 @@ function escapeLike(string $str): string
  * @param bool $ci Whether to check likeness in a case-insensitive manner.
  * @return bool True if $haystack is like $needle, otherwise, false.
  */
-function like(string $haystack, string $needle, bool $ai = true, bool $ci = true): bool
-{
+function like($haystack, $needle, $ai = true, $ci = true) {
     if ($ai) {
         $haystack = stripDiacriticalMarks($haystack);
         $needle = stripDiacriticalMarks($needle);
@@ -58,7 +55,7 @@ function like(string $haystack, string $needle, bool $ai = true, bool $ci = true
 
     $needle = preg_quote($needle, '/');
 
-    $tokens = [];
+    $tokens = Array();
 
     $needleLength = strlen($needle);
     for ($i = 0; $i < $needleLength;) {
