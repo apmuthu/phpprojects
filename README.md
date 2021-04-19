@@ -33,6 +33,7 @@
 * `php-mysql-functions` - PHP functions for MySQL and Password set/blank bash scripts for MySQL 5.6
 * `mssql_to_mysql.php` - Converts CREATE TABLE and INSERT statements from MS SQL Server sql script to MySQL equivalents
 * `php_recursive_menu.php` - Assemble Menu Array from single MySQL query using recursive self lookup 
+* `phpCheckPAN.php` - Indian Income Tax PAN card validity checker
 * `phpssh2.php` - PHP Tunnel into remote service on localhost
 * `phpunzip` - Unzip archives using php by [PHPConcepts](http://www.phpconcept.net)
 * `php_wget.php` - Use shell commands from within PHP (in windows too) and grab with wget
