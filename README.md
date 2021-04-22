@@ -70,6 +70,7 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `images_to_pdf.php` - Join images in a folder into a single PDF file using FPDF library
 * `pdfoverlay` - Generate an overlaid PDF populating a template PDF file using data from a database
 * `PDFMerger.php` - [Split and Merge PDF](https://pdfmerger.codeplex.com/releases/view/37934) files using [fpdf](http://www.fpdf.org) and [fpdi](https://www.setasign.com/products/fpdi/about/)
+* `php_get_pdf_header.php` - Extract Creation Date, Modified Date, Number of Pages and PDF Version from a PDF file
 
 ## Page Generators
 * `DMCA.php` - Generate and/or use a DMCA page in your site
