@@ -42,6 +42,7 @@
 * `sql2excel` - php class to convert an sql to an excel worksheet
 * `phpIMO_chkdigit.php` - Generate IMO (shipping) check digit
 * `phpLIKE.php` - Unicode aware MySQL LIKE operator for PHP
+* `phpLegacy.php` - Backport of new PHP functions equivalents
 * `unicode_sql2excel.php` - Export SQL to Excel without any library (native CSV) for unicode data
 * `gxlate` - PHP Function for Google Translation of single string without using Google Translate API
 * `cidr_match.php` - Check if IPv4 is within subnet range and dynamically get a base URL
