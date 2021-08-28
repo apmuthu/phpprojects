@@ -58,6 +58,7 @@
 ````
 pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 ````
+* `ascii_endecode.php` - encrypt / decrypt ASCII code based index shift in php
 * `DecryptCSinPHP.php` - decrypt C# in php
 * `xlate.php` - Encode / Decode strings / binary in PHP
 * `mod_rewrite_test.php` - Advanced mod_rewrite troubleshooting tester
@@ -226,6 +227,16 @@ WHERE fldEMail IS NOT NULL
 ## Windows GETMAC
 ````
 getmac -v -fo list
+````
+
+## DOS Unicode / UTF-8 file names
+Change the [code page](https://devblogs.microsoft.com/commandline/windows-command-line-unicode-and-utf-8-output-text-buffer/) at the DOS Prompt with:
+````
+chcp 65001
+````
+and then issue any command like:
+````
+dir /b > ..\files.txt
 ````
 
 ## Excel [Reverse Concatenate](https://www.extendoffice.com/documents/excel/3278-excel-reverse-concatenate.html)
