@@ -166,6 +166,11 @@ find . -name "*.zip" | while read filename; do unzip -o -d "`basename "$filename
 grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' log.txt | sort -u > new.txt
 ```
 
+### Base64 encode all PNG and JPG files in Folder
+```bash
+find . -type f \( -name "*.png" -o -name "*.jpg" \) -exec bash -c 'base64 {} > {}.b64' \;
+```
+
 ## PHP
 
 ### Debugging by append marker (AA here) to log file
