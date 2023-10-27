@@ -55,6 +55,7 @@
 * `PortReDirect.html` - Redirects from Port 80 to any other port without port forwarding - plain HTML and JS only
 * `UnixTS2DateTS.php` - Convert Unix Timestamp to Readable Date Format in PHP
 * `youtube_srt_corrector.php` - Correct auto generated subtitles from YouTube Closed Captions
+* `parse_apache2_log.sh` - Parse Apache2 Log at /var/log/apache2/access.log
 ````
 pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 ````
@@ -126,6 +127,11 @@ diff ../freebsd_formatted_md5.txt ../freebsd_md5.txt
 curl -s ifconfig.me/ip # Using curl silently without progress bar
 wget -qO- ifconfig.me/ip # Using wget quietly
 ````
+
+### Parse Apache2 access.log
+```bash
+cat /var/log/apache2/access.log | awk '{print $1}' | sort -nr | uniq -c | sort -nr | head -n 25
+```
 
 ### Watch clone (command here is `ls -al`)
 ````
