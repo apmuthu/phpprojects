@@ -235,6 +235,17 @@ WHERE fldEMail IS NOT NULL
   AND fldEMail NOT REGEXP '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._+-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,63}$';
 ```
 
+### Extract Nth substring from string with delimiter
+```sql
+SET @N = 2; -- 2nd word
+SET @haystack = '378459X293X4460'; -- example
+SET @delimiter = 'X';
+SELECT
+  SUBSTRING_INDEX(SUBSTRING_INDEX(@haystack, @delimiter, @N), @delimiter, -1)
+FROM
+  my_table;
+```
+
 ## Windows GETMAC
 ````
 getmac -v -fo list
