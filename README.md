@@ -120,6 +120,14 @@ awk -F'*' '{ print "MD5 ("$2") = "$1 }' ../debian_md5.txt  | sed 's/\s$//' > ../
 
 diff ../freebsd_formatted_md5.txt ../freebsd_md5.txt
 ````
+
+## Windows CLI (From DOS Prompt)
+
+### [7-Zip](https://7-zip.org/) file extraction on desktop
+````
+"C:\Program Files\7-Zip\7z" e %USERPROFILE%\Desktop\content.epub -y -o%USERPROFILE%\Desktop\output *.pdf -r
+````
+
 ## Bash
 
 ### Get External IP
