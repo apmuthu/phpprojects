@@ -1,4 +1,5 @@
 # phpprojects - Ap.Muthu's PHP Snippets
+<details><summary>List view</summary>
 
 * `Aadhar` - PHP Class, Non-Class and JS Validation of 12 digit Aadhar Number
 * `AjaxDropDownSelect` - Ajax and JS based cascading dropdown select box
@@ -106,6 +107,8 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `netgear_logs.sh` - Netgear DG834G Router Log Parser
 * `hierarchial_parser.php` - Category, Sub-Category, Items parser from formatted text file
 * `excel_parser_sample.php` - Parse Excel data into PHP
+
+</details>
 
 ## Format Conversion
 * Debian to FreeBSD md5 format conversion and comparison in bash
