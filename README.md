@@ -149,6 +149,11 @@ cat /var/log/apache2/access.log | awk '{print $1}' | sort -nr | uniq -c | sort -
 while (true); do clear; ls -al; sleep 2; done
 ````
 
+### [Remove delay in login](https://superuser.com/questions/1819909/ssh-login-delayed-on-debian) for Debian (10.11.12) Buster, BullsEye and Bookworm LXC containers
+```bash
+systemctl mask systemd-logind
+```
+
 ### `awk` Remove duplicate lines
 ```bash
 awk '!seen[$0]++'
