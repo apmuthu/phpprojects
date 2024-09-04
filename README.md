@@ -139,6 +139,12 @@ curl -s ifconfig.me/ip # Using curl silently without progress bar
 wget -qO- ifconfig.me/ip # Using wget quietly
 ````
 
+### Sort IPs
+```bash
+# Remove Comments and append new IPs and then:
+grep -v "#" ip_blocked.txt | uniq | sort -t . -k 1,1n -k 2,2n -k 3,3n -k 4,4n > ip_blocked_sorted.txt
+```
+
 ### Parse Apache2 access.log
 ```bash
 cat /var/log/apache2/access.log | awk '{print $1}' | sort -nr | uniq -c | sort -nr | head -n 25
