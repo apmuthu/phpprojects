@@ -71,6 +71,8 @@ pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 * `TandC.php` - Place defined constants in a PHP String
 * `mask_download_url.php` - Mask the real URL of a downloadable file in php
 
+## [Python scripts](Python)
+
 ## PDF Scripts
 * `images_to_pdf.php` - Join images in a folder into a single PDF file using FPDF library
 * `pdfoverlay` - Generate an overlaid PDF populating a template PDF file using data from a database
