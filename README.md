@@ -206,6 +206,12 @@ find . -type f \( -name "*.png" -o -name "*.jpg" \) -exec bash -c 'base64 {} > {
 * '11/04/2011', needs to become '2011-04-11'
 * Find: `(\d+)/(\d+)/(\d{4})` Replace with: `$3-$2-$1`
 
+## Regex find line with missing string in Notepad++
+* Here the missing character is forward slash (/)
+```bash
+^((?!/).)*$
+```
+
 ## PHP
 
 ### [Remove last php closing tag](https://stackoverflow.com/questions/56478233/remove-closing-php-tags-from-all-files)
