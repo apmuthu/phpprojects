@@ -57,6 +57,8 @@
 * `UnixTS2DateTS.php` - Convert Unix Timestamp to Readable Date Format in PHP
 * `youtube_srt_corrector.php` - Correct auto generated subtitles from YouTube Closed Captions
 * `parse_apache2_log.sh` - Parse Apache2 Log at /var/log/apache2/access.log
+* `SetMTU.bat` - When optical fibre length increases as occurs when re-routing on cut, latency increases - adjust Max Tx Unit
+* `kill_wget.bat` - Kill Windows Process when invoked from browser or other program like apache
 ````
 pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 ````
