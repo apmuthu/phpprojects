@@ -135,6 +135,14 @@ diff ../freebsd_formatted_md5.txt ../freebsd_md5.txt
 "C:\Program Files\7-Zip\7z" e %USERPROFILE%\Desktop\content.epub -y -o%USERPROFILE%\Desktop\output *.pdf -r
 ````
 
+## [Windows Shortcut From GUI run](https://lifehacker.com/how-to-create-a-shortcut-for-any-modern-windows-app-1722569853)
+````
+# Create shortcut for MS Apps Folder
+%windir%\explorer.exe shell:::{4234d49b-0245-4df3-b780-3893943456e1}
+````
+
+### [Install Old Paint3D](https://www.neowin.net/guides/how-to-install-paint-3d-on-windows-10-and-11/)
+
 ## Bash
 
 ### Get External IP
