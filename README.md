@@ -130,6 +130,13 @@ diff ../freebsd_formatted_md5.txt ../freebsd_md5.txt
 
 ## Windows CLI (From DOS Prompt)
 
+### [Windows 10/11 BitLocker recovery](https://windowsreport.com/get-bitlocker-recovery-key-from-cmd/)
+New Windows 10/11 Laptops and some Desktops have their OS (generally C:) Drive encrypted. To change the Hard Disk / SSD, the recovery key is needed.
+````
+# CMD (Admin)
+manage-bde -protectors c: -get
+````
+
 ### [7-Zip](https://7-zip.org/) file extraction on desktop
 ````
 "C:\Program Files\7-Zip\7z" e %USERPROFILE%\Desktop\content.epub -y -o%USERPROFILE%\Desktop\output *.pdf -r
