@@ -137,6 +137,11 @@ New Windows 10/11 Laptops and some Desktops have their OS (generally C:) Drive e
 manage-bde -protectors c: -get
 ````
 
+### [Elevate PowerShell within CLI](https://superuser.com/questions/1248389/how-to-elevate-powershell-without-closing-the-actual-one)
+````
+Start-Process powershell -Verb runAs
+````
+
 ### [7-Zip](https://7-zip.org/) file extraction on desktop
 ````
 "C:\Program Files\7-Zip\7z" e %USERPROFILE%\Desktop\content.epub -y -o%USERPROFILE%\Desktop\output *.pdf -r
