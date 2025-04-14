@@ -59,6 +59,7 @@
 * `parse_apache2_log.sh` - Parse Apache2 Log at /var/log/apache2/access.log
 * `SetMTU.bat` - When optical fibre length increases as occurs when re-routing on cut, latency increases - adjust Max Tx Unit
 * `kill_wget.bat` - Kill Windows Process when invoked from browser or other program like apache
+* `wget_var.sh` - Use wget with URL in a bash variable
 ````
 pubip=`wget -qO- http://www.apmuthu.com/ip.php`
 ````
@@ -221,6 +222,19 @@ grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' log.txt | sort 
 ### Base64 encode all PNG and JPG files in Folder
 ```bash
 find . -type f \( -name "*.png" -o -name "*.jpg" \) -exec bash -c 'base64 {} > {}.b64' \;
+```
+
+### Rename spaces in first XLSX filename with urlencoding and reversion
+```bash
+# Make first xlsx original filename (My file as on 13-Apr-2025) urlencoded
+# a=$(ls -al *.xlsx | head -n 1)
+a=$(ls -1a *.xlsx)
+mv "$a" "${a// /%20}"
+
+## To revert
+# a=$(ls -al *.xlsx | head -n 1)
+## a=$(ls -1a *.xlsx)
+## mv "$a" "${a//%20/ }"
 ```
 
 ## [Regex Replace for Date format in Notepad++](https://stackoverflow.com/questions/11880516/how-to-get-date-format-in-notepad)
