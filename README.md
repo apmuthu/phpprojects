@@ -280,6 +280,13 @@ INET_NTOA(INET_ATON( <IPField> ) & 0xFFFF0000)
 ALTER TABLE my_old_db.mytable RENAME my_new_db.mytable;
 ```
 
+### [REGEX for Multiple LIKE](https://forums.mysql.com/read.php?10,392332,392950#msg-392950)
+```sql
+WHERE interests LIKE '%sports%' OR interests LIKE '%pub%'
+-- can be substituted with
+WHERE interests REGEXP 'sports|pub'
+```
+
 ### NULL / Zero (0) Substitutions
 ```sql
 COALESCE( expression, 'a substitute for NULL' ) -- NULL only
