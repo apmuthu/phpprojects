@@ -156,6 +156,13 @@ Start-Process powershell -Verb runAs
 
 ### [Install Old Paint3D](https://www.neowin.net/guides/how-to-install-paint-3d-on-windows-10-and-11/)
 
+## Regex replacements for Notepad++
+
+### Strip urls
+````
+https?://[^\s"<>]+(?=[.,;:]?(\s|$))
+````
+
 ## Bash
 
 ### Get External IP
